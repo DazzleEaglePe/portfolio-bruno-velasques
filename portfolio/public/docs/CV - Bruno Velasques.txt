@@ -1,0 +1,158 @@
+BRUNO VELASQUES
++51 954 153 338 | brunoty000@gmail.com
+Profesional Desarrollador de Software con más de 2 años de experiencia en el diseño y construcción de soluciones digitales orientadas al core del negocio, con
+énfasis en arquitecturas basadas en microservicios y desarrollo de aplicaciones web y móviles. Sólida experiencia en entornos Fintech y financieros, participando
+en la modernización de canales digitales y productos financieros utilizando tecnologías como Java, Spring Boot, JavaScript, TypeScript, Angular, React y Next.js,
+apoyadas en bases de datos relacionales y NoSQL. Conocimientos en AWS, Docker, Git y herramientas de integración y consumo de APIs, así como un
+enfoque práctico en UX/UI mediante Figma y diseño digital, lo que permite mejorar la experiencia del usuario y optimizar procesos tecnológicos. Profesional
+orientado a resultados, con capacidad de trabajo en equipo, comunicación efectiva, adaptabilidad y enfoque en la mejora continua. LinkedIn:
+https://www.linkedin.com/in/bruno-velasques-software-developer/
+▪
+▪
+
+Desarrollo de Software
+Full Stack Development
+
+▪
+▪
+
+Canales Digitales
+Automatización de Procesos
+
+▪
+
+Metodologías ágiles
+
+EXPERIENCIA PROFESIONAL
+CAJA ICA
+Institución microfinanciera líder en el sur del Perú con más de 35 años de trayectoria, enfocada en la inclusión financiera y modernización tecnológica, cuenta con 1,900
+colaboradores.
+Software Developer
+Mayo 2025 – Actualidad
+Participación en el desarrollo y fortalecimiento de productos financieros digitales, trabajando en equipos ágiles bajo metodología Scrum y coordinación directa
+con el Product Owner. A cargo del desarrollo de módulos financieros y funcionalidades clave, implementación de arquitecturas modernas basadas en
+microservicios y mejora de la experiencia de usuario en aplicaciones móviles. Colaboración constante con equipos de Transformación Digital y áreas
+multidisciplinarias, asegurando calidad de código, entregas oportunas y alineación con los objetivos estratégicos del negocio.
+▪
+▪
+
+Diseño e implementación del primer módulo de seguros digitales de Caja ICA, integrando los servicios de La Positiva dentro del Homebanking,
+dando como resultado más de 10K clientes con acceso inmediato, módulo en producción generando ventas y apertura de nuevas alianzas
+estratégicas.
+Líder de la migración e integración del producto Plazo Fijo a App Android, iOS y Homebanking, permitiendo su operación digital end-to-end, dando
+como resultado más de 50 afiliaciones en el mes uno y reducción del 30% en visitas a ventanilla, incrementando la adopción de productos de ahorro.
+
+ECA - ESTUDIO CONTABLE ALVAREZ
+Estudio contable con más de 1,000 comercios atendidos, especializado en soluciones contables, financieras y tributaria, con 20 colaboradores.
+Desarrollador Full Stack | Consultor IT (Freelancer)
+Junio 2025 – Actualidad
+Responsable del diseño e implementación de soluciones tecnológicas orientadas a la automatización de la atención al cliente y optimización de procesos
+operativos, así como del análisis de requerimientos comerciales y contables, desarrollo de sistemas de automatización con chatbots e inteligencia artificial,
+configuración de alertas y priorización de casos críticos, y administración de infraestructura tecnológica centralizada.
+▪
+▪
+
+Desarrollo de un sistema de atención automatizada mediante chatbot con IA para captación, calificación y derivación de leads, llegando a automatizar
+el 90% de consultas frecuentes, teniendo atenciones 24/7 con respuestas en segundos y recuperando leads de alto valor antes perdidos.
+Centralización del sistema contable CONCAR en una arquitectura de 2 servidores para 15 usuarios simultáneos, eliminando dependencias de
+herramientas limitadas, logrando una reducción del 40–50% en costos operativos, mejora de rendimiento y continuidad operativa.
+
+TECSAM CONSULTING
+Consultora especializada en Seguridad y Salud en el Trabajo (SST), Salud Ocupacional y Medio Ambiente.
+Community Manager | UX UI Designer | Web Developer (Freelancer)
+Enero 2025 - Abril 2025
+Participación en iniciativas orientadas a fortalecer la presencia digital de la empresa y apoyar la captación de clientes potenciales, integrando diseño web,
+experiencia de usuario y gestión de contenidos en redes sociales. A cargo de la web, administración de redes sociales, creación de contenido audiovisual y
+canalización de consultas hacia los canales comerciales, así como del seguimiento y análisis de métricas digitales (Google Ads, Meta Ads, Google Analytics)
+para la optimización continua de la estrategia de contenidos y posicionamiento de marca.
+▪
+▪
+▪
+
+Rediseño y optimización del sitio web corporativo, mejorando la estructura de contenidos y usabilidad, lo que incrementó en 45% el tiempo de
+permanencia de los usuarios.
+Gestión integral de las redes sociales corporativas, logrando un incremento del 60% en engagement en 3 meses y fortaleciendo el reconocimiento
+de marca.
+Desarrollo de contenido audiovisual (reels) orientado a resolver dudas frecuentes de clientes, alcanzando más de 10K visualizaciones y aumentando
+la interacción orgánica.
+
+ETP - ESCUELAS TÉCNICAS DEL PERÚ
+Institución educativa técnica con programas presenciales y virtuales.
+Frontend Developer (Freelancer)
+Enero 2024 - Agosto 2025
+Desarrollo y optimización de interfaces digitales para plataformas educativas, con foco en la experiencia del usuario y usabilidad. Implementación de soluciones
+frontend modernas utilizando Angular y Tailwind CSS, creación de componentes web reutilizables y responsivos, y colaboración con el equipo administrativo
+
+para traducir requerimientos en soluciones funcionales alineadas a los objetivos institucionales.
+▪
+
+Rediseño y optimización del sitio web (Home Page), mejorando la estructura de contenidos y usabilidad, lo que llevó a la creación del aula virtual
+(gestión de cursos, cronogramas estudiantiles, calificaciones, clases virtuales, diplomados, certificados), incrementando la captación de estudiantes
+nuevos y permanencia de los usuarios.
+
+PROYECTOS DESTACADOS Y VOLUNTARIADOS
+SISTEMA POS – GESTIÓN DE VENTAS (Proyecto de Tesis) | Plataforma SaaS Multi-tenant
+2024 – Actualidad
+▪ Desarrollo de un sistema POS para gestión integral de negocios retail, incluyendo ventas en tiempo real, control de inventario multi-almacén, gestión multisucursal y dashboards con KPIs y reportes.
+▪ Diseño e implementación de una arquitectura frontend escalable, aplicando Atomic Design y Feature-Sliced Design, con componentes reutilizables y gestión
+avanzada de estado.
+▪ Implementación de funcionalidades clave como roles y permisos, generación de tickets en PDF, exportación de reportes, autenticación y diseño responsive.
+▪ Stack tecnológico: React 18, Vite, Supabase (PostgreSQL, Auth, Realtime), Zustand, TanStack Query, Ant Design, Styled Components.
+Google Developer Groups (GDG) - Ica | Miembro Activo
+Mayo 2025 – Actualidad
+Participación en meetups, eventos y actividades del ecosistema Google, orientadas al desarrollo de software y tecnologías emergentes, colaborando en espacios
+de aprendizaje técnico y comunidad tecnológica, fortaleciendo habilidades técnicas, trabajo colaborativo y aprendizaje continuo.
+
+FORMACIÓN ACADÉMICA
+▪
+
+UNIVERSIDAD SAN JUAN BAUTISTA. Ingeniería de Sistemas.
+
+2021 –2025
+
+FORMACIÓN COMPLEMENTARIA
+▪
+▪
+▪
+▪
+▪
+▪
+
+CIBERTEC. E Java 17 Back-End Developer, Desarrollo de Software (Especialización).
+CERTIPROF. Scrum Foundation Professional (Certification – SFPC)
+CETI. Desarrollo de Software de Facturación Electrónica (Especialización).
+NETZUN. Photoshop Avanzado (Curso).
+NETZUN. Diseño UX (Especialización).
+CISCO NETWORKING ACADEMY. IT Essentials: PC Hardware and Software (Especialización).
+
+INFORMACIÓN ADICIONAL
+▪
+▪
+▪
+▪
+▪
+▪
+▪
+▪
+▪
+▪
+
+Idiomas: Inglés (Intermedio) | Quechua (Intermedio)
+Metodologías: Ágil (Scrum).
+Herramientas de Gestión: Jira | Trello | Notion | Slack | Microsoft Teams .
+Control de Versiones: Git | GitHub | Bitbucket | GitLab
+Tecnologías Cloud: AWS (EC2, S3, Lambda) | Docker | Jenkins | OpenShift
+Lenguajes y Frameworks: Java | JavaScript | TypeScript | HTML | CSS | Tailwind CSS | Spring Boot | Angular | NextJs | React JS
+Bases de Datos & Caché: SQL Server | PostgreSQL | MongoDB | DynamoDB | Redis
+DevOps, Cloud & API Tools: Postman | Docker | Jenkins | OpenShift | Git | GitHub | Bitbucket | AWS
+UX/UI & Diseño Digital: Figma | Webflow | Framer | Adobe Photoshop | Illustrator | Premiere Pro | After Effects
+Repositorio de Proyectos: GitHub
+
+2025
+2025
+2025
+2024
+2024
+2021
+
+
