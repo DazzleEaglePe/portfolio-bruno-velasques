@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { techStack } from "@/data/portfolio";
 import { techIcons } from "@/data/icons";
@@ -124,7 +124,7 @@ export default function SkillsSlider() {
                     // After the 1st card (Frontend, wide), insert the integrated Testimonial card covering col 3
                     const isStatsPosition = cardIdx === 1;
                     return (
-                        <>
+                        <React.Fragment key={card.titleKey}>
                             {isStatsPosition && (
                                 <motion.div
                                     key="integrated-testimonial"
@@ -156,7 +156,7 @@ export default function SkillsSlider() {
                                                         exit={{ opacity: 0, x: -10, filter: "blur(4px)" }}
                                                         transition={{ duration: 0.4, ease: "easeOut" }}
                                                     >
-                                                        <p className="text-sm md:text-base text-foreground/90 dark:text-zinc-300 leading-relaxed font-light italic">
+                                                        <p className="text-sm md:text-base text-foreground/90 dark:text-zinc-300 leading-relaxed font-light">
                                                             &ldquo;{/* @ts-ignore */}{t(`testimonial.${activeIndex}.quote` as any)}&rdquo;
                                                         </p>
                                                     </motion.div>
@@ -258,7 +258,7 @@ export default function SkillsSlider() {
                                     </div>
                                 </div>
                             </motion.div>
-                        </>
+                        </React.Fragment>
                     );
                 })}
             </div>

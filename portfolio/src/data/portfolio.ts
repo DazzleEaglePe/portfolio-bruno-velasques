@@ -200,7 +200,7 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Landing page optimizada para clínica de oncología oral. Performance 98/100 en PageSpeed, imágenes AVIF/WebP, preloads dinámicos.",
       tags: ["Astro", "Tailwind CSS", "Netlify", "SEO"],
-      link: "https://oncooral.netlify.app",
+      link: "https://oncooral.com/",
       color: "accent-indigo",
     },
     {
@@ -234,7 +234,7 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Optimized landing page for an oral oncology clinic. PageSpeed score 98/100, AVIF/WebP images, dynamic preloads.",
       tags: ["Astro", "Tailwind CSS", "Netlify", "SEO"],
-      link: "https://oncooral.netlify.app",
+      link: "https://oncooral.com/",
       color: "accent-indigo",
     },
     {
