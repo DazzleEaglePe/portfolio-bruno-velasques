@@ -19,33 +19,52 @@ const loadingMessages = {
     ],
 };
 
-// ─── Cycling Language Heading ────────────────────────────────────────
-const langLabels = [
-    <><span className="font-light">Elige tu </span><span className="font-semibold text-white">idioma</span></>,
-    <><span className="font-light">Choose your </span><span className="font-semibold text-white">language</span></>,
+// ─── Cycling Language Heading (Staggered) ────────────────────────────
+const langParts = [
+    { prefix: "Elige tu ", keyword: "idioma" },
+    { prefix: "Choose your ", keyword: "language" },
 ];
 
 function LanguageHeading() {
     const [index, setIndex] = useState(0);
+    const [keywordIndex, setKeywordIndex] = useState(0);
 
     useEffect(() => {
-        const id = setInterval(() => setIndex((prev) => (prev + 1) % langLabels.length), 2000);
+        const id = setInterval(() => {
+            const next = (prev: number) => (prev + 1) % langParts.length;
+            // Prefix changes first
+            setIndex(next);
+            // Keyword changes 400ms later
+            setTimeout(() => setKeywordIndex(next), 400);
+        }, 2500);
         return () => clearInterval(id);
     }, []);
 
     return (
         <div className="relative h-9 flex items-center justify-center">
             <AnimatePresence mode="wait">
-                <motion.p
-                    key={index}
-                    className="text-xl md:text-2xl text-zinc-400 font-light tracking-tight text-center"
-                    initial={{ opacity: 0, y: 10 }}
+                <motion.span
+                    key={`prefix-${index}`}
+                    className="text-xl md:text-2xl text-zinc-400 font-light tracking-tight"
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                    {langLabels[index]}
-                </motion.p>
+                    {langParts[index].prefix}
+                </motion.span>
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+                <motion.span
+                    key={`keyword-${keywordIndex}`}
+                    className="text-xl md:text-2xl font-semibold text-white tracking-tight"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                    {langParts[keywordIndex].keyword}
+                </motion.span>
             </AnimatePresence>
         </div>
     );
