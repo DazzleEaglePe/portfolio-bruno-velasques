@@ -102,18 +102,18 @@ export default function ExperienceSection() {
                         </h3>
 
                         <Tabs defaultValue="employment" className="w-full">
-                            <TabsList className="w-full grid grid-cols-2 h-10 p-1 bg-secondary/40 rounded-lg">
+                            <TabsList className="w-full grid grid-cols-2 h-9 p-1 bg-secondary/40 rounded-lg">
                                 <TabsTrigger
                                     value="employment"
-                                    className="text-xs font-semibold tracking-wide rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-foreground cursor-pointer"
+                                    className="text-[11px] font-mono uppercase tracking-wider rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
                                 >
-                                    💼 {t("exp.employment")}
+                                    {t("exp.employment")}
                                 </TabsTrigger>
                                 <TabsTrigger
                                     value="freelance"
-                                    className="text-xs font-semibold tracking-wide rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-foreground cursor-pointer"
+                                    className="text-[11px] font-mono uppercase tracking-wider rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
                                 >
-                                    🚀 {t("exp.freelance")}
+                                    {t("exp.freelance")}
                                     <Badge variant="secondary" className="ml-1.5 text-[9px] font-mono px-1.5 py-0 h-4 leading-none">
                                         {freelance.length}
                                     </Badge>
