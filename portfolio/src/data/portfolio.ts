@@ -80,20 +80,20 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       description:
         "Institución microfinanciera líder en el sur del Perú con más de 35 años de trayectoria.",
       achievements: [
-        "Diseño e implementación del primer módulo de seguros digitales, integrando La Positiva en el Homebanking → +10K clientes",
-        "Migración de Plazo Fijo a App Android, iOS y Homebanking → +50 afiliaciones mes uno, -30% visitas a ventanilla",
+        "Diseñé e implementé el primer módulo de seguros digitales integrando La Positiva en el Homebanking → +10K clientes",
+        "Lideré la migración e integración del producto Plazo Fijo a App Android, iOS y Homebanking → +50 afiliaciones en el primer mes",
       ],
       color: "accent",
     },
     {
       company: "ECA - Estudio Contable Alvarez",
-      role: "Full Stack Developer · Consultor IT",
+      role: "Desarrollador Full Stack · Consultor IT",
       period: "Junio 2025 – Actualidad",
       description:
         "Estudio contable con más de 1,000 comercios atendidos.",
       achievements: [
-        "Sistema de chatbot con IA → 90% de consultas automatizadas, atención 24/7",
-        "Centralización de CONCAR para 15 usuarios simultáneos → -40-50% costos operativos",
+        "Desarrollé un sistema de atención automatizada con chatbot IA → automatización del 90%",
+        "Centralicé el sistema contable CONCAR para 15 usuarios simultáneos → reducción del 40-50% en costos operativos",
       ],
       color: "accent-indigo",
     },
@@ -104,19 +104,19 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       description:
         "Consultora especializada en Seguridad y Salud en el Trabajo.",
       achievements: [
-        "Rediseño web → +45% tiempo de permanencia",
-        "Gestión de redes → +60% engagement en 3 meses",
-        "Contenido audiovisual → +10K visualizaciones orgánicas",
+        "Rediseñé y optimicé el sitio web corporativo → +45% tiempo de permanencia",
+        "Gestioné redes sociales corporativas → +60% en engagement en 3 meses",
+        "Desarrollé contenido audiovisual (reels) → +10K visualizaciones orgánicas",
       ],
       color: "accent-emerald",
     },
     {
       company: "ETP - Escuelas Técnicas del Perú",
       role: "Frontend Developer",
-      period: "Enero 2024 – Agosto 2025",
+      period: "Enero 2024 – Agosto 2024",
       description: "Institución educativa técnica con programas presenciales y virtuales.",
       achievements: [
-        "Rediseño del sitio web y creación del aula virtual (cursos, cronogramas, calificaciones, certificados)",
+        "Rediseñé la Home Page y lideré la creación del aula virtual completa (cursos, cronogramas, calificaciones, certificados)",
       ],
       color: "accent-rose",
     },
@@ -129,8 +129,8 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       description:
         "Leading microfinance institution in southern Peru with over 35 years of trajectory.",
       achievements: [
-        "Design & implementation of the first digital insurance module, integrating La Positiva into Homebanking → +10K clients",
-        "Migration of Fixed-Term Deposits to Android, iOS & Homebanking Apps → +50 sign-ups month one, -30% branch visits",
+        "Designed and implemented the first digital insurance module integrating La Positiva into Homebanking → +10K clients",
+        "Led the migration and integration of Fixed-Term Deposits to Android, iOS, and Homebanking → +50 sign-ups in the first month",
       ],
       color: "accent",
     },
@@ -141,8 +141,8 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       description:
         "Accounting firm serving over 1,000 businesses.",
       achievements: [
-        "AI chatbot system → 90% of inquiries automated, 24/7 support",
-        "CONCAR centralization for 15 concurrent users → -40-50% operational costs",
+        "Developed an automated customer service system using AI chatbot → 90% automation",
+        "Centralized the CONCAR accounting system for 15 concurrent users → 40-50% reduction in operational costs",
       ],
       color: "accent-indigo",
     },
@@ -153,19 +153,19 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       description:
         "Consulting firm specialized in Occupational Health & Safety.",
       achievements: [
-        "Website redesign → +45% session duration",
-        "Social media management → +60% engagement in 3 months",
-        "Audiovisual content → +10K organic views",
+        "Redesigned and optimized corporate website → +45% session duration",
+        "Managed corporate social media → +60% engagement in 3 months",
+        "Developed audiovisual content (reels) → +10K organic views",
       ],
       color: "accent-emerald",
     },
     {
       company: "ETP - Technical Schools of Peru",
       role: "Frontend Developer",
-      period: "January 2024 – August 2025",
+      period: "January 2024 – August 2024",
       description: "Technical education institution with in-person and online programs.",
       achievements: [
-        "Website redesign and creation of the virtual classroom (courses, schedules, grades, certificates)",
+        "Redesigned the Home Page and led the complete creation of the virtual classroom (courses, schedules, grades, certificates)",
       ],
       color: "accent-rose",
     },
