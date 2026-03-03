@@ -91,7 +91,7 @@ export default function Projects() {
 
             <div
                 ref={scrollContainerRef}
-                className="flex items-center gap-4 sm:gap-6 pt-[88px] md:pt-[120px] w-max"
+                className="flex items-stretch gap-4 sm:gap-6 pt-[88px] md:pt-[120px] w-max"
             >
                 {/* 
                   * To align the first card perfectly with the max-w-6xl grid inside a 100vw container, 
@@ -111,7 +111,7 @@ export default function Projects() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: false, amount: 0.1, margin: "-15% 0px -15% 0px" }}
                         transition={{ duration: 0.4, delay: i * 0.1 }}
-                        className="w-[300px] md:w-[400px] lg:w-[450px] shrink-0"
+                        className="w-[300px] md:w-[400px] lg:w-[450px] shrink-0 h-full"
                     >
                         <HoverCard openDelay={200}>
                             <HoverCardTrigger asChild>
