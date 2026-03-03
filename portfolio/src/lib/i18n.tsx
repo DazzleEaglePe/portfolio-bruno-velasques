@@ -28,6 +28,8 @@ const translations = {
         "exp.title": "Experiencia",
         "exp.employment": "Experiencia Profesional",
         "exp.freelance": "Proyectos Freelance",
+        "exp.showMore": "Ver más proyectos",
+        "exp.showLess": "Ver menos",
         // Education
         "edu.title": "Formación",
         "cert.title": "Certificaciones",
@@ -182,6 +184,8 @@ const translations = {
         "exp.title": "Experience",
         "exp.employment": "Professional Experience",
         "exp.freelance": "Freelance Projects",
+        "exp.showMore": "Show more projects",
+        "exp.showLess": "Show less",
         "edu.title": "Education",
         "cert.title": "Certifications",
         "stack.title": "Tech Stack",

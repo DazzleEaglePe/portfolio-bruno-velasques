@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { getExperiences, getEducation, certifications } from "@/data/portfolio";
 import { useI18n } from "@/lib/i18n";
 import { Card, CardContent } from "@/components/ui/card";
@@ -36,13 +37,19 @@ function AppleEmoji({ emoji, size = 18 }: { emoji: string; size?: number }) {
     );
 }
 
+const VISIBLE_FREELANCE = 2;
+
 export default function ExperienceSection() {
     const { t, locale } = useI18n();
     const experiences = getExperiences(locale);
     const educationItems = getEducation(locale);
+    const [showAll, setShowAll] = useState(false);
 
     const employment = experiences.filter((e) => e.type === "employment");
     const freelance = experiences.filter((e) => e.type === "freelance");
+
+    const visibleFreelance = showAll ? freelance : freelance.slice(0, VISIBLE_FREELANCE);
+    const hiddenCount = freelance.length - VISIBLE_FREELANCE;
 
     const renderExperienceCard = (exp: (typeof experiences)[0], i: number, globalIdx: number) => (
         <AccordionItem
@@ -100,61 +107,106 @@ export default function ExperienceSection() {
     return (
         <section id="experience" className="grid md:grid-cols-3 gap-4">
             <motion.div {...fadeUp} className="md:col-span-2">
-                <Card className="relative overflow-hidden">
-                    <div className="max-h-[480px] overflow-y-auto scrollbar-subtle">
-                        <CardContent className="p-6 space-y-6">
-                            <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
-                                {t("exp.title")}
-                            </h3>
+                <Card>
+                    <CardContent className="p-6 space-y-6">
+                        <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
+                            {t("exp.title")}
+                        </h3>
 
-                            {/* Employment Section */}
-                            {employment.length > 0 && (
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-2">
-                                        <div className="h-px flex-1 bg-border" />
-                                        <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
-                                            {t("exp.employment")}
-                                        </span>
-                                        <div className="h-px flex-1 bg-border" />
-                                    </div>
-                                    <Accordion
-                                        type="single"
-                                        collapsible
-                                        defaultValue="item-0"
-                                        className="space-y-2"
-                                    >
-                                        {employment.map((exp, i) =>
-                                            renderExperienceCard(exp, i, i)
-                                        )}
-                                    </Accordion>
+                        {/* Employment Section */}
+                        {employment.length > 0 && (
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2">
+                                    <div className="h-px flex-1 bg-border" />
+                                    <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
+                                        {t("exp.employment")}
+                                    </span>
+                                    <div className="h-px flex-1 bg-border" />
                                 </div>
-                            )}
+                                <Accordion
+                                    type="single"
+                                    collapsible
+                                    defaultValue="item-0"
+                                    className="space-y-2"
+                                >
+                                    {employment.map((exp, i) =>
+                                        renderExperienceCard(exp, i, i)
+                                    )}
+                                </Accordion>
+                            </div>
+                        )}
 
-                            {/* Freelance Section */}
-                            {freelance.length > 0 && (
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-2">
-                                        <div className="h-px flex-1 bg-border" />
-                                        <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
-                                            {t("exp.freelance")}
-                                        </span>
-                                        <div className="h-px flex-1 bg-border" />
-                                    </div>
-                                    <Accordion
-                                        type="single"
-                                        collapsible
-                                        className="space-y-2"
-                                    >
-                                        {freelance.map((exp, i) =>
-                                            renderExperienceCard(exp, i, employment.length + i)
-                                        )}
-                                    </Accordion>
+                        {/* Freelance Section */}
+                        {freelance.length > 0 && (
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2">
+                                    <div className="h-px flex-1 bg-border" />
+                                    <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
+                                        {t("exp.freelance")}
+                                    </span>
+                                    <div className="h-px flex-1 bg-border" />
                                 </div>
-                            )}
-                        </CardContent>
-                    </div>
-                    {/* Bottom fade to hint scroll */}
-                    <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-card to-transparent rounded-b-xl" />
+                                <Accordion
+                                    type="single"
+                                    collapsible
+                                    className="space-y-2"
+                                >
+                                    {/* Always-visible freelance entries */}
+                                    {freelance.slice(0, VISIBLE_FREELANCE).map((exp, i) =>
+                                        renderExperienceCard(exp, i, employment.length + i)
+                                    )}
+
+                                    {/* Animated hidden entries */}
+                                    <AnimatePresence initial={false}>
+                                        {showAll && freelance.slice(VISIBLE_FREELANCE).map((exp, i) => (
+                                            <motion.div
+                                                key={exp.company}
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: "auto" }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                            >
+                                                {renderExperienceCard(exp, VISIBLE_FREELANCE + i, employment.length + VISIBLE_FREELANCE + i)}
+                                            </motion.div>
+                                        ))}
+                                    </AnimatePresence>
+                                </Accordion>
+
+                                {/* Show More / Show Less button */}
+                                {hiddenCount > 0 && (
+                                    <button
+                                        onClick={() => setShowAll(!showAll)}
+                                        className="w-full py-2 text-[11px] font-mono text-muted-foreground/60 uppercase tracking-wider hover:text-foreground/80 transition-colors flex items-center justify-center gap-2 group"
+                                    >
+                                        <div className="h-px flex-1 bg-border group-hover:bg-foreground/20 transition-colors" />
+                                        <span className="shrink-0">
+                                            {showAll
+                                                ? t("exp.showLess")
+                                                : `${t("exp.showMore")} (+${hiddenCount})`
+                                            }
+                                        </span>
+                                        <motion.svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="12"
+                                            height="12"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            animate={{ rotate: showAll ? 180 : 0 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="shrink-0"
+                                        >
+                                            <polyline points="6 9 12 15 18 9" />
+                                        </motion.svg>
+                                        <div className="h-px flex-1 bg-border group-hover:bg-foreground/20 transition-colors" />
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                    </CardContent>
                 </Card>
             </motion.div>
 
