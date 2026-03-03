@@ -711,21 +711,23 @@ export default function GiveawaySection() {
 
                                 {/* Participant Count */}
                                 <div className="mt-8 flex items-center gap-3">
-                                    <div className="flex -space-x-2">
-                                        {[...Array(Math.min(4, participantCount || 1))].map((_, i) => (
-                                            <div
-                                                key={i}
-                                                className="w-8 h-8 rounded-full bg-secondary border-2 border-card flex items-center justify-center text-[10px] font-bold text-foreground"
-                                            >
-                                                {String.fromCharCode(65 + i)}
-                                            </div>
-                                        ))}
-                                        {participantCount > 4 && (
-                                            <div className="w-8 h-8 rounded-full bg-secondary border-2 border-card flex items-center justify-center text-[10px] font-mono text-muted-foreground">
-                                                +{participantCount - 4}
-                                            </div>
-                                        )}
-                                    </div>
+                                    {participantCount > 0 && (
+                                        <div className="flex -space-x-2">
+                                            {[...Array(Math.min(4, participantCount))].map((_, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="w-8 h-8 rounded-full bg-secondary border-2 border-card flex items-center justify-center text-[10px] font-bold text-foreground"
+                                                >
+                                                    {String.fromCharCode(65 + i)}
+                                                </div>
+                                            ))}
+                                            {participantCount > 4 && (
+                                                <div className="w-8 h-8 rounded-full bg-secondary border-2 border-card flex items-center justify-center text-[10px] font-mono text-muted-foreground">
+                                                    +{participantCount - 4}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                                     <span className="text-sm text-muted-foreground">
                                         <strong className="text-foreground">{participantCount}</strong> {t("giveaway.section.participants")}
                                     </span>
