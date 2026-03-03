@@ -102,28 +102,28 @@ export default function ExperienceSection() {
             <motion.div {...fadeUp} className="md:col-span-2">
                 <Card>
                     <CardContent className="p-6 space-y-4">
-                        <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
-                            {t("exp.title")}
-                        </h3>
-
                         <Tabs defaultValue="employment" className="w-full">
-                            <TabsList className="w-full grid grid-cols-2 h-9 p-1 bg-secondary/40 rounded-lg">
-                                <TabsTrigger
-                                    value="employment"
-                                    className="text-[11px] font-mono uppercase tracking-wider rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
-                                >
-                                    {t("exp.employment")}
-                                </TabsTrigger>
-                                <TabsTrigger
-                                    value="freelance"
-                                    className="text-[11px] font-mono uppercase tracking-wider rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
-                                >
-                                    {t("exp.freelance")}
-                                    <Badge variant="secondary" className="ml-1.5 text-[9px] font-mono px-1.5 py-0 h-4 leading-none">
-                                        {freelance.length}
-                                    </Badge>
-                                </TabsTrigger>
-                            </TabsList>
+                            {/* Header + segmented control in one line */}
+                            <div className="flex items-center justify-between gap-3">
+                                <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase shrink-0">
+                                    {t("exp.title")}
+                                </h3>
+                                <TabsList className="h-7 p-0.5 bg-secondary/40 rounded-full gap-0.5">
+                                    <TabsTrigger
+                                        value="employment"
+                                        className="text-[10px] font-mono uppercase tracking-wider rounded-full px-3 h-6 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
+                                    >
+                                        {t("exp.employment")}
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="freelance"
+                                        className="text-[10px] font-mono uppercase tracking-wider rounded-full px-3 h-6 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
+                                    >
+                                        {t("exp.freelance")}
+                                        <span className="ml-1 text-[9px] text-muted-foreground/60">{freelance.length}</span>
+                                    </TabsTrigger>
+                                </TabsList>
+                            </div>
 
                             <TabsContent value="employment" className="mt-4">
                                 <Accordion
