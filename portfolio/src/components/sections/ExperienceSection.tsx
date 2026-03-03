@@ -9,6 +9,31 @@ import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { fadeUp } from "@/lib/animations";
 
+/* Maps emoji chars to their Apple-style image via jsDelivr CDN */
+const APPLE_EMOJI_CDN = "https://cdn.jsdelivr.net/npm/emoji-datasource-apple@16.0.0/img/apple/64";
+const emojiToCodepoint: Record<string, string> = {
+    "🏦": "1f3e6",
+    "📊": "1f4ca",
+    "🏢": "1f3e2",
+    "🎓": "1f393",
+};
+
+function AppleEmoji({ emoji, size = 18 }: { emoji: string; size?: number }) {
+    const code = emojiToCodepoint[emoji];
+    if (!code) return <span className="text-base">{emoji}</span>;
+    return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+            src={`${APPLE_EMOJI_CDN}/${code}.png`}
+            alt={emoji}
+            width={size}
+            height={size}
+            className="inline-block shrink-0"
+            style={{ imageRendering: "auto" }}
+        />
+    );
+}
+
 export default function ExperienceSection() {
     const { t, locale } = useI18n();
     const experiences = getExperiences(locale);
@@ -26,7 +51,7 @@ export default function ExperienceSection() {
             <AccordionTrigger className="hover:no-underline py-3 text-left">
                 <div className="flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-base" aria-hidden="true">{exp.icon}</span>
+                        <AppleEmoji emoji={exp.icon} />
                         <h4 className="text-sm font-semibold">{exp.company}</h4>
                         <Badge variant="outline" className="text-[10px] font-mono">{exp.period}</Badge>
                     </div>
