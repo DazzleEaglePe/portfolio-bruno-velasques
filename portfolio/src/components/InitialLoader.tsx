@@ -34,11 +34,11 @@ function LanguageHeading() {
     }, []);
 
     return (
-        <div className="h-8 relative overflow-hidden">
+        <div className="relative h-9 flex items-center justify-center">
             <AnimatePresence mode="wait">
                 <motion.p
                     key={index}
-                    className="text-xl md:text-2xl text-zinc-400 font-light tracking-tight text-center absolute inset-0"
+                    className="text-xl md:text-2xl text-zinc-400 font-light tracking-tight text-center"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
