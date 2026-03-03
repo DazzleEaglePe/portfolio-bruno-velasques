@@ -83,7 +83,7 @@ export default function SkillsSlider() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
                 </svg>
             ),
-            span: "md:col-span-2",
+            span: "md:col-span-3",
         },
     ];
 
@@ -101,52 +101,78 @@ export default function SkillsSlider() {
 
             {/* Bento Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-                {cards.map((card, cardIdx) => (
-                    <motion.div
-                        key={card.titleKey}
-                        {...fadeUp}
-                        transition={{ duration: 0.35, delay: cardIdx * 0.08 }}
-                        className={`relative group z-10 hover:z-50 ${card.span}`}
-                    >
-                        {/* Outer Glow / Blur */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient.staticClasses} rounded-3xl blur-xl opacity-0 group-hover:opacity-15 dark:group-hover:opacity-20 transition-opacity duration-500`} />
-
-                        {/* 1px Gradient Border Wrapper */}
-                        <div className={`relative h-full rounded-3xl p-[1px] bg-border/50 dark:bg-white/5 group-hover:bg-gradient-to-br ${card.gradient.hoverClasses} transition-all duration-500`}>
-
-                            {/* Inner Card Background & Content */}
-                            <div className="relative z-10 p-7 md:p-8 flex flex-col h-full bg-card hover:bg-card/95 backdrop-blur-xl border-none rounded-[23px] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
-
-                                <div className="mb-4 h-12 flex items-center">{card.icon}</div>
-
-                                <h4 className="text-xl sm:text-2xl font-semibold mb-2 tracking-tight text-foreground">
-                                    {t(card.titleKey)}
-                                </h4>
-
-                                <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-6">
-                                    {t(card.descKey)}
-                                </p>
-
-                                {/* Tech Icons Row */}
-                                <div className="mt-auto flex flex-wrap gap-2.5 pt-5 border-t border-border/20">
-                                    {card.techs.map((tech) => (
-                                        <div
-                                            key={tech.name}
-                                            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 border border-border/20 hover:border-border/50 hover:bg-secondary transition-all duration-300"
-                                        >
-                                            {techIcons[tech.name] ? (
-                                                <span className="w-4 h-4 text-foreground [&>svg]:w-full [&>svg]:h-full" dangerouslySetInnerHTML={{ __html: techIcons[tech.name] }} />
-                                            ) : (
-                                                <span className="w-4 h-4 rounded-full bg-muted-foreground/20 flex items-center justify-center text-[9px] font-bold text-muted-foreground">{tech.name[0]}</span>
-                                            )}
-                                            <span className="text-xs text-muted-foreground font-medium">{tech.name}</span>
+                {cards.map((card, cardIdx) => {
+                    // After the 2nd card (Cloud, index 3), insert the stats card
+                    const isStatsPosition = cardIdx === 3;
+                    return (
+                        <>
+                            {isStatsPosition && (
+                                <motion.div
+                                    key="stats-highlight"
+                                    {...fadeUp}
+                                    transition={{ duration: 0.35, delay: 3 * 0.08 }}
+                                    className="relative group z-10 hover:z-50 md:col-span-1"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 via-teal-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-15 dark:group-hover:opacity-20 transition-opacity duration-500" />
+                                    <div className="relative h-full rounded-3xl p-[1px] bg-border/50 dark:bg-white/5 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:via-teal-500 transition-all duration-500">
+                                        <div className="relative z-10 p-7 md:p-8 flex flex-col items-center justify-center h-full bg-card hover:bg-card/95 backdrop-blur-xl border-none rounded-[23px] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden text-center min-h-[220px]">
+                                            <span className="text-6xl md:text-7xl font-bold tracking-tight bg-gradient-to-br from-emerald-400 to-teal-500 bg-clip-text text-transparent leading-none">
+                                                {t("testimonial.count")}
+                                            </span>
+                                            <h4 className="text-lg md:text-xl font-semibold text-foreground mt-3 whitespace-pre-line leading-tight">
+                                                {t("testimonial.heading")}
+                                            </h4>
                                         </div>
-                                    ))}
+                                    </div>
+                                </motion.div>
+                            )}
+                            <motion.div
+                                key={card.titleKey}
+                                {...fadeUp}
+                                transition={{ duration: 0.35, delay: (cardIdx + (cardIdx >= 3 ? 1 : 0)) * 0.08 }}
+                                className={`relative group z-10 hover:z-50 ${card.span}`}
+                            >
+                                {/* Outer Glow / Blur */}
+                                <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient.staticClasses} rounded-3xl blur-xl opacity-0 group-hover:opacity-15 dark:group-hover:opacity-20 transition-opacity duration-500`} />
+
+                                {/* 1px Gradient Border Wrapper */}
+                                <div className={`relative h-full rounded-3xl p-[1px] bg-border/50 dark:bg-white/5 group-hover:bg-gradient-to-br ${card.gradient.hoverClasses} transition-all duration-500`}>
+
+                                    {/* Inner Card Background & Content */}
+                                    <div className="relative z-10 p-7 md:p-8 flex flex-col h-full bg-card hover:bg-card/95 backdrop-blur-xl border-none rounded-[23px] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
+
+                                        <div className="mb-4 h-12 flex items-center">{card.icon}</div>
+
+                                        <h4 className="text-xl sm:text-2xl font-semibold mb-2 tracking-tight text-foreground">
+                                            {t(card.titleKey)}
+                                        </h4>
+
+                                        <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-6">
+                                            {t(card.descKey)}
+                                        </p>
+
+                                        {/* Tech Icons Row */}
+                                        <div className="mt-auto flex flex-wrap gap-2.5 pt-5 border-t border-border/20">
+                                            {card.techs.map((tech) => (
+                                                <div
+                                                    key={tech.name}
+                                                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 border border-border/20 hover:border-border/50 hover:bg-secondary transition-all duration-300"
+                                                >
+                                                    {techIcons[tech.name] ? (
+                                                        <span className="w-4 h-4 text-foreground [&>svg]:w-full [&>svg]:h-full" dangerouslySetInnerHTML={{ __html: techIcons[tech.name] }} />
+                                                    ) : (
+                                                        <span className="w-4 h-4 rounded-full bg-muted-foreground/20 flex items-center justify-center text-[9px] font-bold text-muted-foreground">{tech.name[0]}</span>
+                                                    )}
+                                                    <span className="text-xs text-muted-foreground font-medium">{tech.name}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                ))}
+                            </motion.div>
+                        </>
+                    );
+                })}
             </div>
         </section>
     );
