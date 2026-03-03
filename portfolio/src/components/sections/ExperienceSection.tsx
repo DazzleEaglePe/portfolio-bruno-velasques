@@ -100,69 +100,67 @@ export default function ExperienceSection() {
     return (
         <section id="experience" className="grid md:grid-cols-3 gap-4">
             <motion.div {...fadeUp} className="md:col-span-2">
-                <Card className="h-full">
-                    <CardContent className="p-6 space-y-6">
-                        <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
-                            {t("exp.title")}
-                        </h3>
+                <Card className="relative">
+                    <div
+                        className="max-h-[600px] overflow-y-auto"
+                        style={{
+                            scrollbarWidth: "thin",
+                            scrollbarColor: "hsl(var(--border)) transparent",
+                        }}
+                    >
+                        <CardContent className="p-6 space-y-6">
+                            <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
+                                {t("exp.title")}
+                            </h3>
 
-                        {/* Employment Section */}
-                        {employment.length > 0 && (
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-2">
-                                    <div className="h-px flex-1 bg-border" />
-                                    <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
-                                        {t("exp.employment")}
-                                    </span>
-                                    <div className="h-px flex-1 bg-border" />
-                                </div>
-                                <Accordion
-                                    type="single"
-                                    collapsible
-                                    defaultValue="item-0"
-                                    className="space-y-2"
-                                >
-                                    {employment.map((exp, i) =>
-                                        renderExperienceCard(exp, i, i)
-                                    )}
-                                </Accordion>
-                            </div>
-                        )}
-
-                        {/* Freelance Section */}
-                        {freelance.length > 0 && (
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-2">
-                                    <div className="h-px flex-1 bg-border" />
-                                    <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
-                                        {t("exp.freelance")}
-                                    </span>
-                                    <div className="h-px flex-1 bg-border" />
-                                </div>
-                                <div className="relative">
-                                    <div
-                                        className="max-h-[420px] overflow-y-auto pr-1"
-                                        style={{
-                                            scrollbarWidth: "thin",
-                                            scrollbarColor: "hsl(var(--border)) transparent",
-                                        }}
-                                    >
-                                        <Accordion
-                                            type="single"
-                                            collapsible
-                                            className="space-y-2"
-                                        >
-                                            {freelance.map((exp, i) =>
-                                                renderExperienceCard(exp, i, employment.length + i)
-                                            )}
-                                        </Accordion>
+                            {/* Employment Section */}
+                            {employment.length > 0 && (
+                                <div className="space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <div className="h-px flex-1 bg-border" />
+                                        <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
+                                            {t("exp.employment")}
+                                        </span>
+                                        <div className="h-px flex-1 bg-border" />
                                     </div>
-                                    {/* Bottom fade gradient to hint scrollability */}
-                                    <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-card to-transparent" />
+                                    <Accordion
+                                        type="single"
+                                        collapsible
+                                        defaultValue="item-0"
+                                        className="space-y-2"
+                                    >
+                                        {employment.map((exp, i) =>
+                                            renderExperienceCard(exp, i, i)
+                                        )}
+                                    </Accordion>
                                 </div>
-                            </div>
-                        )}
-                    </CardContent>
+                            )}
+
+                            {/* Freelance Section */}
+                            {freelance.length > 0 && (
+                                <div className="space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <div className="h-px flex-1 bg-border" />
+                                        <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
+                                            {t("exp.freelance")}
+                                        </span>
+                                        <div className="h-px flex-1 bg-border" />
+                                    </div>
+                                    <Accordion
+                                        type="single"
+                                        collapsible
+                                        className="space-y-2"
+                                    >
+                                        {freelance.map((exp, i) =>
+                                            renderExperienceCard(exp, i, employment.length + i)
+                                        )}
+                                    </Accordion>
+                                </div>
+                            )}
+                        </CardContent>
+                    </div>
+                    {/* Bottom fade to hint scroll */}
+                    <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-card to-transparent rounded-b-xl" />
                 </Card>
             </motion.div>
 
