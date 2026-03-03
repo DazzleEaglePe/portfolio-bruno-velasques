@@ -188,6 +188,14 @@ const educationI18n: Record<Locale, EducationItem[]> = {
 const projectsI18n: Record<Locale, Project[]> = {
   es: [
     {
+      title: "Plataforma E-Commerce B2B – Decdata",
+      description:
+        "E-Commerce corporativo y catálogo de ventas tecnológicas de alto rendimiento. Construido con arquitectura de 'Islas Interactivas' para SEO extremo y tiempos de carga instantáneos. Incluye carrito de compras persistente, buscador dinámico en tiempo real y UI/UX atómico.",
+      tags: ["Astro", "React", "Tailwind CSS", "TypeScript", "Nanostores"],
+      link: "https://decdata.com.pe/",
+      color: "accent-indigo",
+    },
+    {
       title: "Sistema POS – Gestión de Ventas",
       description:
         "Plataforma SaaS Multi-tenant para gestión integral de negocios retail: ventas en tiempo real, control de inventario multi-almacén, dashboards con KPIs.",
@@ -221,6 +229,14 @@ const projectsI18n: Record<Locale, Project[]> = {
     },
   ],
   en: [
+    {
+      title: "B2B E-Commerce Platform – Decdata",
+      description:
+        "Corporate e-commerce and high-performance technology sales catalog. Built with 'Interactive Islands' architecture for extreme SEO and instant load times. Includes persistent shopping cart, real-time dynamic search, and atomic UI/UX.",
+      tags: ["Astro", "React", "Tailwind CSS", "TypeScript", "Nanostores"],
+      link: "https://decdata.com.pe/",
+      color: "accent-indigo",
+    },
     {
       title: "POS System – Sales Management",
       description:
