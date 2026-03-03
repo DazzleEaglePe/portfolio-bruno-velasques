@@ -97,7 +97,7 @@ function fireConfetti() {
 // ─── Main Component ──────────────────────────────────────────────────
 export default function GiveawaySection() {
     const { t } = useI18n();
-    const { user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, resetPassword, verifyOtp, resendOtp, signOut } = useAuth();
+    const { user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, completeProfile, resetPassword, verifyOtp, resendOtp, signOut } = useAuth();
     const countdown = useCountdown();
     const participantCount = useParticipantCount();
 
@@ -125,11 +125,19 @@ export default function GiveawaySection() {
     const [error, setError] = useState("");
     const [resendMessage, setResendMessage] = useState("");
     const [entryPosition, setEntryPosition] = useState<number | null>(null);
+    const [hasEntry, setHasEntry] = useState<boolean | null>(null);
     const [forgotSuccess, setForgotSuccess] = useState(false);
 
     // Check if user already has an entry
     useEffect(() => {
-        if (!user) return;
+        if (!user) {
+            setHasEntry(false);
+            return;
+        }
+
+        // Reset state so loading shimmer shows when fetching
+        setHasEntry(null);
+
         supabase
             .from("giveaway_entries")
             .select("id")
@@ -138,14 +146,15 @@ export default function GiveawaySection() {
             .then(({ data, error }) => {
                 if (error) {
                     console.error("Error fetching entry:", error);
-                    return;
                 }
                 if (data) {
+                    setHasEntry(true);
+                    // Get correct global position using RPC instead of restricted table select
                     supabase
-                        .from("giveaway_entries")
-                        .select("*", { count: "exact", head: true })
-                        .lte("id", data.id)
-                        .then(({ count }) => setEntryPosition(count ?? 1));
+                        .rpc("get_giveaway_position", { p_user_id: user.id })
+                        .then(({ data: pos_data }) => setEntryPosition(Number(pos_data) || 1));
+                } else {
+                    setHasEntry(false);
                 }
             });
     }, [user]);
@@ -250,6 +259,35 @@ export default function GiveawaySection() {
         setFormLoading(false);
     };
 
+    const handleCompleteProfile = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setFormLoading(true);
+        setError("");
+
+        const result = await completeProfile({
+            full_name: fullName,
+            business_name: businessName,
+            phone: phone || undefined,
+            ruc: ruc || undefined,
+            address: address || undefined,
+            business_type: businessType || undefined,
+        });
+
+        if (result.error) {
+            setError(result.error);
+        } else {
+            setHasEntry(true);
+
+            // Re-fetch position
+            supabase
+                .rpc("get_giveaway_position", { p_user_id: user?.id })
+                .then(({ data: pos_data }) => setEntryPosition(Number(pos_data) || 1));
+
+            fireConfetti();
+        }
+        setFormLoading(false);
+    };
+
     const switchMode = (newMode: AuthMode) => {
         setMode(newMode);
         setRegisterStep(1);
@@ -278,6 +316,83 @@ export default function GiveawaySection() {
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
         </svg>
     );
+
+    // ─── Render Complete Profile Form ────────────────────────────────
+
+    const renderCompleteProfileForm = () => {
+        return (
+            <div className="space-y-5">
+                <div>
+                    <h4 className="text-lg font-bold mb-1">{t("giveaway.modal.completeTitle") || "Completa tu postulación"}</h4>
+                    <p className="text-xs text-muted-foreground">{t("giveaway.modal.completeDesc") || "Faltan un par de datos sobre tu negocio para entrar al sorteo."}</p>
+                </div>
+
+                <form onSubmit={handleCompleteProfile} className="space-y-4">
+                    <div className="space-y-3 animate-in fade-in duration-300">
+                        <input
+                            type="text"
+                            required
+                            value={businessName}
+                            onChange={(e) => setBusinessName(e.target.value)}
+                            placeholder={t("giveaway.modal.business")}
+                            className={inputClass}
+                        />
+                        <PhoneInput
+                            value={phone}
+                            onChange={setPhone}
+                            placeholder={t("giveaway.modal.phone")}
+                        />
+                        <div className="grid grid-cols-2 gap-3">
+                            <input
+                                type="text"
+                                required
+                                value={ruc}
+                                onChange={(e) => setRuc(e.target.value)}
+                                placeholder={t("giveaway.modal.ruc")}
+                                className={inputClass}
+                            />
+                            <input
+                                type="text"
+                                required
+                                value={businessType}
+                                onChange={(e) => setBusinessType(e.target.value)}
+                                placeholder={t("giveaway.modal.businessType")}
+                                className={inputClass}
+                            />
+                        </div>
+                        <input
+                            type="text"
+                            required
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder={t("giveaway.modal.address")}
+                            className={inputClass}
+                        />
+
+                        {error && <p className="text-xs text-red-500 font-medium">{error}</p>}
+
+                        <div className="flex gap-3 pt-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={signOut}
+                                className="h-11 px-4 rounded-full"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={formLoading || !businessName || !phone || !ruc || !businessType || !address}
+                                className="flex-1 h-11 rounded-full text-sm font-semibold"
+                            >
+                                {formLoading ? <Spinner /> : t("giveaway.modal.completeSubmit") || "Completar Postulación"}
+                            </Button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        );
+    };
 
     // ─── Render Auth Form ────────────────────────────────────────────
 
@@ -742,7 +857,7 @@ export default function GiveawaySection() {
 
                             {/* ── Right Column: Auth or Dashboard ── */}
                             <div className="p-8 md:p-10 flex flex-col justify-center">
-                                {loading ? (
+                                {loading || (user && hasEntry === null) ? (
                                     /* Loading shimmer (matches form size) */
                                     <div className="space-y-5 animate-pulse">
                                         <div>
@@ -764,8 +879,8 @@ export default function GiveawaySection() {
                                             <div className="h-11 w-full bg-secondary/50 rounded-full mt-2" />
                                         </div>
                                     </div>
-                                ) : user ? (
-                                    /* ── Dashboard (Logged In) ── */
+                                ) : user && hasEntry ? (
+                                    /* ── Dashboard (Logged In & Applied) ── */
                                     <div className="flex flex-col items-center text-center gap-5">
                                         {/* Success Icon */}
                                         <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center">
@@ -801,12 +916,14 @@ export default function GiveawaySection() {
                                             {t("giveaway.section.signout")}
                                         </Button>
                                     </div>
+                                ) : user && hasEntry === false ? (
+                                    /* ── Complete Profile (Google Auth users without entry) ── */
+                                    renderCompleteProfileForm()
                                 ) : (
                                     /* ── Auth Form (Guest) ── */
                                     renderAuthForm()
                                 )}
                             </div>
-
                         </div>
                     </CardContent>
                 </Card>

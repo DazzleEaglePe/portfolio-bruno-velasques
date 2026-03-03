@@ -19,6 +19,7 @@ interface AuthContextType {
     signInWithGoogle: () => Promise<void>;
     signInWithEmail: (email: string, password: string) => Promise<{ error?: string }>;
     signUpWithEmail: (email: string, password: string, meta: SignUpMeta) => Promise<{ error?: string }>;
+    completeProfile: (meta: Omit<SignUpMeta, "password">) => Promise<{ error?: string }>;
     resetPassword: (email: string) => Promise<{ error?: string }>;
     verifyOtp: (email: string, token: string) => Promise<{ error?: string }>;
     resendOtp: (email: string) => Promise<{ error?: string }>;
@@ -104,6 +105,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return {};
     };
 
+    const completeProfile = async (meta: Omit<SignUpMeta, "password">) => {
+        if (!user) return { error: "No user found" };
+
+        const { error: insertError } = await supabase
+            .from("giveaway_entries")
+            .insert({
+                user_id: user.id,
+                full_name: user.user_metadata?.full_name || meta.full_name,
+                email: user.email,
+                business_name: meta.business_name,
+                phone: meta.phone || null,
+                ruc: meta.ruc || null,
+                address: meta.address || null,
+                business_type: meta.business_type || null,
+            });
+
+        if (insertError) {
+            console.error("completeProfile error:", insertError.message);
+            return { error: insertError.message };
+        }
+
+        return {};
+    };
+
     const resetPassword = async (email: string) => {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
             redirectTo: `${window.location.origin}/giveaway`,
@@ -136,7 +161,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, resetPassword, verifyOtp, resendOtp, signOut }}>
+        <AuthContext.Provider value={{ user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, completeProfile, resetPassword, verifyOtp, resendOtp, signOut }}>
             {children}
         </AuthContext.Provider>
     );

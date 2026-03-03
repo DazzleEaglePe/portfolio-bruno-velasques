@@ -98,6 +98,10 @@ const translations = {
         "giveaway.modal.loginDivider": "o ingresa con email",
         "giveaway.modal.switchToLogin": "¿Ya tienes cuenta? Ingresar",
         "giveaway.modal.switchToRegister": "¿No tienes cuenta? Regístrate",
+        // Complete Profile
+        "giveaway.modal.completeTitle": "Completa tu postulación",
+        "giveaway.modal.completeDesc": "Faltan un par de datos sobre tu negocio para entrar al sorteo.",
+        "giveaway.modal.completeSubmit": "Completar Postulación",
         // Forgot Password
         "giveaway.modal.forgotPassword": "¿Olvidaste tu contraseña?",
         "giveaway.modal.forgotTitle": "Recuperar contraseña",
@@ -255,6 +259,10 @@ const translations = {
         "giveaway.modal.loginDivider": "or sign in with email",
         "giveaway.modal.switchToLogin": "Already have an account? Sign in",
         "giveaway.modal.switchToRegister": "Don't have an account? Sign up",
+        // Complete Profile
+        "giveaway.modal.completeTitle": "Complete your application",
+        "giveaway.modal.completeDesc": "Just a few more details about your business to enter the giveaway.",
+        "giveaway.modal.completeSubmit": "Submit Application",
         // Forgot Password
         "giveaway.modal.forgotPassword": "Forgot your password?",
         "giveaway.modal.forgotTitle": "Reset password",
