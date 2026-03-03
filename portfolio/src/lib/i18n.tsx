@@ -26,6 +26,8 @@ const translations = {
         "linkedin.cta": "Conectemos",
         // Experience
         "exp.title": "Experiencia",
+        "exp.employment": "Experiencia Profesional",
+        "exp.freelance": "Proyectos Freelance",
         // Education
         "edu.title": "Formación",
         "cert.title": "Certificaciones",
@@ -178,6 +180,8 @@ const translations = {
         "about.scrum": "Scrum",
         "linkedin.cta": "Let's connect",
         "exp.title": "Experience",
+        "exp.employment": "Professional Experience",
+        "exp.freelance": "Freelance Projects",
         "edu.title": "Education",
         "cert.title": "Certifications",
         "stack.title": "Tech Stack",

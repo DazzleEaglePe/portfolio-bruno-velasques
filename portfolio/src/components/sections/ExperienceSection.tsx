@@ -14,37 +14,115 @@ export default function ExperienceSection() {
     const experiences = getExperiences(locale);
     const educationItems = getEducation(locale);
 
+    const employment = experiences.filter((e) => e.type === "employment");
+    const freelance = experiences.filter((e) => e.type === "freelance");
+
+    const renderExperienceCard = (exp: (typeof experiences)[0], i: number, globalIdx: number) => (
+        <AccordionItem
+            key={exp.company}
+            value={`item-${globalIdx}`}
+            className="border border-border rounded-lg px-4"
+        >
+            <AccordionTrigger className="hover:no-underline py-3 text-left">
+                <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-base" aria-hidden="true">{exp.icon}</span>
+                        <h4 className="text-sm font-semibold">{exp.company}</h4>
+                        <Badge variant="outline" className="text-[10px] font-mono">{exp.period}</Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-0.5">{exp.role}</p>
+                    <Badge variant="secondary" className="text-[10px] font-mono mt-1.5 font-normal">
+                        {exp.industry}
+                    </Badge>
+                </div>
+            </AccordionTrigger>
+            <AccordionContent className="pb-4 pt-0 space-y-3">
+                {/* Company Description */}
+                <p className="text-[13px] text-muted-foreground/80 leading-relaxed">
+                    {exp.description}
+                </p>
+
+                <Separator />
+
+                {/* Achievements */}
+                <ul className="space-y-1.5">
+                    {exp.achievements.map((ach, j) => (
+                        <li key={j} className="flex gap-2 text-[13px] text-muted-foreground">
+                            <span className="text-foreground/30 shrink-0">→</span>
+                            <span>{ach}</span>
+                        </li>
+                    ))}
+                </ul>
+
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                    {exp.stack.map((tech) => (
+                        <Badge
+                            key={tech}
+                            variant="outline"
+                            className="text-[10px] font-mono font-normal px-2 py-0.5 bg-secondary/50"
+                        >
+                            {tech}
+                        </Badge>
+                    ))}
+                </div>
+            </AccordionContent>
+        </AccordionItem>
+    );
+
     return (
         <section id="experience" className="grid md:grid-cols-3 gap-4">
             <motion.div {...fadeUp} className="md:col-span-2">
                 <Card className="h-full">
-                    <CardContent className="p-6">
-                        <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-5">{t("exp.title")}</h3>
-                        <Accordion type="single" collapsible defaultValue="item-0" className="space-y-2">
-                            {experiences.map((exp, i) => (
-                                <AccordionItem key={exp.company} value={`item-${i}`} className="border border-border rounded-lg px-4">
-                                    <AccordionTrigger className="hover:no-underline py-3 text-left">
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-2 flex-wrap">
-                                                <h4 className="text-sm font-semibold">{exp.company}</h4>
-                                                <Badge variant="outline" className="text-[10px] font-mono">{exp.period}</Badge>
-                                            </div>
-                                            <p className="text-xs text-muted-foreground mt-0.5">{exp.role}</p>
-                                        </div>
-                                    </AccordionTrigger>
-                                    <AccordionContent className="pb-3 pt-0">
-                                        <ul className="space-y-1.5">
-                                            {exp.achievements.map((ach, j) => (
-                                                <li key={j} className="flex gap-2 text-[13px] text-muted-foreground">
-                                                    <span className="text-foreground/30 shrink-0">—</span>
-                                                    <span>{ach}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </AccordionContent>
-                                </AccordionItem>
-                            ))}
-                        </Accordion>
+                    <CardContent className="p-6 space-y-6">
+                        <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
+                            {t("exp.title")}
+                        </h3>
+
+                        {/* Employment Section */}
+                        {employment.length > 0 && (
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2">
+                                    <div className="h-px flex-1 bg-border" />
+                                    <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
+                                        {t("exp.employment")}
+                                    </span>
+                                    <div className="h-px flex-1 bg-border" />
+                                </div>
+                                <Accordion
+                                    type="single"
+                                    collapsible
+                                    defaultValue="item-0"
+                                    className="space-y-2"
+                                >
+                                    {employment.map((exp, i) =>
+                                        renderExperienceCard(exp, i, i)
+                                    )}
+                                </Accordion>
+                            </div>
+                        )}
+
+                        {/* Freelance Section */}
+                        {freelance.length > 0 && (
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2">
+                                    <div className="h-px flex-1 bg-border" />
+                                    <span className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-wider shrink-0">
+                                        {t("exp.freelance")}
+                                    </span>
+                                    <div className="h-px flex-1 bg-border" />
+                                </div>
+                                <Accordion
+                                    type="single"
+                                    collapsible
+                                    className="space-y-2"
+                                >
+                                    {freelance.map((exp, i) =>
+                                        renderExperienceCard(exp, i, employment.length + i)
+                                    )}
+                                </Accordion>
+                            </div>
+                        )}
                     </CardContent>
                 </Card>
             </motion.div>

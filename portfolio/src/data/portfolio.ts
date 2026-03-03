@@ -20,6 +20,10 @@ interface Experience {
   description: string;
   achievements: string[];
   color: string;
+  type: "employment" | "freelance";
+  industry: string;
+  stack: string[];
+  icon: string;
 }
 
 interface Project {
@@ -78,37 +82,49 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       role: "Software Developer",
       period: "Mayo 2025 – Actualidad",
       description:
-        "Institución microfinanciera líder en el sur del Perú con más de 35 años de trayectoria.",
+        "Institución microfinanciera líder en el sur del Perú con más de 35 años de trayectoria, enfocada en la inclusión financiera y modernización tecnológica.",
       achievements: [
         "Diseñé e implementé el primer módulo de seguros digitales integrando La Positiva en el Homebanking → +10K clientes",
         "Lideré la migración e integración del producto Plazo Fijo a App Android, iOS y Homebanking → +50 afiliaciones en el primer mes",
       ],
       color: "accent",
+      type: "employment",
+      industry: "Fintech · Microfinanzas",
+      stack: ["Java", "Spring Boot", "Angular", "React", "TypeScript", "SQL Server", "Microservicios"],
+      icon: "🏦",
     },
     {
       company: "ECA - Estudio Contable Alvarez",
       role: "Desarrollador Full Stack · Consultor IT",
       period: "Junio 2025 – Actualidad",
       description:
-        "Estudio contable con más de 1,000 comercios atendidos.",
+        "Estudio contable con más de 1,000 comercios atendidos, especializado en soluciones contables, financieras y tributarias.",
       achievements: [
         "Desarrollé un sistema de atención automatizada con chatbot IA → automatización del 90%",
         "Centralicé el sistema contable CONCAR para 15 usuarios simultáneos → reducción del 40-50% en costos operativos",
       ],
       color: "accent-indigo",
+      type: "freelance",
+      industry: "Contabilidad · Finanzas",
+      stack: ["Node.js", "n8n", "WhatsApp API", "Meta API", "SQL Server"],
+      icon: "📊",
     },
     {
       company: "Tecsam Consulting",
       role: "Community Manager · UX/UI · Web Dev",
       period: "Enero 2025 – Abril 2025",
       description:
-        "Consultora especializada en Seguridad y Salud en el Trabajo.",
+        "Consultora especializada en Seguridad y Salud en el Trabajo (SST), Salud Ocupacional y Medio Ambiente.",
       achievements: [
         "Rediseñé y optimicé el sitio web corporativo → +45% tiempo de permanencia",
         "Gestioné redes sociales corporativas → +60% en engagement en 3 meses",
         "Desarrollé contenido audiovisual (reels) → +10K visualizaciones orgánicas",
       ],
       color: "accent-emerald",
+      type: "freelance",
+      industry: "Seguridad y Salud en el Trabajo",
+      stack: ["Angular", "Tailwind CSS", "Figma", "Google Ads", "Meta Ads"],
+      icon: "🏢",
     },
     {
       company: "ETP - Escuelas Técnicas del Perú",
@@ -119,6 +135,10 @@ const experiencesI18n: Record<Locale, Experience[]> = {
         "Rediseñé la Home Page y lideré la creación del aula virtual completa (cursos, cronogramas, calificaciones, certificados)",
       ],
       color: "accent-rose",
+      type: "freelance",
+      industry: "Educación Técnica",
+      stack: ["Angular", "Tailwind CSS", "Figma", "JavaScript"],
+      icon: "🎓",
     },
   ],
   en: [
@@ -127,37 +147,49 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       role: "Software Developer",
       period: "May 2025 – Present",
       description:
-        "Leading microfinance institution in southern Peru with over 35 years of trajectory.",
+        "Leading microfinance institution in southern Peru with over 35 years of trajectory, focused on financial inclusion and technological modernization.",
       achievements: [
         "Designed and implemented the first digital insurance module integrating La Positiva into Homebanking → +10K clients",
         "Led the migration and integration of Fixed-Term Deposits to Android, iOS, and Homebanking → +50 sign-ups in the first month",
       ],
       color: "accent",
+      type: "employment",
+      industry: "Fintech · Microfinance",
+      stack: ["Java", "Spring Boot", "Angular", "React", "TypeScript", "SQL Server", "Microservices"],
+      icon: "🏦",
     },
     {
       company: "ECA - Alvarez Accounting Firm",
       role: "Full Stack Developer · IT Consultant",
       period: "June 2025 – Present",
       description:
-        "Accounting firm serving over 1,000 businesses.",
+        "Accounting firm serving over 1,000 businesses, specialized in accounting, financial, and tax solutions.",
       achievements: [
         "Developed an automated customer service system using AI chatbot → 90% automation",
         "Centralized the CONCAR accounting system for 15 concurrent users → 40-50% reduction in operational costs",
       ],
       color: "accent-indigo",
+      type: "freelance",
+      industry: "Accounting · Finance",
+      stack: ["Node.js", "n8n", "WhatsApp API", "Meta API", "SQL Server"],
+      icon: "📊",
     },
     {
       company: "Tecsam Consulting",
       role: "Community Manager · UX/UI · Web Dev",
       period: "January 2025 – April 2025",
       description:
-        "Consulting firm specialized in Occupational Health & Safety.",
+        "Consulting firm specialized in Occupational Health & Safety (OHS) and Environmental Management.",
       achievements: [
         "Redesigned and optimized corporate website → +45% session duration",
         "Managed corporate social media → +60% engagement in 3 months",
         "Developed audiovisual content (reels) → +10K organic views",
       ],
       color: "accent-emerald",
+      type: "freelance",
+      industry: "Occupational Health & Safety",
+      stack: ["Angular", "Tailwind CSS", "Figma", "Google Ads", "Meta Ads"],
+      icon: "🏢",
     },
     {
       company: "ETP - Technical Schools of Peru",
@@ -168,6 +200,10 @@ const experiencesI18n: Record<Locale, Experience[]> = {
         "Redesigned the Home Page and led the complete creation of the virtual classroom (courses, schedules, grades, certificates)",
       ],
       color: "accent-rose",
+      type: "freelance",
+      industry: "Technical Education",
+      stack: ["Angular", "Tailwind CSS", "Figma", "JavaScript"],
+      icon: "🎓",
     },
   ],
 };
