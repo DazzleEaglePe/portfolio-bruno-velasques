@@ -54,7 +54,13 @@ function useParticipantCount() {
         // to only the user's own rows, breaking global count queries.
         supabase
             .rpc("get_participant_count")
-            .then(({ data }) => setCount(Number(data) || 0));
+            .then(({ data, error }) => {
+                console.log("[DEBUG] RPC get_participant_count response:", { data, error });
+                if (error) {
+                    console.error("[DEBUG] Error fetching participant count:", error);
+                }
+                setCount(Number(data) || 0);
+            });
     }, []);
 
     return count;
