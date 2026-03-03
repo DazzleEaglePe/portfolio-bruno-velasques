@@ -158,9 +158,7 @@ export default function GiveawaySection() {
             .eq("user_id", user.id)
             .maybeSingle()
             .then(({ data, error }) => {
-                if (error) {
-                    console.error("Error fetching entry:", error);
-                }
+                if (error) return;
                 if (data) {
                     setHasEntry(true);
                     // Get correct global position using RPC instead of restricted table select

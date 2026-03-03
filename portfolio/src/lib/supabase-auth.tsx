@@ -122,7 +122,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             });
 
         if (insertError) {
-            console.error("completeProfile error:", insertError.message);
             return { error: insertError.message };
         }
 
