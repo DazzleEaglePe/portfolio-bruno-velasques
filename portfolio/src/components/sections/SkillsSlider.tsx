@@ -112,20 +112,20 @@ export default function SkillsSlider() {
                         <div className={`relative h-full rounded-3xl p-[1px] bg-border/50 dark:bg-white/5 group-hover:bg-gradient-to-br ${card.gradient.hoverClasses} transition-all duration-500`}>
 
                             {/* Inner Card Background & Content */}
-                            <div className="relative z-10 p-6 flex flex-col h-full bg-card hover:bg-card/95 backdrop-blur-xl border-none rounded-[23px] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                            <div className="relative z-10 p-7 md:p-8 flex flex-col h-full bg-card hover:bg-card/95 backdrop-blur-xl border-none rounded-[23px] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
 
-                                <div className="mb-5 h-12 flex items-center">{card.icon}</div>
+                                <div className="mb-4 h-12 flex items-center">{card.icon}</div>
 
                                 <h4 className="text-xl sm:text-2xl font-semibold mb-2 tracking-tight text-foreground">
                                     {t(card.titleKey)}
                                 </h4>
 
-                                <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-5">
+                                <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-6">
                                     {t(card.descKey)}
                                 </p>
 
                                 {/* Tech Icons Row */}
-                                <div className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-border/20">
+                                <div className="mt-auto flex flex-wrap gap-2.5 pt-5 border-t border-border/20">
                                     {card.techs.map((tech) => (
                                         <div
                                             key={tech.name}
