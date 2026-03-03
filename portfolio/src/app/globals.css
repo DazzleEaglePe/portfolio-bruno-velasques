@@ -298,3 +298,26 @@ div[data-pin-spacer]:has(> #stack) {
 .driver-popover-prev-btn:hover {
   background-color: var(--muted) !important;
 }
+
+/* ═══ SUBTLE SCROLLBAR ═══ */
+.scrollbar-subtle {
+  scrollbar-width: none;          /* Firefox: hide by default */
+}
+.scrollbar-subtle::-webkit-scrollbar {
+  width: 3px;
+}
+.scrollbar-subtle::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-subtle::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  transition: background 0.3s;
+}
+.scrollbar-subtle:hover {
+  scrollbar-width: thin;          /* Firefox: show on hover */
+  scrollbar-color: hsl(var(--border) / 0.4) transparent;
+}
+.scrollbar-subtle:hover::-webkit-scrollbar-thumb {
+  background: hsl(var(--border) / 0.4);
+}

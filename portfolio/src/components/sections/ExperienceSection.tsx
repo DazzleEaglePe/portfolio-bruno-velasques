@@ -100,14 +100,8 @@ export default function ExperienceSection() {
     return (
         <section id="experience" className="grid md:grid-cols-3 gap-4">
             <motion.div {...fadeUp} className="md:col-span-2">
-                <Card className="relative">
-                    <div
-                        className="max-h-[600px] overflow-y-auto"
-                        style={{
-                            scrollbarWidth: "thin",
-                            scrollbarColor: "hsl(var(--border)) transparent",
-                        }}
-                    >
+                <Card className="relative overflow-hidden">
+                    <div className="max-h-[480px] overflow-y-auto scrollbar-subtle">
                         <CardContent className="p-6 space-y-6">
                             <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
                                 {t("exp.title")}
