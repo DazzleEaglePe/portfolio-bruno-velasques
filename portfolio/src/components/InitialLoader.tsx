@@ -19,6 +19,38 @@ const loadingMessages = {
     ],
 };
 
+// ─── Cycling Language Heading ────────────────────────────────────────
+const langLabels = [
+    <><span className="font-light">Elige tu </span><span className="font-semibold text-white">idioma</span></>,
+    <><span className="font-light">Choose your </span><span className="font-semibold text-white">language</span></>,
+];
+
+function LanguageHeading() {
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const id = setInterval(() => setIndex((prev) => (prev + 1) % langLabels.length), 2000);
+        return () => clearInterval(id);
+    }, []);
+
+    return (
+        <div className="h-8 relative overflow-hidden">
+            <AnimatePresence mode="wait">
+                <motion.p
+                    key={index}
+                    className="text-xl md:text-2xl text-zinc-400 font-light tracking-tight text-center absolute inset-0"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                >
+                    {langLabels[index]}
+                </motion.p>
+            </AnimatePresence>
+        </div>
+    );
+}
+
 type Step = "lang" | "messages";
 
 export default function InitialLoader() {
@@ -164,10 +196,7 @@ export default function InitialLoader() {
                                     exit={{ opacity: 0, y: -14, filter: "blur(8px)" }}
                                     transition={{ duration: 0.5, ease: "easeOut" }}
                                 >
-                                    <p className="text-xl md:text-2xl text-zinc-400 font-light tracking-tight text-center">
-                                        <span className="font-light">Elige tu </span>
-                                        <span className="font-semibold text-white">idioma</span>
-                                    </p>
+                                    <LanguageHeading />
 
                                     <div className="flex gap-6">
                                         {/* Español */}
