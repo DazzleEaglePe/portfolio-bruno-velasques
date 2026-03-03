@@ -105,16 +105,6 @@ export default function SkillsSlider() {
                         transition={{ duration: 0.35, delay: cardIdx * 0.08 }}
                         className={`relative group z-10 hover:z-50 ${card.span}`}
                     >
-                        {/* Tech Bubbles Overlay */}
-                        <div className="absolute inset-0 p-6 pointer-events-none z-40 flex flex-wrap items-center justify-center content-center gap-3 overflow-visible">
-                            {card.techs.map((tech, idx) => (
-                                <div key={tech.name} className="group/tech relative pointer-events-auto w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-border/20 dark:border-white/10 flex items-center justify-center shadow-xl opacity-0 translate-y-8 group-hover:translate-y-0 group-hover:opacity-100 hover:!scale-125 transition-all duration-500" style={{ transitionDelay: `${idx * 50}ms` }}>
-                                    {techIcons[tech.name] ? <span className="w-5 h-5 text-foreground [&>svg]:w-full [&>svg]:h-full backdrop-blur-sm" dangerouslySetInnerHTML={{ __html: techIcons[tech.name] }} /> : <span className="text-xs text-foreground font-medium">{tech.name[0]}</span>}
-                                    <span className="absolute -top-10 px-2 py-1 bg-white dark:bg-zinc-900 text-foreground text-xs font-medium rounded opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap border border-border/10 dark:border-white/10 shadow-2xl z-50">{tech.name}</span>
-                                </div>
-                            ))}
-                        </div>
-
                         {/* Outer Glow / Blur */}
                         <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient.staticClasses} rounded-3xl blur-xl opacity-0 group-hover:opacity-15 dark:group-hover:opacity-20 transition-opacity duration-500`} />
 
@@ -124,17 +114,31 @@ export default function SkillsSlider() {
                             {/* Inner Card Background & Content */}
                             <div className="relative z-10 p-6 flex flex-col h-full bg-card hover:bg-card/95 backdrop-blur-xl border-none rounded-[23px] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
 
-                                {/* Content Wrapper layer for blur effect */}
-                                <div className="flex flex-col h-full min-h-[220px] group-hover:blur-[3px] group-hover:opacity-30 transition-all duration-500">
-                                    <div className="mb-5 h-12 flex items-center z-10">{card.icon}</div>
+                                <div className="mb-5 h-12 flex items-center">{card.icon}</div>
 
-                                    <h4 className="text-xl sm:text-2xl font-semibold mb-3 tracking-tight text-foreground transition-colors duration-300 z-10">
-                                        {t(card.titleKey)}
-                                    </h4>
+                                <h4 className="text-xl sm:text-2xl font-semibold mb-2 tracking-tight text-foreground">
+                                    {t(card.titleKey)}
+                                </h4>
 
-                                    <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed group-hover:text-foreground/90 transition-colors duration-300 z-10">
-                                        {t(card.descKey)}
-                                    </p>
+                                <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-5">
+                                    {t(card.descKey)}
+                                </p>
+
+                                {/* Tech Icons Row */}
+                                <div className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-border/20">
+                                    {card.techs.map((tech) => (
+                                        <div
+                                            key={tech.name}
+                                            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 border border-border/20 hover:border-border/50 hover:bg-secondary transition-all duration-300"
+                                        >
+                                            {techIcons[tech.name] ? (
+                                                <span className="w-4 h-4 text-foreground [&>svg]:w-full [&>svg]:h-full" dangerouslySetInnerHTML={{ __html: techIcons[tech.name] }} />
+                                            ) : (
+                                                <span className="w-4 h-4 rounded-full bg-muted-foreground/20 flex items-center justify-center text-[9px] font-bold text-muted-foreground">{tech.name[0]}</span>
+                                            )}
+                                            <span className="text-xs text-muted-foreground font-medium">{tech.name}</span>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
