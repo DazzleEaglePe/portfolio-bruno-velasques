@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { techStack } from "@/data/portfolio";
 import { techIcons } from "@/data/icons";
 import { useI18n } from "@/lib/i18n";
@@ -8,6 +9,24 @@ import { fadeUp } from "@/lib/animations";
 
 export default function SkillsSlider() {
     const { t } = useI18n();
+
+    // Testimonial State (used for the integrated stats card)
+    const [activeIndex, setActiveIndex] = useState(1);
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const totalTestimonials = 3;
+
+    useEffect(() => {
+        if (!isAutoPlaying) return;
+        const interval = setInterval(() => {
+            setActiveIndex((prev) => (prev % totalTestimonials) + 1);
+        }, 7000); // 7s per comment
+        return () => clearInterval(interval);
+    }, [isAutoPlaying]);
+
+    const handleSetIndex = (idx: number) => {
+        setIsAutoPlaying(false);
+        setActiveIndex(idx);
+    };
 
     const backendTechs = [...techStack["Backend"], ...(techStack["Lenguajes"].filter(t => t.name === "Java" || t.name === "Python" || t.name === "Go"))];
     const cloudTechs = [...techStack["Cloud & DevOps"]];
@@ -83,7 +102,7 @@ export default function SkillsSlider() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
                 </svg>
             ),
-            span: "md:col-span-3",
+            span: "md:col-span-2",
         },
     ];
 
@@ -102,26 +121,95 @@ export default function SkillsSlider() {
             {/* Bento Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
                 {cards.map((card, cardIdx) => {
-                    // After the 2nd card (Cloud, index 3), insert the stats card
-                    const isStatsPosition = cardIdx === 3;
+                    // After the 1st card (Frontend, wide), insert the integrated Testimonial card covering col 3
+                    const isStatsPosition = cardIdx === 1;
                     return (
                         <>
                             {isStatsPosition && (
                                 <motion.div
-                                    key="stats-highlight"
+                                    key="integrated-testimonial"
                                     {...fadeUp}
-                                    transition={{ duration: 0.35, delay: 3 * 0.08 }}
-                                    className="relative group z-10 hover:z-50 md:col-span-1"
+                                    transition={{ duration: 0.35, delay: 1 * 0.08 }}
+                                    className="relative group z-10 hover:z-50 md:col-span-1 md:row-span-2"
                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 via-teal-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-15 dark:group-hover:opacity-20 transition-opacity duration-500" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-teal-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                                     <div className="relative h-full rounded-3xl p-[1px] bg-border/50 dark:bg-white/5 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:via-teal-500 transition-all duration-500">
-                                        <div className="relative z-10 p-7 md:p-8 flex flex-col items-center justify-center h-full bg-card hover:bg-card/95 backdrop-blur-xl border-none rounded-[23px] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden text-center min-h-[220px]">
-                                            <span className="text-6xl md:text-7xl font-bold tracking-tight bg-gradient-to-br from-emerald-400 to-teal-500 bg-clip-text text-transparent leading-none">
-                                                {t("testimonial.count")}
-                                            </span>
-                                            <h4 className="text-lg md:text-xl font-semibold text-foreground mt-3 whitespace-pre-line leading-tight">
-                                                {t("testimonial.heading")}
-                                            </h4>
+                                        <div className="relative z-10 p-7 md:p-8 flex flex-col h-full bg-card hover:bg-card/95 backdrop-blur-xl border-none rounded-[23px] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden justify-between min-h-[460px]">
+
+                                            {/* Top: Stats & Title */}
+                                            <div>
+                                                <span className="text-6xl md:text-7xl font-bold tracking-tight text-foreground dark:text-white leading-none">
+                                                    {t("testimonial.count")}
+                                                </span>
+                                                <h4 className="text-lg md:text-xl font-semibold text-foreground mt-2 whitespace-pre-line leading-tight">
+                                                    {t("testimonial.heading")}
+                                                </h4>
+                                            </div>
+
+                                            {/* Middle: Rotating Quote */}
+                                            <div className="flex-1 flex flex-col justify-center py-6 mt-4 border-t border-border/20">
+                                                <AnimatePresence mode="wait">
+                                                    <motion.div
+                                                        key={activeIndex}
+                                                        initial={{ opacity: 0, x: 10, filter: "blur(4px)" }}
+                                                        animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                                                        exit={{ opacity: 0, x: -10, filter: "blur(4px)" }}
+                                                        transition={{ duration: 0.4, ease: "easeOut" }}
+                                                    >
+                                                        <p className="text-sm md:text-base text-foreground/90 dark:text-zinc-300 leading-relaxed font-light italic">
+                                                            &ldquo;{/* @ts-ignore */}{t(`testimonial.${activeIndex}.quote` as any)}&rdquo;
+                                                        </p>
+                                                    </motion.div>
+                                                </AnimatePresence>
+                                            </div>
+
+                                            {/* Bottom: Avatars, Reviewer & Navigation */}
+                                            <div className="flex flex-col gap-4 mt-auto">
+                                                <div className="flex items-center gap-3">
+                                                    {/* Avatar Group */}
+                                                    <div className="flex -space-x-3 shrink-0">
+                                                        <img src="https://i.pravatar.cc/100?img=11" alt="Avatar" className="w-8 h-8 rounded-full border-2 border-card object-cover" />
+                                                        <img src="https://i.pravatar.cc/100?img=47" alt="Avatar" className="w-8 h-8 rounded-full border-2 border-card object-cover" />
+                                                        <img src="https://i.pravatar.cc/100?img=12" alt="Avatar" className="w-8 h-8 rounded-full border-2 border-card object-cover" />
+                                                    </div>
+
+                                                    <div className="flex flex-col overflow-hidden min-w-0">
+                                                        <div className="flex items-center gap-0.5">
+                                                            {[1, 2, 3, 4, 5].map((s) => (
+                                                                <svg key={s} className="w-3 h-3 text-emerald-500 dark:text-emerald-400 fill-emerald-500 dark:fill-emerald-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                                                                </svg>
+                                                            ))}
+                                                        </div>
+                                                        <AnimatePresence mode="wait">
+                                                            <motion.span
+                                                                key={activeIndex}
+                                                                initial={{ opacity: 0, y: 5 }}
+                                                                animate={{ opacity: 1, y: 0 }}
+                                                                exit={{ opacity: 0, y: -5 }}
+                                                                transition={{ duration: 0.3 }}
+                                                                className="text-[10px] text-muted-foreground dark:text-zinc-400 font-mono tracking-tight block truncate"
+                                                            >
+                                                                {/* @ts-ignore */}
+                                                                {t(`testimonial.${activeIndex}.reviewer` as any)}
+                                                            </motion.span>
+                                                        </AnimatePresence>
+                                                    </div>
+                                                </div>
+
+                                                {/* Navigation Dots */}
+                                                <div className="flex items-center gap-2 pt-4 border-t border-border/10 justify-center">
+                                                    {[1, 2, 3].map((idx) => (
+                                                        <button
+                                                            key={idx}
+                                                            onClick={() => handleSetIndex(idx)}
+                                                            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeIndex === idx ? "w-6 bg-emerald-500" : "w-1.5 bg-foreground/20 dark:bg-white/20 hover:bg-foreground/40 dark:hover:bg-white/40"
+                                                                }`}
+                                                            aria-label={`Testimonial ${idx}`}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>
