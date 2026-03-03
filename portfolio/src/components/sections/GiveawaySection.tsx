@@ -50,10 +50,11 @@ function useParticipantCount() {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
+        // We use an RPC call because RLS policies restrict the table select
+        // to only the user's own rows, breaking global count queries.
         supabase
-            .from("giveaway_entries")
-            .select("*", { count: "exact", head: true })
-            .then(({ count: c }) => setCount(c ?? 0));
+            .rpc("get_participant_count")
+            .then(({ data }) => setCount(Number(data) || 0));
     }, []);
 
     return count;
@@ -127,8 +128,12 @@ export default function GiveawaySection() {
             .from("giveaway_entries")
             .select("id")
             .eq("user_id", user.id)
-            .single()
-            .then(({ data }) => {
+            .maybeSingle()
+            .then(({ data, error }) => {
+                if (error) {
+                    console.error("Error fetching entry:", error);
+                    return;
+                }
                 if (data) {
                     supabase
                         .from("giveaway_entries")
