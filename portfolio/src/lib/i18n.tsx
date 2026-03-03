@@ -107,10 +107,10 @@ const translations = {
         "giveaway.modal.forgotBack": "Volver al inicio de sesión",
         // OTP Verification
         "giveaway.modal.otpTitle": "Verifica tu correo",
-        "giveaway.modal.otpDesc": "Ingresa el código de 6 dígitos que enviamos a tu correo electrónico.",
+        "giveaway.modal.otpDesc": "Ingresa el código de 8 dígitos que enviamos a tu correo electrónico.",
         "giveaway.modal.otpSubmit": "Verificar",
         "giveaway.modal.otpResend": "¿No recibiste el código? Reenviar",
-        "giveaway.modal.otpPlaceholder": "000000",
+        "giveaway.modal.otpPlaceholder": "00000000",
         // Confetti Success
         "giveaway.modal.confettiTitle": "🎉 ¡Felicidades!",
         "giveaway.modal.confettiDesc": "Tu postulación ha sido registrada exitosamente. ¡Mucha suerte en el sorteo!",
@@ -264,10 +264,10 @@ const translations = {
         "giveaway.modal.forgotBack": "Back to sign in",
         // OTP Verification
         "giveaway.modal.otpTitle": "Verify your email",
-        "giveaway.modal.otpDesc": "Enter the 6-digit code we sent to your email address.",
+        "giveaway.modal.otpDesc": "Enter the 8-digit code we sent to your email address.",
         "giveaway.modal.otpSubmit": "Verify",
         "giveaway.modal.otpResend": "Didn't receive the code? Resend",
-        "giveaway.modal.otpPlaceholder": "000000",
+        "giveaway.modal.otpPlaceholder": "00000000",
         // Confetti Success
         "giveaway.modal.confettiTitle": "🎉 Congratulations!",
         "giveaway.modal.confettiDesc": "Your application has been registered successfully. Good luck in the giveaway!",

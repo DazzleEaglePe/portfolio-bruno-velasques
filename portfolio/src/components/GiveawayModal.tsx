@@ -305,9 +305,9 @@ export default function GiveawayModal({ open, onOpenChange }: GiveawayModalProps
                         <input
                             type="text"
                             required
-                            maxLength={6}
+                            maxLength={8}
                             value={otpCode}
-                            onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                            onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
                             placeholder={t("giveaway.modal.otpPlaceholder")}
                             className="w-full h-14 px-4 rounded-xl bg-secondary/50 border border-border/50 text-2xl font-mono text-center text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40 transition-all tracking-[0.5em]"
                         />
@@ -317,7 +317,7 @@ export default function GiveawayModal({ open, onOpenChange }: GiveawayModalProps
 
                         <Button
                             type="submit"
-                            disabled={loading || otpCode.length < 6}
+                            disabled={loading || otpCode.length < 8}
                             className="w-full h-11 rounded-xl text-sm font-semibold shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-all"
                         >
                             {loading ? <Spinner /> : t("giveaway.modal.otpSubmit")}
