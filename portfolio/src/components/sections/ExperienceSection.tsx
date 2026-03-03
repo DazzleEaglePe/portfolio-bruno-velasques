@@ -139,15 +139,27 @@ export default function ExperienceSection() {
                                     </span>
                                     <div className="h-px flex-1 bg-border" />
                                 </div>
-                                <Accordion
-                                    type="single"
-                                    collapsible
-                                    className="space-y-2"
-                                >
-                                    {freelance.map((exp, i) =>
-                                        renderExperienceCard(exp, i, employment.length + i)
-                                    )}
-                                </Accordion>
+                                <div className="relative">
+                                    <div
+                                        className="max-h-[420px] overflow-y-auto pr-1"
+                                        style={{
+                                            scrollbarWidth: "thin",
+                                            scrollbarColor: "hsl(var(--border)) transparent",
+                                        }}
+                                    >
+                                        <Accordion
+                                            type="single"
+                                            collapsible
+                                            className="space-y-2"
+                                        >
+                                            {freelance.map((exp, i) =>
+                                                renderExperienceCard(exp, i, employment.length + i)
+                                            )}
+                                        </Accordion>
+                                    </div>
+                                    {/* Bottom fade gradient to hint scrollability */}
+                                    <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-card to-transparent" />
+                                </div>
                             </div>
                         )}
                     </CardContent>
