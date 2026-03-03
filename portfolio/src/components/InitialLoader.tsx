@@ -41,7 +41,7 @@ function LanguageHeading() {
     }, []);
 
     return (
-        <div className="relative h-9 flex items-center justify-center">
+        <div className="relative h-9 flex items-center justify-center gap-2">
             <AnimatePresence mode="wait">
                 <motion.span
                     key={`prefix-${index}`}
