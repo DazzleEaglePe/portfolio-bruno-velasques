@@ -109,7 +109,7 @@ export default function SkillsSlider() {
     return (
         <section
             id="stack"
-            className="scroll-mt-24 py-16 md:py-24"
+            className="scroll-mt-24"
         >
             {/* Section Header */}
             <motion.div {...fadeUp} className="text-center mb-12 md:mb-16">
