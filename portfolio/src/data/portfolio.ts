@@ -208,7 +208,7 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Sistema de atención al cliente mediante chatbot con IA. Automatización del 90% de consultas, derivación inteligente de leads.",
       tags: ["n8n", "WhatsApp API", "Chatwoot", "AI"],
-      link: "https://github.com/DazzleEaglePe",
+      link: "https://crm.ecabot.site/app/login",
       color: "accent-emerald",
     },
     {
