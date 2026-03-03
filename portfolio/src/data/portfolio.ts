@@ -140,6 +140,38 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       stack: ["Angular", "Tailwind CSS", "Figma", "JavaScript"],
       icon: "🎓",
     },
+    {
+      company: "DecData",
+      role: "Frontend Developer",
+      period: "2025",
+      description:
+        "Empresa de soluciones tecnológicas corporativas enfocada en la venta de hardware y software.",
+      achievements: [
+        "Desarrollé la plataforma E-Commerce B2B con arquitectura de 'Islas Interactivas' para SEO extremo y tiempos de carga instantáneos",
+        "Implementé carrito de compras persistente, buscador dinámico en tiempo real y UI/UX atómico",
+      ],
+      color: "accent-indigo",
+      type: "freelance",
+      industry: "E-Commerce · Tecnología",
+      stack: ["Astro", "React", "Tailwind CSS", "TypeScript", "Nanostores"],
+      icon: "🛒",
+    },
+    {
+      company: "Onco Oral",
+      role: "Frontend Developer · SEO",
+      period: "2025",
+      description:
+        "Clínica especializada en oncología oral y maxilofacial.",
+      achievements: [
+        "Desarrollé la landing page con Performance 98/100 en PageSpeed, imágenes AVIF/WebP y preloads dinámicos",
+        "Optimización SEO completa con posicionamiento orgánico en buscadores",
+      ],
+      color: "accent-rose",
+      type: "freelance",
+      industry: "Salud · Oncología",
+      stack: ["Astro", "Tailwind CSS", "Netlify", "SEO"],
+      icon: "🏥",
+    },
   ],
   en: [
     {
@@ -204,6 +236,38 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       industry: "Technical Education",
       stack: ["Angular", "Tailwind CSS", "Figma", "JavaScript"],
       icon: "🎓",
+    },
+    {
+      company: "DecData",
+      role: "Frontend Developer",
+      period: "2025",
+      description:
+        "Corporate technology solutions company focused on hardware and software sales.",
+      achievements: [
+        "Developed the B2B E-Commerce platform with 'Interactive Islands' architecture for extreme SEO and instant load times",
+        "Implemented persistent shopping cart, real-time dynamic search, and atomic UI/UX",
+      ],
+      color: "accent-indigo",
+      type: "freelance",
+      industry: "E-Commerce · Technology",
+      stack: ["Astro", "React", "Tailwind CSS", "TypeScript", "Nanostores"],
+      icon: "🛒",
+    },
+    {
+      company: "Onco Oral",
+      role: "Frontend Developer · SEO",
+      period: "2025",
+      description:
+        "Clinic specialized in oral and maxillofacial oncology.",
+      achievements: [
+        "Developed the landing page with PageSpeed Performance 98/100, AVIF/WebP images, and dynamic preloads",
+        "Complete SEO optimization with organic search engine positioning",
+      ],
+      color: "accent-rose",
+      type: "freelance",
+      industry: "Healthcare · Oncology",
+      stack: ["Astro", "Tailwind CSS", "Netlify", "SEO"],
+      icon: "🏥",
     },
   ],
 };

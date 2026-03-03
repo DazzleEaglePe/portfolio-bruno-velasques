@@ -16,6 +16,8 @@ const emojiToCodepoint: Record<string, string> = {
     "📊": "1f4ca",
     "🏢": "1f3e2",
     "🎓": "1f393",
+    "🛒": "1f6d2",
+    "🏥": "1f3e5",
 };
 
 function AppleEmoji({ emoji, size = 18 }: { emoji: string; size?: number }) {
