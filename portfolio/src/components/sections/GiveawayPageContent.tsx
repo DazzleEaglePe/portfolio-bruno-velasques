@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 import GiveawaySection from "@/components/sections/GiveawaySection";
+import ContactSection from "@/components/sections/ContactSection";
 import Link from "next/link";
 
 export default function GiveawayPageContent() {

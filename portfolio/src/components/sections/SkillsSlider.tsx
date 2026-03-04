@@ -240,10 +240,11 @@ export default function SkillsSlider() {
                                         </p>
 
                                         {/* Tech Icons Row */}
-                                        <div className="mt-auto flex flex-wrap gap-2.5 pt-5 border-t border-border/20">
+                                        <div className="mt-auto flex flex-wrap gap-2.5 pt-5 border-t border-border/20" suppressHydrationWarning>
                                             {card.techs.map((tech) => (
                                                 <div
                                                     key={tech.name}
+                                                    suppressHydrationWarning
                                                     className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 border border-border/20 hover:border-border/50 hover:bg-secondary transition-all duration-300"
                                                 >
                                                     {techIcons[tech.name] ? (

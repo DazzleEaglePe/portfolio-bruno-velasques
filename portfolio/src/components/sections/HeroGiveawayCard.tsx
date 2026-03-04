@@ -114,7 +114,7 @@ export default function HeroGiveawayCard() {
                 </div>
 
                 {/* Main Content Area */}
-                <div className="relative z-10 flex flex-col gap-6 mt-8">
+                <div className="relative z-10 flex flex-col gap-3 mt-8">
                     <h3 className="text-white text-3xl sm:text-4xl lg:text-5xl font-medium leading-tight tracking-tight">
                         {t("giveaway.headline1")} <br />
                         <span className="font-bold">{t("giveaway.hashtag")}</span> <br />
@@ -147,7 +147,7 @@ export default function HeroGiveawayCard() {
                             {t("giveaway.label")}
                         </span>
                         <span className="text-white text-sm font-light">
-                            {t("giveaway.tagline1")} <span className="font-bold underline decoration-blue-500 underline-offset-4 decoration-2">Bruno</span>,<br />
+                            {t("giveaway.tagline1")} <span className="font-bold underline decoration-blue-500 underline-offset-4 decoration-2">{t("giveaway.taglineName")}</span>,<br />
                             {t("giveaway.tagline2")} <span className="font-bold">{t("giveaway.tagline3")}</span>
                         </span>
                     </div>
