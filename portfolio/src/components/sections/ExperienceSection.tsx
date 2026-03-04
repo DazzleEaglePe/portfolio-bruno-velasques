@@ -98,7 +98,7 @@ export default function ExperienceSection() {
     );
 
     return (
-        <section id="experience" className="grid md:grid-cols-3 gap-4">
+        <section id="experience" className="grid md:grid-cols-3 gap-4 scroll-m-24">
             <motion.div {...fadeUp} className="md:col-span-2">
                 <Card>
                     <CardContent className="p-6 space-y-4">

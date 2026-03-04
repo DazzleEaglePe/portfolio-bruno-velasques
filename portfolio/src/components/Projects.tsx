@@ -1,139 +1,187 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { getProjects } from "@/data/portfolio";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useI18n } from "@/lib/i18n";
 import { SectionHeader } from "@/components/ui/section-header";
-
-/* Determine the CTA label based on link type */
-function getLinkLabel(link: string | undefined, t: any): string {
-    if (!link) return t("projects.private");
-    if (link.includes("github.com")) return t("projects.viewGithub");
-    return t("projects.visitSite");
-}
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Projects() {
     const { t, locale } = useI18n();
     const projects = getProjects(locale);
 
+    // Track hovered project index
+    const [hoveredIndex, setHoveredIndex] = useState<number>(-1);
+
+    // Track mouse position globally for the floating image
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    // Smooth physics for the mouse follow
+    const springX = useSpring(mouseX, { stiffness: 150, damping: 20, mass: 0.5 });
+    const springY = useSpring(mouseY, { stiffness: 150, damping: 20, mass: 0.5 });
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            mouseX.set(e.clientX);
+            mouseY.set(e.clientY);
+        };
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, [mouseX, mouseY]);
+
     return (
-        <section id="projects" className="py-24 relative w-full">
-            <div className="container max-w-5xl mx-auto px-4 sm:px-6 relative">
+        <section id="projects" className="py-24 relative w-full overflow-hidden scroll-m-24">
+            <div className="container max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
                 <SectionHeader label={t("projects.title")} />
 
-                <div className="mt-16 md:mt-24 flex flex-col gap-6 md:gap-16 pb-24 relative z-10 w-full mx-auto">
+                <div className="mt-16 md:mt-24 border-t border-border/40">
                     {projects.map((project, i) => {
                         const isPublic = !!project.link;
 
                         return (
-                            <motion.div
+                            <div
                                 key={project.title}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-                                transition={{ duration: 0.5 }}
-                                className="sticky w-full"
-                                style={{
-                                    // 12vh base + 30px offset per card to show the "stack" behind it
-                                    top: `calc(12vh + ${i * 30}px)`,
-                                }}
+                                onMouseEnter={() => setHoveredIndex(i)}
+                                onMouseLeave={() => setHoveredIndex(-1)}
+                                className={`group relative border-b border-border/40 py-8 md:py-12 transition-colors duration-500 hover:bg-muted/10 ${isPublic ? "cursor-pointer" : ""}`}
                             >
-                                <div className={`group/project relative block w-full ${isPublic ? "cursor-pointer" : "cursor-default"}`}>
-                                    {isPublic && project.link ? (
-                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20">
-                                            <span className="sr-only">{project.title}</span>
-                                        </a>
-                                    ) : null}
+                                {/* Make the whole row clickable if public */}
+                                {isPublic && project.link && (
+                                    <Link href={project.link} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-10">
+                                        <span className="sr-only">{t("projects.visitSite")}</span>
+                                    </Link>
+                                )}
 
-                                    {/* The Card */}
-                                    <Card className={`
-                                        w-full bg-background/95 hover:bg-muted/30 backdrop-blur-xl transition-colors duration-300 
-                                        overflow-hidden border border-border/50 shadow-2xl shadow-black/40
-                                        ${isPublic ? "group-hover/project:border-foreground/30" : ""} 
-                                        z-10
-                                    `}>
-                                        <CardContent className="p-6 sm:p-8 md:p-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
+                                {/* Desktop / Tablet View (List) */}
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-0">
+                                    <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 w-full">
+                                        <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase transition-all duration-500 group-hover:text-primary group-hover:translate-x-4">
+                                            {project.title}
+                                        </h3>
 
-                                            {/* Icon / Status Container */}
-                                            <div className="flex-shrink-0 flex items-center justify-between md:flex-col md:justify-start gap-4">
-                                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-secondary/80 flex items-center justify-center text-foreground group-hover/project:scale-110 group-hover/project:shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all duration-500">
-                                                    <svg className="w-6 h-6 text-muted-foreground group-hover/project:text-foreground transition-colors" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
-                                                    </svg>
-                                                </div>
-
-                                                {/* Mobile status indicator (flex-row) vs Desktop (flex-col) */}
-                                                <div className="md:mt-4">
-                                                    {isPublic ? (
-                                                        <div className="flex items-center gap-1.5 opacity-60 group-hover/project:opacity-100 transform md:translate-y-2 group-hover/project:translate-y-0 transition-all">
-                                                            <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground hidden lg:inline-block whitespace-nowrap">
-                                                                {getLinkLabel(project.link, t).replace(" →", "")}
-                                                            </span>
-                                                            <div className="w-8 h-8 rounded-full bg-foreground/5 flex items-center justify-center">
-                                                                <svg className="w-4 h-4 font-bold text-foreground" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    ) : (
-                                                        <Badge variant="outline" className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/60 border-border/50 gap-1.5 whitespace-nowrap px-2 py-1">
-                                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                                                                <path d="M7 11V7a5 5 0 0110 0v4" />
-                                                            </svg>
-                                                            <span className="hidden sm:inline-block">{t("projects.private")}</span>
-                                                        </Badge>
-                                                    )}
-                                                </div>
+                                        {/* Tags and Description (Fades out slightly on hover for others, but stays solid for hovered) */}
+                                        <div className="flex flex-col gap-3 max-w-sm transition-opacity duration-300">
+                                            <p className="text-sm text-muted-foreground line-clamp-2">
+                                                {project.description}
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {project.tags.slice(0, 3).map((tag) => (
+                                                    <Badge key={tag} variant="secondary" className="px-2 py-0.5 text-[10px] uppercase font-mono bg-secondary/40 text-muted-foreground">
+                                                        {tag}
+                                                    </Badge>
+                                                ))}
+                                                {project.tags.length > 3 && (
+                                                    <Badge variant="secondary" className="px-2 py-0.5 text-[10px] uppercase font-mono bg-secondary/40 text-muted-foreground">
+                                                        +{project.tags.length - 3}
+                                                    </Badge>
+                                                )}
                                             </div>
+                                        </div>
+                                    </div>
 
-                                            {/* Content */}
-                                            <div className="flex flex-col flex-grow">
-                                                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight mb-4 group-hover/project:text-foreground transition-colors">
-                                                    {project.title}
-                                                </h3>
-
-                                                <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                                                    {project.description}
-                                                </p>
-
-                                                <div className="flex flex-wrap gap-2 mt-auto">
-                                                    {project.tags.map((tag) => {
-                                                        const tagLower = tag.toLowerCase();
-                                                        let Icon = null;
-                                                        if (tagLower.includes("react")) {
-                                                            Icon = <svg className="w-3.5 h-3.5 text-[#61DAFB] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="2" fill="currentColor" /><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" /></svg>;
-                                                        } else if (tagLower.includes("supabase")) {
-                                                            Icon = <svg className="w-3.5 h-3.5 text-[#3ECF8E] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.5l6.5 6.5H12v-6.5zm0 13l-6.5-6.5H12v6.5z" /></svg>;
-                                                        } else if (tagLower.includes("tailwind")) {
-                                                            Icon = <svg className="w-3.5 h-3.5 text-[#38B2AC] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.336 6.182 14.974 4.8 12.001 4.8zM6.001 12c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 9.027 19.2 12.001 19.2c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.336 13.382 8.974 12 6.001 12z" /></svg>;
-                                                        } else if (tagLower.includes("n8n")) {
-                                                            Icon = <svg className="w-3.5 h-3.5 text-[#EA4B71] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" /></svg>;
-                                                        } else if (tagLower.includes("php")) {
-                                                            Icon = <svg className="w-3.5 h-3.5 text-[#777BB4] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3 13h-2v-4h-2v4H9V9h2v4h2V9h2v6z" /></svg>;
-                                                        } else if (tagLower.includes("astro")) {
-                                                            Icon = <svg className="w-3.5 h-3.5 text-[#FF5D01] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h4l2-4h8l2 4h4L12 2zm-3 12l3-6 3 6H9z" /></svg>;
-                                                        }
-
-                                                        return (
-                                                            <Badge key={tag} variant="secondary" className="px-2.5 py-1 text-[11px] md:text-xs font-mono font-normal flex items-center gap-1.5 opacity-90 group-hover/project:bg-secondary/70 transition-colors">
-                                                                {Icon}
-                                                                {tag}
-                                                            </Badge>
-                                                        );
-                                                    })}
-                                                </div>
+                                    {/* Action Status */}
+                                    <div className="flex items-center shrink-0">
+                                        {!project.link ? (
+                                            <div className="flex items-center gap-2 text-muted-foreground/50 border border-border/30 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-wider">
+                                                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                                    <path d="M7 11V7a5 5 0 0110 0v4" />
+                                                </svg>
+                                                <span className="hidden sm:inline-block">{t("projects.private")}</span>
                                             </div>
-                                        </CardContent>
-                                    </Card>
+                                        ) : project.link.includes("github.com") ? (
+                                            <div className="flex items-center gap-2 text-muted-foreground border border-border/50 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-wider group-hover:bg-foreground group-hover:text-background transition-colors duration-500">
+                                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
+                                                </svg>
+                                                <span className="hidden sm:inline-block">{t("projects.viewGithub").replace(" →", "")}</span>
+                                            </div>
+                                        ) : (
+                                            <div className="w-12 h-12 rounded-full border border-border/50 flex items-center justify-center group-hover:bg-primary group-hover:border-primary group-hover:-rotate-45 transition-all duration-500 text-muted-foreground group-hover:text-primary-foreground">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                                </svg>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </motion.div>
+
+                                {/* Mobile Image Inline (Since floating doesn't work well on touch) */}
+                                <div className="mt-8 relative w-full aspect-video rounded-xl overflow-hidden block lg:hidden">
+                                    {project.image ? (
+                                        <Image src={project.image} alt={project.title} fill className="object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full bg-secondary/20 flex flex-col items-center justify-center text-muted-foreground/30 border border-border/20">
+                                            {isPublic ? (
+                                                <svg className="w-12 h-12 mb-2 stroke-[0.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                                </svg>
+                                            ) : (
+                                                <svg className="w-12 h-12 mb-2 stroke-[0.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                                                </svg>
+                                            )}
+                                            <span className="font-mono text-[10px] uppercase tracking-widest opacity-50">Preview</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         );
                     })}
                 </div>
             </div>
+
+            {/* Floating Image Container (Desktop Only, Pointer Events None) */}
+            <motion.div
+                className="fixed top-0 left-0 pointer-events-none z-50 w-[450px] aspect-[4/3] rounded-xl overflow-hidden hidden lg:block shadow-2xl shadow-black/50"
+                style={{
+                    x: springX,
+                    y: springY,
+                    translateX: "-50%",
+                    translateY: "-50%",
+                }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{
+                    opacity: hoveredIndex !== -1 ? 1 : 0,
+                    scale: hoveredIndex !== -1 ? 1 : 0.5,
+                    // Slightly tilt based on movement direction (optional, but let's keep it simple)
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+                <div className="relative w-full h-full bg-background border border-border/50">
+                    {/* Render all images, but only show the one matching the hovered index */}
+                    {projects.map((project, i) => (
+                        <div
+                            key={`img-${i}`}
+                            className={`absolute inset-0 transition-opacity duration-500 ${hoveredIndex === i ? "opacity-100" : "opacity-0"}`}
+                        >
+                            {project.image ? (
+                                <Image src={project.image} alt={project.title} fill className="object-cover" />
+                            ) : (
+                                <div className="w-full h-full bg-secondary/10 flex flex-col items-center justify-center text-muted-foreground/30">
+                                    <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-foreground via-background to-background" style={{ backgroundSize: '16px 16px', backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)' }} />
+                                    {!!project.link ? (
+                                        <svg className="w-20 h-20 mb-4 stroke-[0.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                        </svg>
+                                    ) : (
+                                        <svg className="w-20 h-20 mb-4 stroke-[0.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                                        </svg>
+                                    )}
+                                    <span className="font-mono text-sm uppercase tracking-widest font-semibold opacity-50 relative z-10">
+                                        Project Preview
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </motion.div>
         </section>
     );
 }

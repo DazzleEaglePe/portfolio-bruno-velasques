@@ -12,7 +12,7 @@ export default function ContactSection() {
     const personalData = getPersonalData(locale);
 
     return (
-        <section id="contact" className="grid md:grid-cols-3 gap-4">
+        <section id="contact" className="grid md:grid-cols-3 gap-4 scroll-m-24">
             <motion.div {...fadeUp} className="md:col-span-2">
                 <Card className="h-full relative overflow-hidden group">
                     {/* Subtle Ambient Light Effect (Hover Only) */}
