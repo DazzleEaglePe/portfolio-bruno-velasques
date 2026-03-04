@@ -54,7 +54,7 @@ export default function HeroGiveawayCard() {
 
     return (
         <div
-            className="w-full max-w-md mx-auto aspect-square md:aspect-auto md:h-[500px] lg:h-[550px] relative group"
+            className="w-full max-w-md lg:max-w-[480px] ml-auto aspect-square md:aspect-auto md:h-[500px] lg:h-[550px] relative group"
             style={{ perspective: 1000 }}
         >
             {/* Reactive Glowing Shadow Offset */}
