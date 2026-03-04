@@ -120,7 +120,7 @@ export default function ExperienceSection() {
                                         className="text-[10px] font-mono uppercase tracking-wider rounded-full px-3 h-6 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
                                     >
                                         {t("exp.freelance")}
-                                        <span className="ml-1 text-[9px] text-muted-foreground/60">{freelance.length}</span>
+                                        <span className=" text-[9px] text-muted-foreground/60">+15</span>
                                     </TabsTrigger>
                                 </TabsList>
                             </div>

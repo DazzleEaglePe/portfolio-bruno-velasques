@@ -48,7 +48,9 @@ const translations = {
         "skills.automation.desc": "Diseño de flujos inteligentes y bots conversacionales que automatizan procesos de negocio y atención al cliente.",
         // Projects
         "projects.title": "Proyectos",
+        "projects.visitSite": "Visitar sitio →",
         "projects.viewGithub": "Ver en GitHub →",
+        "projects.private": "Código privado",
         // Testimonial
         "testimonial.heading": "Proyectos\nDesplegados",
         "testimonial.count": "15+",
@@ -201,7 +203,9 @@ const translations = {
         "skills.automation.title": "Automation & AI",
         "skills.automation.desc": "Designing smart workflows and conversational bots that automate business processes and customer support.",
         "projects.title": "Projects",
+        "projects.visitSite": "Visit site →",
         "projects.viewGithub": "View on GitHub →",
+        "projects.private": "Private code",
         // Testimonial
         "testimonial.heading": "Deployed\nProjects",
         "testimonial.count": "15+",

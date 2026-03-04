@@ -30,7 +30,7 @@ interface Project {
   title: string;
   description: string;
   tags: string[];
-  link: string;
+  link?: string;
   color: string;
 }
 
@@ -300,7 +300,6 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Plataforma SaaS Multi-tenant para gestión integral de negocios retail: ventas en tiempo real, control de inventario multi-almacén, dashboards con KPIs.",
       tags: ["React 18", "Vite", "Supabase", "Zustand", "Ant Design"],
-      link: "https://github.com/DazzleEaglePe",
       color: "accent",
     },
     {
@@ -342,7 +341,6 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Multi-tenant SaaS platform for comprehensive retail business management: real-time sales, multi-warehouse inventory control, KPI dashboards.",
       tags: ["React 18", "Vite", "Supabase", "Zustand", "Ant Design"],
-      link: "https://github.com/DazzleEaglePe",
       color: "accent",
     },
     {
@@ -358,7 +356,6 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "AI-powered customer support chatbot system. 90% of inquiries automated, intelligent lead routing.",
       tags: ["n8n", "WhatsApp API", "Chatwoot", "AI"],
-      link: "https://github.com/DazzleEaglePe",
       color: "accent-emerald",
     },
     {
