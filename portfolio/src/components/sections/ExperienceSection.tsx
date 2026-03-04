@@ -200,8 +200,8 @@ export default function ExperienceSection() {
                 </Card>
             </motion.div>
 
-            <motion.div {...fadeUp} transition={{ duration: 0.4, delay: 0.1 }} className="space-y-4">
-                <Card>
+            <motion.div {...fadeUp} transition={{ duration: 0.4, delay: 0.1 }} className="flex flex-col gap-4 h-full">
+                <Card className="flex-1">
                     <CardContent className="p-6">
                         <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-4">{t("edu.title")}</h3>
                         <div className="space-y-3">
