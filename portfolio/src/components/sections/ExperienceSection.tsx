@@ -125,7 +125,7 @@ export default function ExperienceSection() {
                                 </TabsList>
                             </div>
 
-                            <TabsContent value="employment" className="mt-4">
+                            <TabsContent value="employment" className="mt-4 min-h-[320px]">
                                 <Accordion
                                     type="single"
                                     collapsible
@@ -138,7 +138,7 @@ export default function ExperienceSection() {
                                 </Accordion>
                             </TabsContent>
 
-                            <TabsContent value="freelance" className="mt-4 space-y-3">
+                            <TabsContent value="freelance" className="mt-4 space-y-3 min-h-[320px]">
                                 <Accordion
                                     type="single"
                                     collapsible
