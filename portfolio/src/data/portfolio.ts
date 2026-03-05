@@ -95,6 +95,22 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       icon: "🏦",
     },
     {
+      company: "ECA Monitor",
+      role: "Full Stack Developer",
+      period: "2025",
+      description:
+        "Sistema integral de auditoría y monitoreo en tiempo real para servidores Windows usando WebSockets.",
+      achievements: [
+        "Desarrollé un dashboard de vigilancia de escritorios RDP simultáneos sin latencia usando WebSockets y Next.js",
+        "Implementé agentes ligeros en C# integrados a un servidor backend escalable para capturar telemetría y eventos de seguridad",
+      ],
+      color: "accent-indigo",
+      type: "freelance",
+      industry: "Ciberseguridad · Infraestructura",
+      stack: ["Next.js", "Express", "Socket.io", "C#", "Windows API"],
+      icon: "🔒",
+    },
+    {
       company: "ECA - Estudio Contable Alvarez",
       role: "Desarrollador Full Stack · Consultor IT",
       period: "Junio 2025 – Actualidad",
@@ -289,6 +305,14 @@ const educationI18n: Record<Locale, EducationItem[]> = {
 const projectsI18n: Record<Locale, Project[]> = {
   es: [
     {
+      title: "ECA Monitor – Auditoría RDP",
+      description:
+        "Sistema avanzado de auditoría remota. Despliega agentes ultraligeros en servidores Windows para transmitir pantallas en vivo, métricas de hardware y logs de sesiones directo a un dashboard web usando WebSockets de latencia cero.",
+      tags: ["Next.js", "Express", "Socket.io", "C#"],
+      image: "https://github.com/DazzleEaglePe/audit-dashboard-remote-desktop/blob/main/public/preview.png?raw=true",
+      color: "accent-emerald",
+    },
+    {
       title: "Plataforma E-Commerce B2B – Decdata",
       description:
         "E-Commerce corporativo y catálogo de ventas tecnológicas de alto rendimiento. Construido con arquitectura de 'Islas Interactivas' para SEO extremo y tiempos de carga instantáneos. Incluye carrito de compras persistente, buscador dinámico en tiempo real y UI/UX atómico.",
@@ -329,6 +353,14 @@ const projectsI18n: Record<Locale, Project[]> = {
     },
   ],
   en: [
+    {
+      title: "ECA Monitor – RDP Audit",
+      description:
+        "Advanced remote auditing system. Deploys ultra-lightweight agents on Windows servers to stream live screens, hardware metrics, and session logs directly to a web dashboard using zero-latency WebSockets.",
+      tags: ["Next.js", "Express", "Socket.io", "C#"],
+      image: "https://github.com/DazzleEaglePe/audit-dashboard-remote-desktop/blob/main/public/preview.png?raw=true",
+      color: "accent-emerald",
+    },
     {
       title: "B2B E-Commerce Platform – Decdata",
       description:
