@@ -309,7 +309,7 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Sistema avanzado de auditoría remota. Despliega agentes ultraligeros en servidores Windows para transmitir pantallas en vivo, métricas de hardware y logs de sesiones directo a un dashboard web usando WebSockets de latencia cero.",
       tags: ["Next.js", "Express", "Socket.io", "C#"],
-      image: "/images/eca-comitor-auditoria-rdp.png",
+      image: "/images/eca-monitor-dashboard.png",
       color: "accent-emerald",
     },
     {
@@ -357,7 +357,7 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Advanced remote auditing system. Deploys ultra-lightweight agents on Windows servers to stream live screens, hardware metrics, and session logs directly to a web dashboard using zero-latency WebSockets.",
       tags: ["Next.js", "Express", "Socket.io", "C#"],
-      image: "/images/eca-comitor-auditoria-rdp.png",
+      image: "/images/eca-monitor-dashboard.png",
       color: "accent-emerald",
     },
     {
