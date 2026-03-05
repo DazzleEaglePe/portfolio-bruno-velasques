@@ -98,29 +98,29 @@ export default function ExperienceSection() {
     );
 
     return (
-        <section id="experience" className="grid md:grid-cols-3 gap-4 scroll-m-24">
-            <motion.div {...fadeUp} className="md:col-span-2">
+        <section id="experience" className="grid lg:grid-cols-3 gap-6 scroll-m-24">
+            <motion.div {...fadeUp} className="lg:col-span-2">
                 <Card>
-                    <CardContent className="p-6 space-y-4">
+                    <CardContent className="p-4 sm:p-6 space-y-4">
                         <Tabs defaultValue="employment" className="w-full">
-                            {/* Header + segmented control in one line */}
-                            <div className="flex items-center justify-between gap-3">
+                            {/* Header + segmented control (responsive wrapping) */}
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                                 <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase shrink-0">
                                     {t("exp.title")}
                                 </h3>
-                                <TabsList className="h-7 p-0.5 bg-secondary/40 rounded-full gap-0.5">
+                                <TabsList className="h-auto p-1 w-full sm:w-auto bg-secondary/40 rounded-[2rem] gap-0.5 flex">
                                     <TabsTrigger
                                         value="employment"
-                                        className="text-[10px] font-mono uppercase tracking-wider rounded-full px-3 h-6 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
+                                        className="flex-1 sm:flex-none text-[10px] font-mono uppercase tracking-wider rounded-full px-3 py-1.5 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer whitespace-nowrap"
                                     >
                                         {t("exp.employment")}
                                     </TabsTrigger>
                                     <TabsTrigger
                                         value="freelance"
-                                        className="text-[10px] font-mono uppercase tracking-wider rounded-full px-3 h-6 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer"
+                                        className="flex-1 sm:flex-none text-[10px] font-mono uppercase tracking-wider rounded-full px-3 py-1.5 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1 justify-center"
                                     >
-                                        {t("exp.freelance")}
-                                        <span className=" text-[9px] text-muted-foreground/60">+15</span>
+                                        <span>{t("exp.freelance")}</span>
+                                        <span className="text-[9px] text-muted-foreground/60">+15</span>
                                     </TabsTrigger>
                                 </TabsList>
                             </div>
