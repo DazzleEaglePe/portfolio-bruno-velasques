@@ -309,7 +309,7 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Sistema avanzado de auditoría remota. Despliega agentes ultraligeros en servidores Windows para transmitir pantallas en vivo, métricas de hardware y logs de sesiones directo a un dashboard web usando WebSockets de latencia cero.",
       tags: ["Next.js", "Express", "Socket.io", "C#"],
-      image: "https://github.com/DazzleEaglePe/audit-dashboard-remote-desktop/blob/main/public/preview.png?raw=true",
+      image: "/images/eca-comitor-auditoria-rdp.png",
       color: "accent-emerald",
     },
     {
@@ -340,7 +340,6 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Sistema de atención al cliente mediante chatbot con IA. Automatización del 90% de consultas, derivación inteligente de leads.",
       tags: ["n8n", "WhatsApp API", "Chatwoot", "AI"],
-      link: "https://crm.ecabot.site/app/login",
       color: "accent-emerald",
     },
     {
@@ -358,7 +357,7 @@ const projectsI18n: Record<Locale, Project[]> = {
       description:
         "Advanced remote auditing system. Deploys ultra-lightweight agents on Windows servers to stream live screens, hardware metrics, and session logs directly to a web dashboard using zero-latency WebSockets.",
       tags: ["Next.js", "Express", "Socket.io", "C#"],
-      image: "https://github.com/DazzleEaglePe/audit-dashboard-remote-desktop/blob/main/public/preview.png?raw=true",
+      image: "/images/eca-comitor-auditoria-rdp.png",
       color: "accent-emerald",
     },
     {
