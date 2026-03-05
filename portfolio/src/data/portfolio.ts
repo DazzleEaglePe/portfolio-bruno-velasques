@@ -318,6 +318,7 @@ const projectsI18n: Record<Locale, Project[]> = {
         "E-Commerce corporativo y catálogo de ventas tecnológicas de alto rendimiento. Construido con arquitectura de 'Islas Interactivas' para SEO extremo y tiempos de carga instantáneos. Incluye carrito de compras persistente, buscador dinámico en tiempo real y UI/UX atómico.",
       tags: ["Astro", "React", "Tailwind CSS", "TypeScript", "Nanostores"],
       link: "https://decdata.com.pe/",
+      image: "/images/plataforma-ecommerce-b2b.png",
       color: "accent-indigo",
     },
     {
@@ -366,6 +367,7 @@ const projectsI18n: Record<Locale, Project[]> = {
         "Corporate e-commerce and high-performance technology sales catalog. Built with 'Interactive Islands' architecture for extreme SEO and instant load times. Includes persistent shopping cart, real-time dynamic search, and atomic UI/UX.",
       tags: ["Astro", "React", "Tailwind CSS", "TypeScript", "Nanostores"],
       link: "https://decdata.com.pe/",
+      image: "/images/plataforma-ecommerce-b2b.png",
       color: "accent-indigo",
     },
     {
