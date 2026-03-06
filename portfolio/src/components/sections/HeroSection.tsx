@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { fadeUp } from "@/lib/animations";
 import HeroGiveawayCard from "@/components/sections/HeroGiveawayCard";
 
-const ROLES_ES = ["Software Developer", "UI/UX Designer", "Consultor TI", "Desarrollador Full Stack"];
-const ROLES_EN = ["Software Developer", "UI/UX Designer", "IT Consultant", "Full Stack Developer"];
+const ROLES_ES = ["Software Developer", "UI/UX Designer", "Consultor TI", "Automatización & IA", "Fintech Engineer"];
+const ROLES_EN = ["Software Developer", "UI/UX Designer", "IT Consultant", "AI & Automation Builder", "Fintech Engineer"];
 
 export default function HeroSection() {
     const { t, locale } = useI18n();
