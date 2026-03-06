@@ -1,15 +1,28 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { getPersonalData } from "@/data/portfolio";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { fadeUp } from "@/lib/animations";
 import HeroGiveawayCard from "@/components/sections/HeroGiveawayCard";
 
+const ROLES_ES = ["Software Developer", "UI/UX Designer", "Consultor TI", "Desarrollador Full Stack"];
+const ROLES_EN = ["Software Developer", "UI/UX Designer", "IT Consultant", "Full Stack Developer"];
+
 export default function HeroSection() {
     const { t, locale } = useI18n();
     const personalData = getPersonalData(locale);
+    const roles = locale === "es" ? ROLES_ES : ROLES_EN;
+    const [roleIndex, setRoleIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setRoleIndex((prev) => (prev + 1) % roles.length);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [roles.length]);
 
     return (
         <section id="hero" className="pt-16 pb-4 md:pt-24 md:pb-12">
@@ -20,9 +33,23 @@ export default function HeroSection() {
                     <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-bold tracking-tight leading-[1.05] mb-6">
                         Bruno<br />Velasques<span className="text-emerald-500">.</span>
                     </h1>
-                    <p className="text-muted-foreground text-base md:text-lg max-w-lg mb-8 leading-relaxed">
-                        {t("hero.subtitle")}
-                    </p>
+                    <div className="text-muted-foreground text-base md:text-lg max-w-lg mb-8 leading-relaxed">
+                        <div className="mb-1 font-semibold text-foreground/90 h-7 overflow-hidden relative">
+                            <AnimatePresence mode="popLayout">
+                                <motion.span
+                                    key={roleIndex}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                                    className="block text-emerald-500"
+                                >
+                                    {roles[roleIndex]}
+                                </motion.span>
+                            </AnimatePresence>
+                        </div>
+                        <p>{t("hero.subtitle")}</p>
+                    </div>
                     <div className="flex flex-wrap gap-4">
                         <Button asChild size="lg" className="rounded-full shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-shadow">
                             <a href="#projects">{t("hero.cta1")}</a>
