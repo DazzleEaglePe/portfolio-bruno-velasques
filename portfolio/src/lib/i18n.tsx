@@ -14,7 +14,7 @@ const translations = {
         "nav.contact": "Contacto",
         // Hero
         "hero.greeting": "Hola, soy",
-        "hero.subtitle": "creando soluciones digitales en entornos Fintech.",
+        "hero.subtitle": "transformando ideas en productos digitales que escalan.",
         "hero.cta1": "Ver Proyectos",
         // About
         "about.title": "Sobre Mí",
@@ -176,7 +176,7 @@ const translations = {
         "nav.projects": "Projects",
         "nav.contact": "Contact",
         "hero.greeting": "Hi, I'm",
-        "hero.subtitle": "building digital solutions in Fintech environments.",
+        "hero.subtitle": "turning ideas into digital products that scale.",
         "hero.cta1": "View Projects",
         "about.title": "About Me",
         "about.location": "📍 Ica, Peru",
