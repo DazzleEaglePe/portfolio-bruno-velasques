@@ -77,9 +77,45 @@ export default function NotFound() {
         }
     }, [lines]);
 
+    const navigateTo = (commandLine: TerminalLine, path: string, label: string) => {
+        const msg: TerminalLine = { text: es ? `✓ cd ${label}/ — Redirigiendo...` : `✓ cd ${label}/ — Redirecting...`, color: "text-emerald-500" };
+        setLines(prev => [...prev, commandLine, msg]);
+        setCommandHistory(prev => [...prev, `cd ${label}`]);
+        setHistoryIndex(-1);
+        setInputValue("");
+        setTimeout(() => router.push(path), 800);
+    };
+
     const processCommand = (cmd: string) => {
         const trimmed = cmd.trim().toLowerCase();
         const commandLine: TerminalLine = { text: `$ ${cmd}`, color: "text-foreground/80", isCommand: true };
+
+        // Handle cd <section> dynamically
+        if (trimmed.startsWith("cd ")) {
+            const target = trimmed.replace("cd ", "").trim().replace(/\/$/, "");
+            const routes: Record<string, string> = {
+                "home": "/", "/": "/", "~": "/", "..": "/",
+                "about": "/#about",
+                "experience": "/#experience",
+                "skills": "/#skills",
+                "projects": "/#projects",
+                "contact": "/#contact",
+            };
+            if (routes[target]) {
+                navigateTo(commandLine, routes[target], target === ".." ? "home" : target);
+                return;
+            } else {
+                const errLines: TerminalLine[] = [
+                    { text: es ? `⨯ cd: no existe el directorio: '${target}'` : `⨯ cd: no such directory: '${target}'`, color: "text-red-400/70" },
+                    { text: es ? "  Usa 'ls' para ver las secciones disponibles." : "  Use 'ls' to see available sections.", color: "text-foreground/40" },
+                ];
+                setLines(prev => [...prev, commandLine, ...errLines]);
+                setCommandHistory(prev => [...prev, cmd.trim()]);
+                setHistoryIndex(-1);
+                setInputValue("");
+                return;
+            }
+        }
 
         let responseLines: TerminalLine[] = [];
 
@@ -88,30 +124,34 @@ export default function NotFound() {
                 responseLines = es ? [
                     { text: "", color: "" },
                     { text: "Comandos disponibles:", color: "text-emerald-500" },
-                    { text: "  help       — Muestra esta ayuda", color: "text-foreground/60" },
-                    { text: "  whoami     — ¿Quién soy?", color: "text-foreground/60" },
-                    { text: "  ls         — Listar secciones", color: "text-foreground/60" },
-                    { text: "  home       — Ir al portafolio", color: "text-foreground/60" },
-                    { text: "  projects   — Ver mis proyectos", color: "text-foreground/60" },
-                    { text: "  about      — Sobre mí", color: "text-foreground/60" },
-                    { text: "  contact    — Ir a contacto", color: "text-foreground/60" },
-                    { text: "  skills     — Ver mis tecnologías", color: "text-foreground/60" },
-                    { text: "  clear      — Limpiar terminal", color: "text-foreground/60" },
+                    { text: "  help             — Muestra esta ayuda", color: "text-foreground/60" },
+                    { text: "  whoami           — ¿Quién soy?", color: "text-foreground/60" },
+                    { text: "  ls               — Listar secciones", color: "text-foreground/60" },
+                    { text: "  cd <sección>     — Navegar a una sección", color: "text-foreground/60" },
+                    { text: "  cat README.md    — Leer sobre el proyecto", color: "text-foreground/60" },
+                    { text: "  home             — Ir al portafolio", color: "text-foreground/60" },
+                    { text: "  projects         — Ver mis proyectos", color: "text-foreground/60" },
+                    { text: "  about            — Sobre mí", color: "text-foreground/60" },
+                    { text: "  contact          — Ir a contacto", color: "text-foreground/60" },
+                    { text: "  skills           — Ver mis tecnologías", color: "text-foreground/60" },
+                    { text: "  clear            — Limpiar terminal", color: "text-foreground/60" },
                     { text: "", color: "" },
                     { text: "Tip: usa ↑ ↓ para navegar el historial.", color: "text-foreground/30" },
                     { text: "", color: "" },
                 ] : [
                     { text: "", color: "" },
                     { text: "Available commands:", color: "text-emerald-500" },
-                    { text: "  help       — Show this help", color: "text-foreground/60" },
-                    { text: "  whoami     — Who am I?", color: "text-foreground/60" },
-                    { text: "  ls         — List sections", color: "text-foreground/60" },
-                    { text: "  home       — Go to portfolio", color: "text-foreground/60" },
-                    { text: "  projects   — View my projects", color: "text-foreground/60" },
-                    { text: "  about      — About me", color: "text-foreground/60" },
-                    { text: "  contact    — Go to contact", color: "text-foreground/60" },
-                    { text: "  skills     — View my technologies", color: "text-foreground/60" },
-                    { text: "  clear      — Clear terminal", color: "text-foreground/60" },
+                    { text: "  help             — Show this help", color: "text-foreground/60" },
+                    { text: "  whoami           — Who am I?", color: "text-foreground/60" },
+                    { text: "  ls               — List sections", color: "text-foreground/60" },
+                    { text: "  cd <section>     — Navigate to a section", color: "text-foreground/60" },
+                    { text: "  cat README.md    — Read about this project", color: "text-foreground/60" },
+                    { text: "  home             — Go to portfolio", color: "text-foreground/60" },
+                    { text: "  projects         — View my projects", color: "text-foreground/60" },
+                    { text: "  about            — About me", color: "text-foreground/60" },
+                    { text: "  contact          — Go to contact", color: "text-foreground/60" },
+                    { text: "  skills           — View my technologies", color: "text-foreground/60" },
+                    { text: "  clear            — Clear terminal", color: "text-foreground/60" },
                     { text: "", color: "" },
                     { text: "Tip: use ↑ ↓ to navigate command history.", color: "text-foreground/30" },
                     { text: "", color: "" },
@@ -220,6 +260,49 @@ export default function NotFound() {
                 setLines([]);
                 setInputValue("");
                 return;
+
+            case "cat readme.md":
+            case "cat readme":
+                responseLines = es ? [
+                    { text: "", color: "" },
+                    { text: "# brunovelasques.dev", color: "text-foreground/80" },
+                    { text: "", color: "" },
+                    { text: "Portafolio personal construido con:", color: "text-foreground/60" },
+                    { text: "  ◆ Next.js 16  ◆ React 18  ◆ Tailwind CSS", color: "text-emerald-500/70" },
+                    { text: "  ◆ Framer Motion  ◆ Shadcn/UI  ◆ TypeScript", color: "text-emerald-500/70" },
+                    { text: "", color: "" },
+                    { text: "## Secciones", color: "text-foreground/80" },
+                    { text: "  → Hero con roles dinámicos (typewriter)", color: "text-foreground/50" },
+                    { text: "  → Experiencia laboral + freelance", color: "text-foreground/50" },
+                    { text: "  → Proyectos con hover interactivo", color: "text-foreground/50" },
+                    { text: "  → Skills slider animado", color: "text-foreground/50" },
+                    { text: "  → Terminal 404 interactiva (¡estás aquí!)", color: "text-yellow-500/70" },
+                    { text: "", color: "" },
+                    { text: "## Autor", color: "text-foreground/80" },
+                    { text: "  Bruno Velasques — @velasques_bruno", color: "text-foreground/50" },
+                    { text: "  https://brunovelasques.dev", color: "text-emerald-500/60" },
+                    { text: "", color: "" },
+                ] : [
+                    { text: "", color: "" },
+                    { text: "# brunovelasques.dev", color: "text-foreground/80" },
+                    { text: "", color: "" },
+                    { text: "Personal portfolio built with:", color: "text-foreground/60" },
+                    { text: "  ◆ Next.js 16  ◆ React 18  ◆ Tailwind CSS", color: "text-emerald-500/70" },
+                    { text: "  ◆ Framer Motion  ◆ Shadcn/UI  ◆ TypeScript", color: "text-emerald-500/70" },
+                    { text: "", color: "" },
+                    { text: "## Sections", color: "text-foreground/80" },
+                    { text: "  → Hero with dynamic roles (typewriter)", color: "text-foreground/50" },
+                    { text: "  → Work experience + freelance", color: "text-foreground/50" },
+                    { text: "  → Projects with interactive hover", color: "text-foreground/50" },
+                    { text: "  → Animated skills slider", color: "text-foreground/50" },
+                    { text: "  → Interactive 404 terminal (you are here!)", color: "text-yellow-500/70" },
+                    { text: "", color: "" },
+                    { text: "## Author", color: "text-foreground/80" },
+                    { text: "  Bruno Velasques — @velasques_bruno", color: "text-foreground/50" },
+                    { text: "  https://brunovelasques.dev", color: "text-emerald-500/60" },
+                    { text: "", color: "" },
+                ];
+                break;
 
             case "sudo rm -rf /":
             case "sudo rm -rf":
