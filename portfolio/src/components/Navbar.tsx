@@ -10,12 +10,7 @@ import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-    Sheet,
-    SheetContent,
-    SheetTrigger,
-    SheetTitle,
-} from "@/components/ui/sheet";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -236,30 +231,65 @@ export default function Navbar() {
                             )
                         )}
 
-                        {/* Mobile Menu Trigger */}
-                        <Sheet open={open} onOpenChange={setOpen}>
-                            <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full md:hidden hover:bg-foreground/5 ml-1">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24">
-                                        <path d="M4 6h16M4 12h16M4 18h16" />
-                                    </svg>
-                                </Button>
-                            </SheetTrigger>
-                            <SheetContent side="right" className="w-[280px] bg-background/40 dark:bg-zinc-900/40 backdrop-blur-3xl border-white/5">
-                                <SheetTitle className="font-mono text-base font-semibold mb-6 tracking-tight">BV<span className="text-muted-foreground">.</span></SheetTitle>
-
-                                <div className="flex flex-col gap-2">
-                                    {navKeys.map(({ href, key }) => (
-                                        <Button key={href} variant="ghost" size="lg" asChild className="justify-start text-muted-foreground hover:text-foreground font-medium rounded-xl h-11" onClick={() => setOpen(false)}>
-                                            <a href={href}>{t(key as Parameters<typeof t>[0])}</a>
-                                        </Button>
-                                    ))}
-                                </div>
-                            </SheetContent>
-                        </Sheet>
+                        {/* Mobile Animated Menu Trigger */}
+                        <button
+                            onClick={() => setOpen(!open)}
+                            className="relative flex flex-col justify-center items-center w-8 h-8 rounded-full md:hidden hover:bg-foreground/5 ml-1 z-[60]"
+                            aria-label="Toggle Menu"
+                        >
+                            <motion.span
+                                animate={open ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+                                className="w-4 h-[2px] bg-foreground block rounded-full transition-all duration-300"
+                            />
+                            <motion.span
+                                animate={open ? { opacity: 0 } : { opacity: 1 }}
+                                className="w-4 h-[2px] bg-foreground block rounded-full my-[3px] transition-all duration-300"
+                            />
+                            <motion.span
+                                animate={open ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+                                className="w-4 h-[2px] bg-foreground block rounded-full transition-all duration-300"
+                            />
+                        </button>
                     </div>
                 </div>
             </div>
+
+            {/* Framer Motion Fullscreen Menu Overlay */}
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+                        animate={{ opacity: 1, backdropFilter: "blur(24px)" }}
+                        exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/90 dark:bg-zinc-950/90"
+                    >
+                        {/* Background subtle decoration */}
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(150,150,150,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(150,150,150,0.05)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-50"></div>
+
+                        <div className="flex flex-col items-center gap-6 w-full px-8 relative z-10">
+                            {navKeys.map(({ href, key }, i) => (
+                                <motion.div
+                                    key={href}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 20 }}
+                                    transition={{ duration: 0.4, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                                    className="w-full text-center"
+                                >
+                                    <Link 
+                                        href={href} 
+                                        onClick={() => setOpen(false)}
+                                        className="inline-block text-3xl font-medium tracking-tight text-muted-foreground hover:text-foreground hover:scale-105 transition-all duration-300"
+                                    >
+                                        {t(key as Parameters<typeof t>[0])}
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </nav>
     );
 }

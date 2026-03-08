@@ -74,7 +74,7 @@ export function TerminalDock({ terminal }: { terminal: TerminalState }) {
                     {/* Navbar GitHub Link (Simulado como App) */}
                     <div className="relative group">
                         <a
-                            href="https://github.com/bruno-velasques"
+                            href="https://github.com/DazzleEaglePe"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-12 h-12 rounded-xl bg-foreground/[0.06] border border-border/50 flex items-center justify-center hover:bg-foreground/[0.1] hover:scale-110 hover:-translate-y-2 transition-all duration-300 relative z-10"
