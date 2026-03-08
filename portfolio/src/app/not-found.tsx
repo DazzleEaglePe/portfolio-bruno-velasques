@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, KeyboardEvent } from "react";
+import { useState, useRef, useEffect, KeyboardEvent, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { X, Minus, Maximize2, Home, Github, Terminal, FolderOpen } from "lucide-react";
@@ -38,7 +38,7 @@ export default function NotFound() {
     // Custom window size state for manual resizing
     const [windowSize, setWindowSize] = useState({ width: 700, height: 450 });
 
-    const initialLines: TerminalLine[] = es ? [
+    const initialLines: TerminalLine[] = useMemo(() => es ? [
         { text: "▲ Next.js 16.1.6", color: "text-foreground/70" },
         { text: "- Ambiente: producción", color: "text-foreground/50" },
         { text: "✓ Compilado exitosamente", color: "text-emerald-500" },
@@ -58,7 +58,7 @@ export default function NotFound() {
         { text: "  The requested route does not exist in this project.", color: "text-foreground/40" },
         { text: "", color: "" },
         { text: "Type 'help' to see available commands.", color: "text-emerald-500/70" },
-    ];
+    ], [es]);
 
     const [lines, setLines] = useState<TerminalLine[]>(initialLines);
     const hasAnimatedRef = useRef(false);
