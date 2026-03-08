@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { X, Minus, Maximize2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 const lineVariants = {
@@ -402,22 +403,28 @@ export default function NotFound() {
                                 onPointerDown={(e) => e.stopPropagation()}
                             >
                                 {/* Window Controls */}
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 group">
                                     <button 
                                         onClick={(e) => { e.stopPropagation(); setIsClosed(true); }}
-                                        className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-colors hover:scale-110 active:scale-95"
+                                        className="w-3 h-3 rounded-full bg-[#ff5f56] flex items-center justify-center"
                                         title={es ? "Cerrar" : "Close"}
-                                    />
+                                    >
+                                        <X className="w-2 h-2 text-black/60 opacity-0 group-hover:opacity-100 transition-opacity" strokeWidth={3} />
+                                    </button>
                                     <button 
                                         onClick={(e) => { e.stopPropagation(); setWindowState("minimized"); }}
-                                        className="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-colors hover:scale-110 active:scale-95"
+                                        className="w-3 h-3 rounded-full bg-[#ffbd2e] flex items-center justify-center"
                                         title={es ? "Minimizar" : "Minimize"}
-                                    />
+                                    >
+                                        <Minus className="w-2 h-2 text-black/60 opacity-0 group-hover:opacity-100 transition-opacity" strokeWidth={3} />
+                                    </button>
                                     <button 
                                         onClick={(e) => { e.stopPropagation(); setWindowState(prev => prev === "maximized" ? "normal" : "maximized"); }}
-                                        className="w-3 h-3 rounded-full bg-emerald-500/80 hover:bg-emerald-500 transition-colors hover:scale-110 active:scale-95"
+                                        className="w-3 h-3 rounded-full bg-[#27c93f] flex items-center justify-center"
                                         title={es ? "Maximizar" : "Maximize"}
-                                    />
+                                    >
+                                        <Maximize2 className="w-2 h-2 text-black/60 opacity-0 group-hover:opacity-100 transition-opacity" strokeWidth={3} />
+                                    </button>
                                 </div>
                                 <span className="ml-2 font-mono text-[11px] text-muted-foreground/50 select-none flex-1 text-center">
                                     ~/portfolio — {es ? "terminal interactiva" : "interactive terminal"}
