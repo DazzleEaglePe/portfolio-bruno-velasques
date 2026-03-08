@@ -174,6 +174,21 @@ idiomas:     Español (nativo) · Inglés (intermedio) · Quechua (intermedio)
 <br>
 
 <!-- ═══════════════════════════════════════════ -->
+<!-- ═══ PROYECTOS DESTACADOS ═══ -->
+<!-- ═══════════════════════════════════════════ -->
+
+<h3>
+  <img src="https://img.shields.io/badge/›-0f172a?style=flat-square&logo=github&logoColor=38bdf8" height="24" />
+  &nbsp;Proyectos Destacados
+</h3>
+
+**[brunovelasques.dev](https://brunovelasques.dev)** · Portfolio Interactivo
+- Arquitectura Frontend limpia en **Next.js 16** basada en **Atomic Design** (Custom Hooks + Componentes UI modulares).
+- **Animaciones Complejas:** UI inmersiva con seguimiento de cursor, tooltips y transiciones fluidas con `framer-motion`.
+- **Terminal 404 Interactiva:** Experiencia tipo macOS con comandos funcionales (`cd`, `ls`, `help`), ventana arrastrable y redimensionable, e implementación de un *Floating Dock* persistente.
+
+<br>
+<!-- ═══════════════════════════════════════════ -->
 <!-- ═══ ESTADÍSTICAS ═══ -->
 <!-- ═══════════════════════════════════════════ -->
 
