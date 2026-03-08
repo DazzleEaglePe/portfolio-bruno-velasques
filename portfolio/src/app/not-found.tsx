@@ -61,14 +61,29 @@ export default function NotFound() {
     ];
 
     const [lines, setLines] = useState<TerminalLine[]>(initialLines);
+    const hasAnimatedRef = useRef(false);
 
-    // Show input after initial animation completes
+    // Show input after initial animation completes, and handle reset on close
     useEffect(() => {
+        if (isClosed) {
+            hasAnimatedRef.current = false;
+            setShowInput(false);
+            setLines(initialLines);
+            setInputValue("");
+            return;
+        }
+
+        if (hasAnimatedRef.current) {
+            setShowInput(true);
+            return;
+        }
+
         const timer = setTimeout(() => {
             setShowInput(true);
+            hasAnimatedRef.current = true;
         }, initialLines.length * 150 + 400);
         return () => clearTimeout(timer);
-    }, [initialLines.length]);
+    }, [isClosed, initialLines]);
 
     // Auto-focus input when it appears
     useEffect(() => {
@@ -464,7 +479,7 @@ export default function NotFound() {
                                         <motion.p 
                                             key={`init-${i}`}
                                             custom={i}
-                                            initial="hidden"
+                                            initial={hasAnimatedRef.current ? "visible" : "hidden"}
                                             animate="visible"
                                             variants={lineVariants}
                                             className={`${line.color} ${line.text.startsWith("⨯") ? "font-semibold" : ""} ${line.text.startsWith("GET") ? "mt-3 pt-3 border-t border-border/20" : ""} min-h-[1.25rem]`}
