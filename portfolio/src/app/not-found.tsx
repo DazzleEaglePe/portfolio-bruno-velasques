@@ -28,6 +28,8 @@ export default function NotFound() {
     const scrollRef = useRef<HTMLDivElement>(null);
     const [inputValue, setInputValue] = useState("");
     const [showInput, setShowInput] = useState(false);
+    const [commandHistory, setCommandHistory] = useState<string[]>([]);
+    const [historyIndex, setHistoryIndex] = useState(-1);
 
     const initialLines: TerminalLine[] = es ? [
         { text: "▲ Next.js 16.1.6", color: "text-foreground/70" },
@@ -87,6 +89,8 @@ export default function NotFound() {
                     { text: "", color: "" },
                     { text: "Comandos disponibles:", color: "text-emerald-500" },
                     { text: "  help       — Muestra esta ayuda", color: "text-foreground/60" },
+                    { text: "  whoami     — ¿Quién soy?", color: "text-foreground/60" },
+                    { text: "  ls         — Listar secciones", color: "text-foreground/60" },
                     { text: "  home       — Ir al portafolio", color: "text-foreground/60" },
                     { text: "  projects   — Ver mis proyectos", color: "text-foreground/60" },
                     { text: "  about      — Sobre mí", color: "text-foreground/60" },
@@ -94,16 +98,22 @@ export default function NotFound() {
                     { text: "  skills     — Ver mis tecnologías", color: "text-foreground/60" },
                     { text: "  clear      — Limpiar terminal", color: "text-foreground/60" },
                     { text: "", color: "" },
+                    { text: "Tip: usa ↑ ↓ para navegar el historial.", color: "text-foreground/30" },
+                    { text: "", color: "" },
                 ] : [
                     { text: "", color: "" },
                     { text: "Available commands:", color: "text-emerald-500" },
                     { text: "  help       — Show this help", color: "text-foreground/60" },
+                    { text: "  whoami     — Who am I?", color: "text-foreground/60" },
+                    { text: "  ls         — List sections", color: "text-foreground/60" },
                     { text: "  home       — Go to portfolio", color: "text-foreground/60" },
                     { text: "  projects   — View my projects", color: "text-foreground/60" },
                     { text: "  about      — About me", color: "text-foreground/60" },
                     { text: "  contact    — Go to contact", color: "text-foreground/60" },
                     { text: "  skills     — View my technologies", color: "text-foreground/60" },
                     { text: "  clear      — Clear terminal", color: "text-foreground/60" },
+                    { text: "", color: "" },
+                    { text: "Tip: use ↑ ↓ to navigate command history.", color: "text-foreground/30" },
                     { text: "", color: "" },
                 ];
                 break;
@@ -164,6 +174,48 @@ export default function NotFound() {
                 ];
                 break;
 
+            case "whoami":
+                responseLines = [
+                    { text: "", color: "" },
+                    { text: "  ____                          ", color: "text-emerald-500/60" },
+                    { text: " | __ ) _ __ _   _ _ __   ___   ", color: "text-emerald-500/60" },
+                    { text: " |  _ \\| '__| | | | '_ \\ / _ \\  ", color: "text-emerald-500/60" },
+                    { text: " | |_) | |  | |_| | | | | (_) | ", color: "text-emerald-500/60" },
+                    { text: " |____/|_|   \\__,_|_| |_|\\___/  ", color: "text-emerald-500/60" },
+                    { text: "", color: "" },
+                    { text: es ? "  Bruno Velasques" : "  Bruno Velasques", color: "text-foreground/80" },
+                    { text: "  Software Developer & UI/UX Designer", color: "text-emerald-500" },
+                    { text: es ? "  📍 Ica, Perú" : "  📍 Ica, Peru", color: "text-foreground/60" },
+                    { text: es ? "  🔗 brunovelasques.dev" : "  🔗 brunovelasques.dev", color: "text-foreground/50" },
+                    { text: "", color: "" },
+                ];
+                break;
+
+            case "ls":
+            case "dir":
+                responseLines = es ? [
+                    { text: "", color: "" },
+                    { text: "  📂 home/         → Portafolio principal", color: "text-foreground/60" },
+                    { text: "  📂 about/        → Sobre mí", color: "text-foreground/60" },
+                    { text: "  📂 experience/   → Experiencia laboral", color: "text-foreground/60" },
+                    { text: "  📂 skills/       → Tecnologías", color: "text-foreground/60" },
+                    { text: "  📂 projects/     → Proyectos", color: "text-foreground/60" },
+                    { text: "  📂 contact/      → Contacto", color: "text-foreground/60" },
+                    { text: "  ⚠️  not-found    → Estás aquí", color: "text-yellow-500/70" },
+                    { text: "", color: "" },
+                ] : [
+                    { text: "", color: "" },
+                    { text: "  📂 home/         → Main portfolio", color: "text-foreground/60" },
+                    { text: "  📂 about/        → About me", color: "text-foreground/60" },
+                    { text: "  📂 experience/   → Work experience", color: "text-foreground/60" },
+                    { text: "  📂 skills/       → Technologies", color: "text-foreground/60" },
+                    { text: "  📂 projects/     → Projects", color: "text-foreground/60" },
+                    { text: "  📂 contact/      → Contact", color: "text-foreground/60" },
+                    { text: "  ⚠️  not-found    → You are here", color: "text-yellow-500/70" },
+                    { text: "", color: "" },
+                ];
+                break;
+
             case "clear":
                 setLines([]);
                 setInputValue("");
@@ -193,12 +245,36 @@ export default function NotFound() {
         }
 
         setLines(prev => [...prev, commandLine, ...responseLines]);
+        if (trimmed) {
+            setCommandHistory(prev => [...prev, cmd.trim()]);
+            setHistoryIndex(-1);
+        }
         setInputValue("");
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             processCommand(inputValue);
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (commandHistory.length > 0) {
+                const newIndex = historyIndex === -1 
+                    ? commandHistory.length - 1 
+                    : Math.max(0, historyIndex - 1);
+                setHistoryIndex(newIndex);
+                setInputValue(commandHistory[newIndex]);
+            }
+        } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (historyIndex === -1) return;
+            const newIndex = historyIndex + 1;
+            if (newIndex >= commandHistory.length) {
+                setHistoryIndex(-1);
+                setInputValue("");
+            } else {
+                setHistoryIndex(newIndex);
+                setInputValue(commandHistory[newIndex]);
+            }
         }
     };
 
