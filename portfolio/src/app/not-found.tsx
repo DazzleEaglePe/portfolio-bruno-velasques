@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { X, Minus, Maximize2 } from "lucide-react";
+import { X, Minus, Maximize2, Home, Github, Terminal, FolderOpen } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 const lineVariants = {
@@ -535,22 +535,68 @@ export default function NotFound() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+                        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
                     >
-                        <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl border border-border/50 bg-foreground/[0.03] backdrop-blur-xl shadow-lg">
-                            <button
-                                onClick={() => { setWindowState("normal"); setIsClosed(false); setTimeout(() => inputRef.current?.focus(), 100); }}
-                                className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl hover:bg-foreground/5 transition-colors group"
-                            >
-                                <div className="w-8 h-8 rounded-lg bg-foreground/[0.06] border border-border/50 flex items-center justify-center group-hover:border-emerald-500/40 transition-colors">
-                                    <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
-                                    </svg>
-                                </div>
-                                <span className="font-mono text-xs text-muted-foreground group-hover:text-foreground transition-colors">
-                                    {es ? "Terminal" : "Terminal"}
+                        <div className="flex items-center gap-2 px-3 py-2 rounded-2xl border border-border/50 bg-foreground/[0.03] backdrop-blur-xl shadow-2xl">
+                            {/* Terminal App */}
+                            <div className="relative group">
+                                <button
+                                    onClick={() => { setWindowState("normal"); setIsClosed(false); setTimeout(() => inputRef.current?.focus(), 100); }}
+                                    className="w-12 h-12 rounded-xl bg-foreground/[0.06] border border-border/50 flex items-center justify-center hover:bg-foreground/[0.1] hover:scale-110 hover:-translate-y-2 transition-all duration-300 relative z-10"
+                                >
+                                    <Terminal className="w-6 h-6 text-emerald-500" />
+                                </button>
+                                {/* Puntero activo de que la app está "abierta" en segundo plano */}
+                                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-foreground/60"></div>
+                                {/* Tooltip flotante */}
+                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-foreground text-background text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                    {es ? "Restaurar Terminal" : "Restore Terminal"}
                                 </span>
-                            </button>
+                            </div>
+
+                            {/* Separador */}
+                            <div className="w-[1px] h-8 bg-border/50 mx-1"></div>
+
+                            {/* Home App */}
+                            <div className="relative group">
+                                <button
+                                    onClick={() => router.push("/")}
+                                    className="w-12 h-12 rounded-xl bg-foreground/[0.06] border border-border/50 flex items-center justify-center hover:bg-foreground/[0.1] hover:scale-110 hover:-translate-y-2 transition-all duration-300 relative z-10"
+                                >
+                                    <Home className="w-6 h-6 text-blue-500" />
+                                </button>
+                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-foreground text-background text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                    {es ? "Ir al Inicio" : "Go to Home"}
+                                </span>
+                            </div>
+
+                            {/* Projects App */}
+                            <div className="relative group">
+                                <button
+                                    onClick={() => router.push("/#projects")}
+                                    className="w-12 h-12 rounded-xl bg-foreground/[0.06] border border-border/50 flex items-center justify-center hover:bg-foreground/[0.1] hover:scale-110 hover:-translate-y-2 transition-all duration-300 relative z-10"
+                                >
+                                    <FolderOpen className="w-6 h-6 text-amber-500" />
+                                </button>
+                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-foreground text-background text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                    {es ? "Ver Proyectos" : "View Projects"}
+                                </span>
+                            </div>
+
+                            {/* Navbar GitHub Link (Simulado como App) */}
+                            <div className="relative group">
+                                <a
+                                    href="https://github.com/bruno-velasques"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-12 h-12 rounded-xl bg-foreground/[0.06] border border-border/50 flex items-center justify-center hover:bg-foreground/[0.1] hover:scale-110 hover:-translate-y-2 transition-all duration-300 relative z-10"
+                                >
+                                    <Github className="w-6 h-6 text-foreground" />
+                                </a>
+                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-foreground text-background text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                    GitHub
+                                </span>
+                            </div>
                         </div>
                     </motion.div>
                 )}
