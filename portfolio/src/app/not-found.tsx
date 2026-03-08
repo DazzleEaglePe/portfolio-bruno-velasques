@@ -34,6 +34,9 @@ export default function NotFound() {
     const [historyIndex, setHistoryIndex] = useState(-1);
     const [windowState, setWindowState] = useState<"normal" | "minimized" | "maximized">("normal");
     const [isClosed, setIsClosed] = useState(false);
+    
+    // Custom window size state for manual resizing
+    const [windowSize, setWindowSize] = useState({ width: 700, height: 450 });
 
     const initialLines: TerminalLine[] = es ? [
         { text: "▲ Next.js 16.1.6", color: "text-foreground/70" },
@@ -399,18 +402,18 @@ export default function NotFound() {
                         style={{ touchAction: "none" }}
                     >
                         <div 
-                            className={`rounded-xl border border-border/50 bg-foreground/[0.02] flex flex-col shadow-2xl backdrop-blur-sm ${
+                            className={`rounded-xl border border-border/50 bg-foreground/[0.02] flex flex-col shadow-2xl backdrop-blur-sm relative ${
                                 windowState === "maximized" 
                                     ? "w-full h-full" 
-                                    : "w-[min(100vw-2rem,42rem)]"
+                                    : ""
                             }`}
-                            style={{
-                                resize: windowState === "maximized" ? "none" : "both",
-                                overflow: "hidden",
+                            style={windowState === "maximized" ? {} : {
+                                width: windowSize.width,
+                                height: windowSize.height,
                                 minWidth: "300px",
                                 minHeight: "300px",
-                                maxWidth: windowState === "maximized" ? "none" : "95vw",
-                                maxHeight: windowState === "maximized" ? "none" : "90vh",
+                                maxWidth: "95vw",
+                                maxHeight: "90vh",
                             }}
                         >
                             {/* Terminal Header - Drag Handle */}
@@ -501,6 +504,24 @@ export default function NotFound() {
                                     </motion.div>
                                 )}
                             </div>
+
+                            {/* Custom Resize Handle (Bottom Right) */}
+                            {windowState === "normal" && (
+                                <motion.div
+                                    className="absolute bottom-0 right-0 w-5 h-5 cursor-nwse-resize z-50 flex items-end justify-end p-1"
+                                    onPan={(e, info) => {
+                                        setWindowSize(prev => ({
+                                            width: Math.max(300, prev.width + info.delta.x),
+                                            height: Math.max(300, prev.height + info.delta.y)
+                                        }));
+                                    }}
+                                >
+                                    <svg viewBox="0 0 24 24" className="w-3 h-3 text-muted-foreground/30 rotate-90" stroke="currentColor" strokeWidth="2" fill="none">
+                                        <path d="M21 15l-6 6" />
+                                        <path d="M21 8l-13 13" />
+                                    </svg>
+                                </motion.div>
+                            )}
                         </div>
                     </motion.div>
                 )}
