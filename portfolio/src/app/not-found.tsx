@@ -384,19 +384,35 @@ export default function NotFound() {
                         dragMomentum={false}
                         dragElastic={0.05}
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        animate={{ 
+                            opacity: 1, 
+                            scale: 1,
+                            ...(windowState === "maximized" ? { x: 0, y: 0 } : {})
+                        }}
                         exit={{ opacity: 0, y: 40, scale: 0.8 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
-                        className={`relative z-10 flex flex-col items-center ${
+                        className={`z-10 flex flex-col ${
                             windowState === "maximized" 
-                                ? "fixed inset-4 max-w-none w-auto" 
-                                : "w-full max-w-2xl"
+                                ? "fixed inset-4 sm:inset-6 z-50" 
+                                : "relative"
                         }`}
                         style={{ touchAction: "none" }}
                     >
-                        <div className={`w-full rounded-xl border border-border/50 bg-foreground/[0.02] overflow-hidden flex flex-col ${
-                            windowState === "maximized" ? "h-full" : ""
-                        }`}>
+                        <div 
+                            className={`rounded-xl border border-border/50 bg-foreground/[0.02] flex flex-col shadow-2xl backdrop-blur-sm ${
+                                windowState === "maximized" 
+                                    ? "w-full h-full" 
+                                    : "w-[min(100vw-2rem,42rem)]"
+                            }`}
+                            style={{
+                                resize: windowState === "maximized" ? "none" : "both",
+                                overflow: "hidden",
+                                minWidth: "300px",
+                                minHeight: "300px",
+                                maxWidth: windowState === "maximized" ? "none" : "95vw",
+                                maxHeight: windowState === "maximized" ? "none" : "90vh",
+                            }}
+                        >
                             {/* Terminal Header - Drag Handle */}
                             <div 
                                 className="flex items-center gap-2 px-4 py-2.5 border-b border-border/40 cursor-grab active:cursor-grabbing select-none shrink-0"
@@ -437,7 +453,7 @@ export default function NotFound() {
                             <div 
                                 ref={scrollRef}
                                 className={`p-5 sm:p-6 font-mono text-xs sm:text-sm space-y-1 overflow-y-auto scrollbar-subtle flex-1 ${
-                                    windowState === "maximized" ? "" : "max-h-[60vh]"
+                                    windowState === "maximized" ? "" : "max-h-[70vh]"
                                 }`}
                             >
                                 {lines.map((line, i) => (
