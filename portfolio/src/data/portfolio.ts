@@ -51,27 +51,27 @@ interface Certification {
 const personalDataI18n: Record<Locale, PersonalInfo> = {
   es: {
     name: "Bruno Velasques",
-    role: "Software Developer",
-    subtitle: "UI/UX Designer",
+    role: "AI Engineer | Software Developer",
+    subtitle: "Especialista en Agentes de IA & RAG",
     email: "brunoty000@gmail.com",
     phone: "+51 954 153 338",
     linkedin: "https://www.linkedin.com/in/bruno-velasques-software-developer/",
     github: "https://github.com/DazzleEaglePe",
     location: "Ica, Perú",
     summary:
-      "Profesional desarrollador de software con más de 2 años de experiencia en el diseño y construcción de soluciones digitales orientadas al core del negocio, con énfasis en arquitecturas basadas en microservicios y desarrollo de aplicaciones web y móviles. Sólida experiencia en entornos Fintech y financieros, participando en la modernización de canales digitales y productos financieros.",
+      "Ingeniero de software con más de 3 años de experiencia en el diseño, desarrollo e integración de soluciones digitales avanzadas, especializándose en sistemas multi-agente de Inteligencia Artificial (LangGraph), arquitecturas RAG corporativas y MLOps. Sólida trayectoria en el sector bancario, participando activamente en la modernización de canales y automatizaciones inteligentes en Caja Ica.",
   },
   en: {
     name: "Bruno Velasques",
-    role: "Software Developer",
-    subtitle: "UI/UX Designer",
+    role: "AI Engineer & Software Developer",
+    subtitle: "AI Agents & Advanced RAG Specialist",
     email: "brunoty000@gmail.com",
     phone: "+51 954 153 338",
     linkedin: "https://www.linkedin.com/in/bruno-velasques-software-developer/",
     github: "https://github.com/DazzleEaglePe",
     location: "Ica, Peru",
     summary:
-      "Professional software developer with over 2 years of experience designing and building business-core digital solutions, with emphasis on microservice-based architectures and web/mobile application development. Solid experience in Fintech and financial environments, contributing to the modernization of digital channels and financial products.",
+      "Software engineer with over 3 years of experience designing, developing, and integrating advanced digital solutions, specializing in Artificial Intelligence multi-agent systems (LangGraph), corporate RAG architectures, and MLOps. Solid background in the banking sector, actively contributing to channel modernization and intelligent automation at Caja Ica.",
   },
 };
 
@@ -87,11 +87,12 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       achievements: [
         "Diseñé e implementé el primer módulo de seguros digitales integrando La Positiva en el Homebanking → +10K clientes",
         "Lideré la migración e integración del producto Plazo Fijo a App Android, iOS y Homebanking → +50 afiliaciones en el primer mes",
+        "Desarrollé el prototipo del orquestador conversacional multi-agente de Caja Ica (LangGraph, FastAPI, Docker, y Azure AI Search) para simulaciones de créditos y validación de políticas (Compliance).",
       ],
       color: "accent",
       type: "employment",
       industry: "Fintech · Microfinanzas",
-      stack: ["Java", "Spring Boot", "Angular", "React", "TypeScript", "SQL Server", "Microservicios"],
+      stack: ["Java", "Spring Boot", "Angular", "React", "TypeScript", "SQL Server", "Microservicios", "LangGraph", "ChromaDB"],
       icon: "🏦",
     },
     {
@@ -200,11 +201,12 @@ const experiencesI18n: Record<Locale, Experience[]> = {
       achievements: [
         "Designed and implemented the first digital insurance module integrating La Positiva into Homebanking → +10K clients",
         "Led the migration and integration of Fixed-Term Deposits to Android, iOS, and Homebanking → +50 sign-ups in the first month",
+        "Developed the prototype for Caja Ica's conversational multi-agent system (LangGraph, FastAPI, Docker, and Azure AI Search) for credit simulations and compliance policy auditing.",
       ],
       color: "accent",
       type: "employment",
       industry: "Fintech · Microfinance",
-      stack: ["Java", "Spring Boot", "Angular", "React", "TypeScript", "SQL Server", "Microservices"],
+      stack: ["Java", "Spring Boot", "Angular", "React", "TypeScript", "SQL Server", "Microservices", "LangGraph", "ChromaDB"],
       icon: "🏦",
     },
     {
@@ -305,6 +307,38 @@ const educationI18n: Record<Locale, EducationItem[]> = {
 const projectsI18n: Record<Locale, Project[]> = {
   es: [
     {
+      title: "Agente Financiero Multi-Agente (LangGraph)",
+      description:
+        "Orquestador conversacional inteligente para simulación de créditos y admisión automatizada de clientes de Caja Ica. Desarrollado con LangGraph, FastAPI, Docker y telemetría en LangSmith, incorporando un Compliance Officer (LLM-as-a-Judge) para mitigar la fuga de datos sensibles.",
+      tags: ["LangGraph", "FastAPI", "Docker", "LangSmith", "Python"],
+      link: "https://github.com/DazzleEaglePe/agente-financiero-langgraph",
+      color: "accent",
+    },
+    {
+      title: "RAG Corporativo y Reranking en Azure",
+      description:
+        "Pipeline RAG empresarial alineado a los estándares de la certificación AI-103. Implementa búsquedas híbridas (BM25 + vectores) y reordenamiento semántico avanzado (Semantic Reranker) utilizando Azure AI Search y Azure OpenAI para consultar normativas de la SBS y SUNAT.",
+      tags: ["Azure AI Search", "Azure OpenAI", "Python", "RAG"],
+      link: "https://github.com/DazzleEaglePe/azure-search-openai-rag",
+      color: "accent-indigo",
+    },
+    {
+      title: "Conector para Microsoft Copilot Studio",
+      description:
+        "Microservicio REST API diseñado en FastAPI que expone los motores de cálculo financiero de Caja Ica. Estructurado bajo especificaciones OpenAPI para su integración directa y sin código (Low-Code) en Copilot Studio y Power Platform.",
+      tags: ["FastAPI", "OpenAPI", "Copilot Studio", "Power Platform"],
+      link: "https://github.com/DazzleEaglePe/copilot-custom-connector",
+      color: "accent-emerald",
+    },
+    {
+      title: "RAG Avanzado y Reordenamiento Rerank",
+      description:
+        "Orquestador de recuperación semántica que demuestra técnicas avanzadas de traducción de consultas (Multi-Query) y reordenamiento de relevancia (Cross-Encoder) mediante la API de Gemini y ChromaDB local.",
+      tags: ["Python", "Gemini API", "ChromaDB", "Reranker"],
+      link: "https://github.com/DazzleEaglePe/advanced-rag-orchestrator",
+      color: "accent-rose",
+    },
+    {
       title: "ECA Monitor – Auditoría RDP",
       description:
         "Sistema avanzado de auditoría remota. Despliega agentes ultraligeros en servidores Windows para transmitir pantallas en vivo, métricas de hardware y logs de sesiones directo a un dashboard web usando WebSockets de latencia cero.",
@@ -354,6 +388,38 @@ const projectsI18n: Record<Locale, Project[]> = {
     },
   ],
   en: [
+    {
+      title: "Multi-Agent Financial Advisor (LangGraph)",
+      description:
+        "Intelligent conversational orchestrator for credit simulation and automated customer admission at Caja Ica. Developed using LangGraph, FastAPI, Docker, and LangSmith tracing, featuring a built-in Compliance Officer (LLM-as-a-Judge) for sensitive data masking.",
+      tags: ["LangGraph", "FastAPI", "Docker", "LangSmith", "Python"],
+      link: "https://github.com/DazzleEaglePe/agente-financiero-langgraph",
+      color: "accent",
+    },
+    {
+      title: "Corporate RAG and Reranking on Azure",
+      description:
+        "Enterprise RAG pipeline aligned with Microsoft AI-103 certification standards. Implements hybrid search (BM25 + vectors) and semantic reranking using Azure AI Search and Azure OpenAI to query SBS/SUNAT regulations.",
+      tags: ["Azure AI Search", "Azure OpenAI", "Python", "RAG"],
+      link: "https://github.com/DazzleEaglePe/azure-search-openai-rag",
+      color: "accent-indigo",
+    },
+    {
+      title: "Microsoft Copilot Studio Custom Connector",
+      description:
+        "FastAPI-based REST API microservice exposing Caja Ica's financial calculation engines. Structured under OpenAPI specifications for direct, no-code integration into Microsoft Copilot Studio and Power Platform.",
+      tags: ["FastAPI", "OpenAPI", "Copilot Studio", "Power Platform"],
+      link: "https://github.com/DazzleEaglePe/copilot-custom-connector",
+      color: "accent-emerald",
+    },
+    {
+      title: "Advanced RAG and Cross-Encoder Rerank",
+      description:
+        "Semantic retrieval orchestrator showcasing advanced query translation (Multi-Query) and relevance re-scoring (Cross-Encoder) using Gemini API and a local ChromaDB collection.",
+      tags: ["Python", "Gemini API", "ChromaDB", "Reranker"],
+      link: "https://github.com/DazzleEaglePe/advanced-rag-orchestrator",
+      color: "accent-rose",
+    },
     {
       title: "ECA Monitor – RDP Audit",
       description:
@@ -461,6 +527,8 @@ export const techStack = {
     { name: "Chatwoot", color: "#1f93ff" },
     { name: "WhatsApp API", color: "#25d366" },
     { name: "OpenAI", color: "#10a37f" },
+    { name: "LangGraph", color: "#fbbf24" },
+    { name: "LlamaIndex", color: "#ea4b71" },
     { name: "Twilio", color: "#f22f46" },
     { name: "Make", color: "#6d00cc" },
   ],
