@@ -10,37 +10,37 @@ const loadingMessages = {
     es: [
         {
             plainText: "Preparando una experiencia con criterio.",
-            content: <>Preparando una experiencia <span className="text-white">con criterio.</span></>,
+            content: <span>Preparando una experiencia <span className="text-white">con criterio.</span></span>,
         },
         {
             plainText: "Software, diseño e inteligencia artificial.",
-            content: <>Software, diseño e <span className="gradient-text">inteligencia artificial.</span></>,
+            content: <span>Software, diseño e <span className="gradient-text">inteligencia artificial.</span></span>,
         },
         {
             plainText: "15+ productos llevados a producción.",
-            content: <><span className="text-white">15+ productos</span> llevados a producción.</>,
+            content: <span><span className="text-white">15+ productos</span> llevados a producción.</span>,
         },
         {
             plainText: "Bienvenido a mi trabajo.",
-            content: <>Bienvenido a <span className="text-[#baff66]">mi trabajo.</span></>,
+            content: <span>Bienvenido a <span className="text-[#baff66]">mi trabajo.</span></span>,
         },
     ],
     en: [
         {
             plainText: "Preparing an experience with intention.",
-            content: <>Preparing an experience <span className="text-white">with intention.</span></>,
+            content: <span>Preparing an experience <span className="text-white">with intention.</span></span>,
         },
         {
             plainText: "Software, design, and artificial intelligence.",
-            content: <>Software, design, and <span className="gradient-text">artificial intelligence.</span></>,
+            content: <span>Software, design, and <span className="gradient-text">artificial intelligence.</span></span>,
         },
         {
             plainText: "15+ products shipped to production.",
-            content: <><span className="text-white">15+ products</span> shipped to production.</>,
+            content: <span><span className="text-white">15+ products</span> shipped to production.</span>,
         },
         {
             plainText: "Welcome to my work.",
-            content: <>Welcome to <span className="text-[#baff66]">my work.</span></>,
+            content: <span>Welcome to <span className="text-[#baff66]">my work.</span></span>,
         },
     ],
 };
