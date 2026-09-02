@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
+import * as Flags from "country-flag-icons/react/3x2";
 import { useI18n } from "@/lib/i18n";
 
 const loadingMessages = {
@@ -130,19 +131,19 @@ export default function InitialLoader() {
                                     >
                                         <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500">
                                             <Sparkles className="size-3.5 text-[#baff66]" />
-                                            First things first
+                                            Primero, lo esencial
                                         </div>
                                         <h1 className="mx-auto mt-6 max-w-2xl text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl">
-                                            Tu idioma. <span className="gradient-text">Your language.</span>
+                                            Elige tu <span className="gradient-text">idioma.</span>
                                         </h1>
                                         <p className="mx-auto mt-5 max-w-md text-sm leading-6 text-zinc-500">
-                                            Elige cómo quieres descubrir el trabajo. Choose how you want to explore the work.
+                                            Selecciona una opción para descubrir el portafolio en tu idioma preferido.
                                         </p>
 
                                         <div className="mt-9 grid gap-3 sm:grid-cols-2">
                                             {[
-                                                { code: "ES", name: "Español", detail: "Latinoamérica", value: "es" as const },
-                                                { code: "EN", name: "English", detail: "International", value: "en" as const },
+                                                { code: "ES", name: "Español", detail: "Latinoamérica", value: "es" as const, Flag: Flags.ES },
+                                                { code: "EN", name: "English", detail: "International", value: "en" as const, Flag: Flags.GB },
                                             ].map((language, index) => (
                                                 <motion.button
                                                     key={language.code}
@@ -155,7 +156,9 @@ export default function InitialLoader() {
                                                     aria-label={`Select ${language.name}`}
                                                 >
                                                     <span className="flex items-center gap-4">
-                                                        <span className={`grid size-12 place-items-center rounded-2xl text-sm font-bold ${index === 0 ? "bg-[#baff66] text-black" : "bg-[#8e61ff] text-white"}`}>{language.code}</span>
+                                                        <span className={`relative grid size-14 shrink-0 place-items-center overflow-hidden rounded-full border-2 bg-[#171717] shadow-[0_8px_24px_rgba(0,0,0,0.35)] ${index === 0 ? "border-[#baff66]/55" : "border-[#8e61ff]/65"}`}>
+                                                            <language.Flag className="h-full w-full scale-[1.5]" title={language.name} />
+                                                        </span>
                                                         <span><span className="block text-base font-semibold text-white">{language.name}</span><span className="mt-1 block text-[10px] uppercase tracking-[0.12em] text-zinc-600">{language.detail}</span></span>
                                                     </span>
                                                     <ArrowUpRight className="size-4 text-zinc-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
