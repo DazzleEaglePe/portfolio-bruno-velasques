@@ -8,18 +8,44 @@ import { useI18n } from "@/lib/i18n";
 
 const loadingMessages = {
     es: [
-        <>Preparando una experiencia <span className="text-white">con criterio.</span></>,
-        <>Software, diseño e <span className="gradient-text">inteligencia artificial.</span></>,
-        <><span className="text-white">15+ productos</span> llevados a producción.</>,
-        <>Bienvenido a <span className="text-[#baff66]">mi trabajo.</span></>,
+        {
+            plainText: "Preparando una experiencia con criterio.",
+            content: <>Preparando una experiencia <span className="text-white">con criterio.</span></>,
+        },
+        {
+            plainText: "Software, diseño e inteligencia artificial.",
+            content: <>Software, diseño e <span className="gradient-text">inteligencia artificial.</span></>,
+        },
+        {
+            plainText: "15+ productos llevados a producción.",
+            content: <><span className="text-white">15+ productos</span> llevados a producción.</>,
+        },
+        {
+            plainText: "Bienvenido a mi trabajo.",
+            content: <>Bienvenido a <span className="text-[#baff66]">mi trabajo.</span></>,
+        },
     ],
     en: [
-        <>Preparing an experience <span className="text-white">with intention.</span></>,
-        <>Software, design, and <span className="gradient-text">artificial intelligence.</span></>,
-        <><span className="text-white">15+ products</span> shipped to production.</>,
-        <>Welcome to <span className="text-[#baff66]">my work.</span></>,
+        {
+            plainText: "Preparing an experience with intention.",
+            content: <>Preparing an experience <span className="text-white">with intention.</span></>,
+        },
+        {
+            plainText: "Software, design, and artificial intelligence.",
+            content: <>Software, design, and <span className="gradient-text">artificial intelligence.</span></>,
+        },
+        {
+            plainText: "15+ products shipped to production.",
+            content: <><span className="text-white">15+ products</span> shipped to production.</>,
+        },
+        {
+            plainText: "Welcome to my work.",
+            content: <>Welcome to <span className="text-[#baff66]">my work.</span></>,
+        },
     ],
 };
+
+const getReadingDuration = (text: string) => Math.min(2600, Math.max(1750, 950 + text.length * 24));
 
 const languagePrompts = [
     {
@@ -48,6 +74,7 @@ export default function InitialLoader() {
     const [descriptionIndex, setDescriptionIndex] = useState(0);
     const { locale, setLocale } = useI18n();
     const messages = loadingMessages[locale] || loadingMessages.es;
+    const messageDuration = getReadingDuration(messages[messageIndex].plainText);
 
     useEffect(() => {
         const forceIntro = new URLSearchParams(window.location.search).get("intro") === "1";
@@ -95,22 +122,17 @@ export default function InitialLoader() {
     useEffect(() => {
         if (step !== "messages") return;
 
-        const messageInterval = window.setInterval(() => {
-            setMessageIndex((current) => {
-                if (current >= messages.length - 1) {
-                    window.clearInterval(messageInterval);
-                    return current;
-                }
-                return current + 1;
-            });
-        }, 1050);
+        const messageTimer = window.setTimeout(() => {
+            if (messageIndex >= messages.length - 1) {
+                setIsLoading(false);
+                return;
+            }
 
-        const exitTimer = window.setTimeout(() => setIsLoading(false), 4600);
-        return () => {
-            window.clearInterval(messageInterval);
-            window.clearTimeout(exitTimer);
-        };
-    }, [step, messages.length]);
+            setMessageIndex((current) => current + 1);
+        }, messageDuration);
+
+        return () => window.clearTimeout(messageTimer);
+    }, [messageDuration, messageIndex, messages.length, step]);
 
     const handleLanguageSelect = (language: "es" | "en") => {
         setLocale(language);
@@ -270,19 +292,25 @@ export default function InitialLoader() {
                                                     transition={{ duration: 0.38, ease: "easeOut" }}
                                                     className="absolute inset-0 flex items-center justify-center text-balance text-3xl font-semibold leading-tight tracking-[-0.045em] text-zinc-500 sm:text-5xl"
                                                 >
-                                                    {messages[messageIndex]}
+                                                    {messages[messageIndex].content}
                                                 </motion.p>
                                             </AnimatePresence>
                                         </div>
                                         <div className="mx-auto mt-7 flex max-w-md gap-2">
                                             {messages.map((_, index) => (
                                                 <span key={index} className="h-1 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
-                                                    <motion.span
-                                                        className="block h-full rounded-full bg-gradient-to-r from-[#8e61ff] to-[#baff66]"
-                                                        initial={false}
-                                                        animate={{ width: index <= messageIndex ? "100%" : "0%" }}
-                                                        transition={{ duration: 0.35 }}
-                                                    />
+                                                    {index < messageIndex && (
+                                                        <span className="block h-full w-full rounded-full bg-gradient-to-r from-[#8e61ff] to-[#baff66]" />
+                                                    )}
+                                                    {index === messageIndex && (
+                                                        <motion.span
+                                                            key={`progress-${messageIndex}`}
+                                                            className="block h-full rounded-full bg-gradient-to-r from-[#8e61ff] to-[#baff66]"
+                                                            initial={{ width: "0%" }}
+                                                            animate={{ width: "100%" }}
+                                                            transition={{ duration: messageDuration / 1000, ease: "linear" }}
+                                                        />
+                                                    )}
                                                 </span>
                                             ))}
                                         </div>
