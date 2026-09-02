@@ -8,17 +8,17 @@ import InitialLoader from "@/components/InitialLoader";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://brunovelasques.dev"),
-  title: "Bruno Velasques — Software Developer & UI/UX Designer",
-  description: "Portafolio profesional de Bruno Velasques. Desarrollador de software con amplia experiencia en Fintech, microservicios, y diseño UI/UX en Perú.",
-  keywords: ["Bruno Velasques", "Software Developer", "Full Stack", "UI/UX Designer", "React", "Next.js", "Perú", "Desarrollador Web", "Caja Ica"],
+  title: "Bruno Velasques — Software, AI & Product",
+  description: "Portafolio de Bruno Velasques: productos digitales, agentes de IA, automatización y experiencias fintech diseñadas para escalar.",
+  keywords: ["Bruno Velasques", "Software Developer", "AI Agents", "RAG", "Full Stack", "UI/UX Designer", "React", "Next.js", "Fintech", "Perú"],
   authors: [{ name: "Bruno Velasques", url: "https://brunovelasques.dev" }],
   creator: "Bruno Velasques",
   openGraph: {
     type: "website",
     locale: "es_PE",
     url: "https://brunovelasques.dev",
-    title: "Bruno Velasques — Software Developer & UI/UX Designer",
-    description: "Portafolio profesional de Bruno Velasques. Especialista en crear soluciones digitales escalables y experiencias de usuario excepcionales.",
+    title: "Bruno Velasques — Software, AI & Product",
+    description: "Productos digitales, agentes de IA y experiencias fintech diseñadas para escalar.",
     siteName: "Bruno Velasques Portfolio",
     images: [
       {
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bruno Velasques — Software Developer",
-    description: "Portafolio profesional de Bruno Velasques. Desarrollador de software con experiencia en Fintech, microservicios, y diseño UI/UX.",
+    title: "Bruno Velasques — Software, AI & Product",
+    description: "Productos digitales, agentes de IA y experiencias fintech diseñadas para escalar.",
     images: ["/images/bruno_velasques.png"],
     creator: "@velasques_bruno", // Assuming based on Instagram handle
   },
@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         "@type": "Person",
         "@id": "https://brunovelasques.dev/#person",
         "name": "Bruno Velasques",
-        "jobTitle": "Software Developer & UI/UX Designer",
+        "jobTitle": "Software Developer & AI Product Builder",
         "url": "https://brunovelasques.dev",
         "image": "https://brunovelasques.dev/images/bruno_velasques.png",
         "sameAs": [

@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { getPersonalData } from "@/data/portfolio";
 import { useI18n } from "@/lib/i18n";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { fadeUp } from "@/lib/animations";
 
 export default function ContactSection() {
@@ -12,45 +11,47 @@ export default function ContactSection() {
     const personalData = getPersonalData(locale);
 
     return (
-        <section id="contact" className="grid md:grid-cols-3 gap-4 scroll-m-24">
-            <motion.div {...fadeUp} className="md:col-span-2">
-                <Card className="h-full relative overflow-hidden group">
-                    {/* Subtle Ambient Light Effect (Hover Only) */}
-                    <div className="absolute top-0 right-0 -mr-32 -mt-32 w-64 h-64 rounded-full bg-emerald-500/20 dark:bg-emerald-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <section id="contact" className="scroll-m-28">
+            <motion.div {...fadeUp} className="relative isolate overflow-hidden rounded-[32px] border border-white/[0.09] bg-[#0d0d0d] p-6 sm:p-10 lg:p-14">
+                <div className="pointer-events-none absolute -right-20 -top-32 -z-10 size-[420px] rounded-full bg-[#8e61ff]/25 blur-[100px]" />
+                <div className="pointer-events-none absolute -bottom-40 left-1/4 -z-10 size-[400px] rounded-full bg-[#baff66]/10 blur-[110px]" />
 
-                    <CardContent className="p-6 md:p-8 flex flex-col justify-center h-full relative z-10">
-                        <h3 className="text-2xl md:text-3xl font-bold mb-3">{t("contact.heading")}</h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-md">{t("contact.subtitle")}</p>
-                        <div className="flex gap-3">
-                            <Button asChild size="lg" className="rounded-full">
-                                <a href={`mailto:${personalData.email}`}>{t("contact.email")}</a>
-                            </Button>
-                            <Button asChild variant="outline" size="lg" className="rounded-full">
-                                <a href={personalData.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                            </Button>
+                <div className="grid gap-12 lg:grid-cols-[1fr_300px] lg:items-end">
+                    <div>
+                        <span className="section-kicker">{t("nav.contact")}</span>
+                        <h2 className="mt-5 max-w-4xl text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl">
+                            {locale === "es" ? "¿Tienes una idea ambiciosa?" : "Have an ambitious idea?"}
+                            <span className="gradient-text block pb-2">{locale === "es" ? "Hagámosla real." : "Let’s make it real."}</span>
+                        </h2>
+                        <p className="mt-6 max-w-xl text-sm leading-6 text-zinc-400 sm:text-base">
+                            {t("contact.subtitle")}
+                        </p>
+                        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                            <a href={`mailto:${personalData.email}`} className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-black transition hover:bg-[#baff66]">
+                                <Mail className="size-4" /> {t("contact.email")}
+                                <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            </a>
+                            <a href={personalData.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/12 px-6 text-sm font-semibold text-white transition hover:bg-white/[0.06]">
+                                <Linkedin className="size-4" /> LinkedIn
+                            </a>
                         </div>
-                    </CardContent>
-                </Card>
-            </motion.div>
-            <motion.div {...fadeUp} transition={{ duration: 0.4, delay: 0.1 }}>
-                <a href={personalData.github} target="_blank" rel="noopener noreferrer" className="block h-full">
-                    <Card className="h-full hover:bg-secondary/50 transition-all duration-300 group relative overflow-hidden">
-                        {/* Subtle Ambient Light Effect (Hover Only) */}
-                        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 rounded-full bg-violet-500/20 dark:bg-violet-500/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    </div>
 
-                        <CardContent className="p-6 flex flex-col justify-between h-full relative z-10">
-                            <div className="flex justify-between items-start">
-                                <svg className="w-8 h-8 text-muted-foreground group-hover:text-foreground transition-colors mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-                                <svg className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
-                            </div>
-
-                            <div className="mt-4">
-                                <p className="text-sm font-medium mb-1">GitHub</p>
-                                <p className="text-xs text-muted-foreground">@DazzleEaglePe</p>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </a>
+                    <div className="grid gap-3">
+                        <a href={personalData.github} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between rounded-2xl border border-white/[0.09] bg-white/[0.035] p-4 transition hover:bg-white/[0.065]">
+                            <span className="flex items-center gap-3 text-sm font-medium text-zinc-300"><Github className="size-4" /> GitHub</span>
+                            <ArrowUpRight className="size-4 text-zinc-600 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+                        </a>
+                        <a href={personalData.linkedin} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between rounded-2xl border border-white/[0.09] bg-white/[0.035] p-4 transition hover:bg-white/[0.065]">
+                            <span className="flex items-center gap-3 text-sm font-medium text-zinc-300"><Linkedin className="size-4" /> LinkedIn</span>
+                            <ArrowUpRight className="size-4 text-zinc-600 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+                        </a>
+                        <div className="rounded-2xl border border-white/[0.09] bg-[#baff66] p-4 text-black">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.15em]">Status</p>
+                            <p className="mt-2 text-sm font-semibold">{locale === "es" ? "Disponible para conversar" : "Open to a conversation"}</p>
+                        </div>
+                    </div>
+                </div>
             </motion.div>
         </section>
     );
