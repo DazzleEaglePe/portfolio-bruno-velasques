@@ -21,6 +21,21 @@ const loadingMessages = {
     ],
 };
 
+const languagePrompts = [
+    {
+        eyebrow: "Primero, lo esencial",
+        prefix: "Elige tu",
+        keyword: "idioma.",
+        description: "Selecciona una opción para descubrir el portafolio en tu idioma preferido.",
+    },
+    {
+        eyebrow: "First things first",
+        prefix: "Choose your",
+        keyword: "language.",
+        description: "Select an option to explore the portfolio in your preferred language.",
+    },
+];
+
 type Step = "lang" | "messages";
 
 export default function InitialLoader() {
@@ -28,6 +43,9 @@ export default function InitialLoader() {
     const [checked, setChecked] = useState(false);
     const [step, setStep] = useState<Step>("lang");
     const [messageIndex, setMessageIndex] = useState(0);
+    const [promptIndex, setPromptIndex] = useState(0);
+    const [keywordIndex, setKeywordIndex] = useState(0);
+    const [descriptionIndex, setDescriptionIndex] = useState(0);
     const { locale, setLocale } = useI18n();
     const messages = loadingMessages[locale] || loadingMessages.es;
 
@@ -52,6 +70,27 @@ export default function InitialLoader() {
             document.body.style.overflow = "";
         };
     }, [isLoading]);
+
+    useEffect(() => {
+        if (step !== "lang") return;
+
+        let keywordTimer: number | undefined;
+        let descriptionTimer: number | undefined;
+        const promptTimer = window.setInterval(() => {
+            setPromptIndex((current) => {
+                const next = (current + 1) % languagePrompts.length;
+                keywordTimer = window.setTimeout(() => setKeywordIndex(next), 360);
+                descriptionTimer = window.setTimeout(() => setDescriptionIndex(next), 520);
+                return next;
+            });
+        }, 2800);
+
+        return () => {
+            window.clearInterval(promptTimer);
+            if (keywordTimer) window.clearTimeout(keywordTimer);
+            if (descriptionTimer) window.clearTimeout(descriptionTimer);
+        };
+    }, [step]);
 
     useEffect(() => {
         if (step !== "messages") return;
@@ -131,14 +170,57 @@ export default function InitialLoader() {
                                     >
                                         <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500">
                                             <Sparkles className="size-3.5 text-[#baff66]" />
-                                            Primero, lo esencial
+                                            <AnimatePresence mode="wait" initial={false}>
+                                                <motion.span
+                                                    key={descriptionIndex}
+                                                    initial={{ opacity: 0, y: 5 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -5 }}
+                                                    transition={{ duration: 0.25 }}
+                                                >
+                                                    {languagePrompts[descriptionIndex].eyebrow}
+                                                </motion.span>
+                                            </AnimatePresence>
                                         </div>
-                                        <h1 className="mx-auto mt-6 max-w-2xl text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl">
-                                            Elige tu <span className="gradient-text">idioma.</span>
+                                        <h1 className="mx-auto mt-6 flex min-h-[1.1em] max-w-3xl flex-wrap items-center justify-center gap-x-[0.22em] text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl">
+                                            <AnimatePresence mode="wait" initial={false}>
+                                                <motion.span
+                                                    key={`prefix-${promptIndex}`}
+                                                    initial={{ opacity: 0, y: 12, filter: "blur(7px)" }}
+                                                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                                    exit={{ opacity: 0, y: -12, filter: "blur(7px)" }}
+                                                    transition={{ duration: 0.32, ease: "easeOut" }}
+                                                >
+                                                    {languagePrompts[promptIndex].prefix}
+                                                </motion.span>
+                                            </AnimatePresence>
+                                            <AnimatePresence mode="wait" initial={false}>
+                                                <motion.span
+                                                    key={`keyword-${keywordIndex}`}
+                                                    initial={{ opacity: 0, y: 12, filter: "blur(7px)" }}
+                                                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                                    exit={{ opacity: 0, y: -12, filter: "blur(7px)" }}
+                                                    transition={{ duration: 0.32, ease: "easeOut" }}
+                                                    className="gradient-text pb-1"
+                                                >
+                                                    {languagePrompts[keywordIndex].keyword}
+                                                </motion.span>
+                                            </AnimatePresence>
                                         </h1>
-                                        <p className="mx-auto mt-5 max-w-md text-sm leading-6 text-zinc-500">
-                                            Selecciona una opción para descubrir el portafolio en tu idioma preferido.
-                                        </p>
+                                        <div className="relative mx-auto mt-5 min-h-12 max-w-md">
+                                            <AnimatePresence mode="wait" initial={false}>
+                                                <motion.p
+                                                    key={`description-${descriptionIndex}`}
+                                                    initial={{ opacity: 0, y: 8 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -8 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="absolute inset-0 text-sm leading-6 text-zinc-500"
+                                                >
+                                                    {languagePrompts[descriptionIndex].description}
+                                                </motion.p>
+                                            </AnimatePresence>
+                                        </div>
 
                                         <div className="mt-9 grid gap-3 sm:grid-cols-2">
                                             {[
