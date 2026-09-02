@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/supabase-auth";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +37,8 @@ function useCountdown() {
     const [time, setTime] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
 
     useEffect(() => {
+        if (!isSupabaseConfigured) return;
+
         setTime(calc());
         const id = setInterval(() => setTime(calc()), 1000);
         return () => clearInterval(id);
@@ -309,15 +311,15 @@ export default function GiveawaySection() {
     };
 
     // Shared input class
-    const inputClass = "w-full h-10 px-4 rounded-xl bg-secondary/50 border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/40 transition-all";
+    const inputClass = "h-11 w-full rounded-[14px] border border-white/[0.08] bg-black/25 px-4 text-sm text-white placeholder:text-zinc-600 outline-none transition focus:border-[#baff66]/45 focus:ring-2 focus:ring-[#baff66]/10";
 
     // Countdown digit component
     const Digit = ({ value, label }: { value: number; label: string }) => (
-        <div className="flex flex-col items-center">
-            <span className="text-2xl sm:text-3xl font-bold font-mono tabular-nums text-foreground">
+        <div className="flex min-w-0 flex-col items-center rounded-2xl border border-white/[0.07] bg-white/[0.035] px-2 py-3 sm:px-4">
+            <span className="font-mono text-xl font-semibold tabular-nums text-white sm:text-3xl">
                 {String(value).padStart(2, "0")}
             </span>
-            <span className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">{label}</span>
+            <span className="mt-1 text-[8px] uppercase tracking-[0.12em] text-zinc-600 sm:text-[9px]">{label}</span>
         </div>
     );
 
@@ -335,8 +337,8 @@ export default function GiveawaySection() {
         return (
             <div className="space-y-5">
                 <div>
-                    <h4 className="text-lg font-bold mb-1">{t("giveaway.modal.completeTitle") || "Completa tu postulación"}</h4>
-                    <p className="text-xs text-muted-foreground">{t("giveaway.modal.completeDesc") || "Faltan un par de datos sobre tu negocio para entrar al sorteo."}</p>
+                    <h4 className="mb-1 text-xl font-semibold tracking-[-0.03em] text-white">{t("giveaway.modal.completeTitle") || "Completa tu postulación"}</h4>
+                    <p className="text-xs leading-5 text-zinc-500">{t("giveaway.modal.completeDesc") || "Faltan un par de datos sobre tu negocio para entrar al sorteo."}</p>
                 </div>
 
                 <form onSubmit={handleCompleteProfile} className="space-y-4">
@@ -413,13 +415,13 @@ export default function GiveawaySection() {
         if (mode === "success") {
             return (
                 <div className="flex flex-col items-center text-center gap-5 py-6">
-                    <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                        <svg className="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <div className="flex size-20 items-center justify-center rounded-full bg-[#baff66]/10">
+                        <svg className="size-10 text-[#baff66]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h4 className="text-xl font-bold">{t("giveaway.modal.confettiTitle")}</h4>
-                    <p className="text-sm text-muted-foreground max-w-xs">{t("giveaway.modal.confettiDesc")}</p>
+                    <h4 className="text-xl font-semibold tracking-[-0.03em] text-white">{t("giveaway.modal.confettiTitle")}</h4>
+                    <p className="max-w-xs text-sm leading-6 text-zinc-500">{t("giveaway.modal.confettiDesc")}</p>
                 </div>
             );
         }
@@ -434,9 +436,9 @@ export default function GiveawaySection() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                             </svg>
                         </div>
-                        <h4 className="text-lg font-bold mb-1">{t("giveaway.modal.otpTitle")}</h4>
-                        <p className="text-xs text-muted-foreground">{t("giveaway.modal.otpDesc")}</p>
-                        <p className="text-xs text-foreground font-mono mt-1">{email}</p>
+                        <h4 className="mb-1 text-xl font-semibold tracking-[-0.03em] text-white">{t("giveaway.modal.otpTitle")}</h4>
+                        <p className="text-xs leading-5 text-zinc-500">{t("giveaway.modal.otpDesc")}</p>
+                        <p className="mt-1 font-mono text-xs text-white">{email}</p>
                     </div>
 
                     <form onSubmit={handleVerifyOtp} className="space-y-3">
@@ -447,11 +449,11 @@ export default function GiveawaySection() {
                             value={otpCode}
                             onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
                             placeholder={t("giveaway.modal.otpPlaceholder")}
-                            className="w-full h-14 px-4 rounded-xl bg-secondary/50 border border-border/50 text-2xl font-mono text-center text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/40 transition-all tracking-[0.5em]"
+                            className="h-14 w-full rounded-[14px] border border-white/[0.08] bg-black/25 px-4 text-center font-mono text-2xl tracking-[0.5em] text-white placeholder:text-zinc-700 outline-none transition focus:border-[#baff66]/45 focus:ring-2 focus:ring-[#baff66]/10"
                         />
 
                         {error && <p className="text-xs text-red-500 font-medium text-center">{error}</p>}
-                        {resendMessage && <p className="text-xs text-emerald-500 font-medium text-center">{resendMessage}</p>}
+                        {resendMessage && <p className="text-center text-xs font-medium text-[#baff66]">{resendMessage}</p>}
 
                         <Button
                             type="submit"
@@ -479,14 +481,14 @@ export default function GiveawaySection() {
             return (
                 <div className="space-y-5">
                     <div>
-                        <h4 className="text-lg font-bold mb-1">{t("giveaway.modal.forgotTitle")}</h4>
-                        <p className="text-xs text-muted-foreground">{t("giveaway.modal.forgotDesc")}</p>
+                        <h4 className="mb-1 text-xl font-semibold tracking-[-0.03em] text-white">{t("giveaway.modal.forgotTitle")}</h4>
+                        <p className="text-xs leading-5 text-zinc-500">{t("giveaway.modal.forgotDesc")}</p>
                     </div>
 
                     {forgotSuccess ? (
                         <div className="flex flex-col items-center text-center gap-4 py-4">
-                            <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                                <svg className="w-7 h-7 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <div className="flex size-14 items-center justify-center rounded-full bg-[#baff66]/10">
+                                <svg className="size-7 text-[#baff66]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
@@ -538,15 +540,15 @@ export default function GiveawaySection() {
             return (
                 <div className="space-y-5">
                     <div>
-                        <h4 className="text-lg font-bold mb-1">{t("giveaway.modal.loginTitle")}</h4>
-                        <p className="text-xs text-muted-foreground">{t("giveaway.modal.loginDesc")}</p>
+                        <h4 className="mb-1 text-xl font-semibold tracking-[-0.03em] text-white">{t("giveaway.modal.loginTitle")}</h4>
+                        <p className="text-xs leading-5 text-zinc-500">{t("giveaway.modal.loginDesc")}</p>
                     </div>
 
                     {/* Google */}
                     <Button
                         type="button"
                         variant="outline"
-                        className="w-full h-11 rounded-xl gap-3 text-sm font-medium border-border/50 hover:bg-secondary/50"
+                        className="h-11 w-full gap-3 rounded-[14px] border-white/[0.09] bg-white/[0.035] text-sm font-medium text-white hover:bg-white/[0.07]"
                         onClick={signInWithGoogle}
                     >
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -561,10 +563,10 @@ export default function GiveawaySection() {
                     {/* Divider */}
                     <div className="relative">
                         <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t border-border/50" />
+                            <span className="w-full border-t border-white/[0.08]" />
                         </div>
                         <div className="relative flex justify-center text-xs">
-                            <span className="bg-card px-3 text-muted-foreground">
+                            <span className="bg-[#121212] px-3 text-zinc-600">
                                 {t("giveaway.modal.loginDivider")}
                             </span>
                         </div>
@@ -627,15 +629,15 @@ export default function GiveawaySection() {
         return (
             <div className="space-y-5">
                 <div>
-                    <h4 className="text-lg font-bold mb-1">{t("giveaway.modal.title")}</h4>
-                    <p className="text-xs text-muted-foreground">{t("giveaway.modal.desc")}</p>
+                    <h4 className="mb-1 text-xl font-semibold tracking-[-0.03em] text-white">{t("giveaway.modal.title")}</h4>
+                    <p className="text-xs leading-5 text-zinc-500">{t("giveaway.modal.desc")}</p>
                 </div>
 
                 {/* Google Button */}
                 <Button
                     type="button"
                     variant="outline"
-                    className="w-full h-11 rounded-xl gap-3 text-sm font-medium border-border/50 hover:bg-secondary/50"
+                    className="h-11 w-full gap-3 rounded-[14px] border-white/[0.09] bg-white/[0.035] text-sm font-medium text-white hover:bg-white/[0.07]"
                     onClick={signInWithGoogle}
                 >
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -650,10 +652,10 @@ export default function GiveawaySection() {
                 {/* Divider */}
                 <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t border-border/50" />
+                        <span className="w-full border-t border-white/[0.08]" />
                     </div>
                     <div className="relative flex justify-center text-xs">
-                        <span className="bg-card px-3 text-muted-foreground">
+                        <span className="bg-[#121212] px-3 text-zinc-600">
                             {t("giveaway.modal.divider")}
                         </span>
                     </div>
@@ -663,8 +665,8 @@ export default function GiveawaySection() {
                 <form onSubmit={handleRegister} className="space-y-4">
                     {/* Step Tracker */}
                     <div className="flex gap-2 mb-4">
-                        <div className={`h-1.5 flex-1 rounded-full transition-colors ${registerStep >= 1 ? "bg-emerald-500" : "bg-border/50"}`} />
-                        <div className={`h-1.5 flex-1 rounded-full transition-colors ${registerStep >= 2 ? "bg-emerald-500" : "bg-border/50"}`} />
+                        <div className={`h-1 flex-1 rounded-full transition-colors ${registerStep >= 1 ? "bg-[#baff66]" : "bg-white/[0.08]"}`} />
+                        <div className={`h-1 flex-1 rounded-full transition-colors ${registerStep >= 2 ? "bg-[#baff66]" : "bg-white/[0.08]"}`} />
                     </div>
 
                     {registerStep === 1 ? (
@@ -799,45 +801,44 @@ export default function GiveawaySection() {
     };
 
     return (
-        <section id="giveaway" className="scroll-mt-24">
+        <section id="giveaway" className="giveaway-panel scroll-mt-24">
             <motion.div {...fadeUp}>
-                <Card className="relative overflow-hidden">
+                <Card className="relative overflow-hidden rounded-[30px] border-white/[0.08] bg-[#101010] py-0 shadow-[0_30px_100px_rgba(0,0,0,0.32)]">
+                    <div className="pointer-events-none absolute -left-32 top-1/4 size-72 rounded-full bg-[#8e61ff]/10 blur-[90px]" />
 
                     <CardContent className="p-0">
-                        <div className="grid md:grid-cols-2 gap-0">
+                        <div className="grid gap-0 lg:grid-cols-[.88fr_1.12fr]">
 
                             {/* ── Left Column: Info + Countdown ── */}
-                            <div className="p-8 md:p-10 flex flex-col justify-between border-b md:border-b-0 md:border-r border-border/30">
+                            <div className="relative flex min-h-[470px] flex-col justify-between overflow-hidden border-b border-white/[0.07] bg-[#0a0a0a] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+                                <div className="pointer-events-none absolute -bottom-28 -left-20 size-72 rounded-full bg-[#baff66]/8 blur-[90px]" />
                                 {/* Title */}
                                 <div>
-                                    <Badge variant="outline" className="mb-4 rounded-full text-muted-foreground border-border/50 font-mono text-[10px]">
+                                    <Badge variant="outline" className="mb-6 rounded-full border-white/10 bg-white/[0.035] font-mono text-[9px] text-zinc-400">
                                         <span className="relative flex h-1.5 w-1.5 mr-2">
-                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#baff66] opacity-60" />
+                                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#baff66]" />
                                         </span>
                                         LIVE
                                     </Badge>
 
-                                    <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">
+                                    <h3 className="mb-3 text-3xl font-semibold tracking-[-0.045em] text-white md:text-4xl">
                                         {t("giveaway.section.title")}
                                     </h3>
-                                    <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
+                                    <p className="max-w-sm text-sm leading-6 text-zinc-500">
                                         {t("giveaway.section.prize")}
                                     </p>
                                 </div>
 
                                 {/* Countdown */}
                                 <div className="mt-8">
-                                    <p className="text-xs text-muted-foreground uppercase tracking-widest font-mono mb-3">
+                                    <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.17em] text-zinc-600">
                                         {t("giveaway.section.countdown")}
                                     </p>
-                                    <div className="flex gap-5">
+                                    <div className="grid grid-cols-4 gap-2 sm:gap-3">
                                         <Digit value={countdown.days} label={t("giveaway.section.days")} />
-                                        <span className="text-2xl font-bold text-muted-foreground/30 self-start mt-0.5">:</span>
                                         <Digit value={countdown.hours} label={t("giveaway.section.hours")} />
-                                        <span className="text-2xl font-bold text-muted-foreground/30 self-start mt-0.5">:</span>
                                         <Digit value={countdown.mins} label={t("giveaway.section.mins")} />
-                                        <span className="text-2xl font-bold text-muted-foreground/30 self-start mt-0.5">:</span>
                                         <Digit value={countdown.secs} label={t("giveaway.section.secs")} />
                                     </div>
                                 </div>
@@ -849,26 +850,26 @@ export default function GiveawaySection() {
                                             {[...Array(Math.min(4, participantCount))].map((_, i) => (
                                                 <div
                                                     key={i}
-                                                    className="w-8 h-8 rounded-full bg-secondary border-2 border-card flex items-center justify-center text-[10px] font-bold text-foreground"
+                                                    className="flex size-8 items-center justify-center rounded-full border-2 border-[#0a0a0a] bg-[#1d1d1d] text-[10px] font-bold text-white"
                                                 >
                                                     {String.fromCharCode(65 + i)}
                                                 </div>
                                             ))}
                                             {participantCount > 4 && (
-                                                <div className="w-8 h-8 rounded-full bg-secondary border-2 border-card flex items-center justify-center text-[10px] font-mono text-muted-foreground">
+                                                <div className="flex size-8 items-center justify-center rounded-full border-2 border-[#0a0a0a] bg-[#1d1d1d] font-mono text-[10px] text-zinc-500">
                                                     +{participantCount - 4}
                                                 </div>
                                             )}
                                         </div>
                                     )}
-                                    <span className="text-sm text-muted-foreground">
-                                        <strong className="text-foreground">{participantCount}</strong> {t("giveaway.section.participants")}
+                                    <span className="text-xs text-zinc-500">
+                                        <strong className="text-white">{participantCount}</strong> {t("giveaway.section.participants")}
                                     </span>
                                 </div>
                             </div>
 
                             {/* ── Right Column: Auth or Dashboard ── */}
-                            <div className="p-8 md:p-10 flex flex-col justify-center">
+                            <div className="flex min-h-[470px] flex-col justify-center bg-[#121212] p-6 sm:p-8 lg:p-10">
                                 {loading || (user && hasEntry === null) ? (
                                     /* Loading shimmer (matches form size) */
                                     <div className="space-y-5 animate-pulse">
@@ -898,17 +899,17 @@ export default function GiveawaySection() {
                                         <div className="relative flex items-center gap-4">
                                             {/* Animated Success Icon */}
                                             <div className="relative flex-shrink-0">
-                                                <div className="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping" style={{ animationDuration: "3s" }} />
-                                                <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-500/30 flex items-center justify-center">
-                                                    <svg className="w-7 h-7 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                                                <div className="absolute inset-0 animate-ping rounded-full bg-[#baff66]/20" style={{ animationDuration: "3s" }} />
+                                                <div className="relative flex size-14 items-center justify-center rounded-full border border-[#baff66]/30 bg-[#baff66]/10">
+                                                    <svg className="size-7 text-[#baff66]" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                                     </svg>
                                                 </div>
                                             </div>
 
                                             <div className="flex-1 min-w-0">
-                                                <h4 className="text-base font-bold text-foreground">{t("giveaway.section.registered")}</h4>
-                                                <p className="text-sm text-muted-foreground truncate">
+                                                <h4 className="text-base font-semibold text-white">{t("giveaway.section.registered")}</h4>
+                                                <p className="truncate text-sm text-zinc-500">
                                                     {user.user_metadata?.full_name || user.email}
                                                 </p>
                                             </div>
@@ -916,13 +917,13 @@ export default function GiveawaySection() {
 
                                         {/* Position & Stats Card */}
                                         {entryPosition && (
-                                            <div className="rounded-xl bg-secondary/30 border border-border/30 p-4 space-y-3">
+                                            <div className="space-y-3 rounded-2xl border border-white/[0.08] bg-black/20 p-4">
                                                 {/* Position Header */}
                                                 <div className="flex items-center justify-between">
                                                     <span className="text-xs text-muted-foreground uppercase tracking-wider font-mono">
                                                         {t("giveaway.section.position")}
                                                     </span>
-                                                    <span className="text-xs font-mono text-emerald-500 font-bold">
+                                                    <span className="font-mono text-xs font-bold text-[#baff66]">
                                                         #{entryPosition} / {participantCount}
                                                     </span>
                                                 </div>
@@ -930,7 +931,7 @@ export default function GiveawaySection() {
                                                 {/* Progress Bar */}
                                                 <div className="relative h-2 rounded-full bg-secondary/80 overflow-hidden">
                                                     <motion.div
-                                                        className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400"
+                                                        className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#8e61ff] to-[#baff66]"
                                                         initial={{ width: 0 }}
                                                         animate={{ width: participantCount > 0 ? `${Math.max(((entryPosition) / Math.max(participantCount, 1)) * 100, 12)}%` : "12%" }}
                                                         transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}

@@ -79,7 +79,7 @@ export default function PhoneInput({ value, onChange, placeholder = "Teléfono",
             <button
                 type="button"
                 onClick={() => setOpen(!open)}
-                className="flex items-center gap-1.5 px-3 h-10 rounded-l-xl bg-secondary/50 border border-r-0 border-border/50 text-sm text-foreground hover:bg-secondary/70 transition-colors shrink-0"
+                className="flex h-11 shrink-0 items-center gap-1.5 rounded-l-[14px] border border-r-0 border-white/[0.08] bg-black/25 px-3 text-sm text-white transition-colors hover:bg-black/40"
             >
                 {(() => {
                     const Flag = Flags[selected.code];
@@ -97,12 +97,12 @@ export default function PhoneInput({ value, onChange, placeholder = "Teléfono",
                 value={localNumber}
                 onChange={(e) => setLocalNumber(e.target.value.replace(/[^\d\s-]/g, ""))}
                 placeholder={placeholder}
-                className="w-full h-10 px-4 rounded-r-xl bg-secondary/50 border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/40 transition-all"
+                className="h-11 w-full rounded-r-[14px] border border-white/[0.08] bg-black/25 px-4 text-sm text-white placeholder:text-zinc-600 outline-none transition focus:border-[#baff66]/45 focus:ring-2 focus:ring-[#baff66]/10"
             />
 
             {/* Dropdown */}
             {open && (
-                <div className="absolute top-12 left-0 z-50 w-64 max-h-60 overflow-y-auto rounded-xl border border-border/50 bg-popover/95 dark:bg-zinc-900/95 backdrop-blur-xl shadow-2xl py-1">
+                <div className="absolute left-0 top-12 z-50 max-h-60 w-64 overflow-y-auto rounded-[14px] border border-white/[0.09] bg-[#111]/95 py-1 shadow-2xl backdrop-blur-xl">
                     {countries.map((country) => {
                         const FlagIcon = Flags[country.code];
                         return (
