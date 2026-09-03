@@ -36,7 +36,7 @@ export default function HeroSection() {
                             <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#baff66] opacity-50" />
                             <span className="relative inline-flex size-2 rounded-full bg-[#baff66]" />
                         </span>
-                        {locale === "es" ? "Disponible para proyectos seleccionados" : "Available for selected projects"}
+                        {locale === "es" ? "Disponible para proyectos" : "Available for selected projects"}
                     </div>
 
                     <h1 className="max-w-[980px] text-balance text-[clamp(3rem,8.2vw,7.5rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-white">
@@ -90,7 +90,7 @@ export default function HeroSection() {
                         <div className="flex h-9 items-center justify-between px-2 sm:h-11 sm:px-3">
                             <div className="flex items-center gap-1.5"><span className="size-2 rounded-full bg-[#ff6b52]" /><span className="size-2 rounded-full bg-[#ffd35c]" /><span className="size-2 rounded-full bg-[#baff66]" /></div>
                             <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-zinc-500 sm:text-[10px]">Selected work / 2026</span>
-                            <span className="hidden items-center gap-1 text-[10px] text-zinc-500 sm:flex"><MapPin className="size-3" /> Ica, PE</span>
+                            <span className="hidden items-center gap-1 text-[10px] text-zinc-500 sm:flex"></span> {/*<MapPin className="size-3" />}*/}
                         </div>
                         <div className="grid gap-2 sm:grid-cols-[1.55fr_.8fr] sm:gap-3">
                             <div className="group relative min-h-[230px] overflow-hidden rounded-[17px] border border-white/[0.06] bg-[#151515] sm:min-h-[390px]">

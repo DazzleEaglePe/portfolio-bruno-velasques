@@ -171,8 +171,8 @@ export default function InitialLoader() {
 
                         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5 sm:p-8">
                             <div className="flex items-center gap-3">
-                                <span className="grid size-10 place-items-center rounded-full border border-white/12 bg-white/[0.04] text-[11px] font-bold">BV</span>
-                                <span className="hidden text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-600 sm:block">Portfolio / 2026</span>
+                                {/* <span className="grid size-10 place-items-center rounded-full border border-white/12 bg-white/[0.04] text-[11px] font-bold">BV</span> */}
+                                {/* <span className="hidden text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-600 sm:block">Portfolio / 2026</span> */}
                             </div>
                             <button type="button" onClick={handleSkip} className="rounded-full border border-white/[0.08] bg-white/[0.025] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-500 transition hover:border-white/20 hover:text-white">
                                 Skip
@@ -320,8 +320,8 @@ export default function InitialLoader() {
                         </div>
 
                         <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5 font-mono text-[9px] uppercase tracking-[0.14em] text-zinc-700 sm:p-8">
-                            <span>Software + AI + Product</span>
-                            <span>Ica, Perú</span>
+                            {/* <span>Software + AI + Product</span>
+                            <span>Ica, Perú</span> */}
                         </div>
                     </motion.div>
                 </>
