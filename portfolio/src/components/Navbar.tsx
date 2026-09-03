@@ -45,23 +45,27 @@ export default function Navbar() {
         <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
             <nav
                 aria-label="Main navigation"
-                className={`mx-auto flex h-16 max-w-[1240px] items-center justify-between rounded-2xl px-3 transition-all duration-300 sm:px-4 ${
+                className={`mx-auto flex h-16 items-center justify-between rounded-2xl border border-transparent bg-transparent px-3 transition-[max-width,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-4 lg:grid lg:grid-cols-[1fr_auto_1fr] ${
                     scrolled
-                        ? "border border-white/[0.09] bg-[#090909]/88 shadow-[0_18px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl"
-                        : "border border-transparent bg-transparent"
+                        ? "max-w-[960px]"
+                        : "max-w-[1240px]"
                 }`}
             >
-                <a href="/#hero" className="group flex items-center gap-3" aria-label="Bruno Velasques — Home">
+                <a href="/#hero" className="group flex items-center gap-3 lg:justify-self-start" aria-label="Bruno Velasques — Home">
                     <span className="grid size-9 place-items-center rounded-full border border-white/12 bg-white/[0.05] text-[11px] font-bold tracking-tight text-white transition group-hover:border-[#baff66]/50 group-hover:text-[#baff66]">
                         BV
                     </span>
                     <span className="hidden leading-tight sm:block">
                         <span className="block text-[13px] font-semibold text-white">Bruno Velasques</span>
-                        <span className="block text-[10px] text-zinc-500">Software + AI</span>
+                        <span className="block text-[10px] text-zinc-500">Full Stack + AI</span>
                     </span>
                 </a>
 
-                <div className="hidden items-center gap-1 rounded-full border border-white/[0.07] bg-white/[0.025] p-1 lg:flex">
+                <div className={`hidden items-center gap-1 rounded-full border p-1 transition-[background-color,border-color,box-shadow] duration-500 lg:flex lg:justify-self-center ${
+                    scrolled
+                        ? "border-white/[0.1] bg-[#090909]/72 shadow-[0_12px_40px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+                        : "border-white/[0.07] bg-white/[0.025]"
+                }`}>
                     {navKeys.map(({ href, key }) => (
                         <a key={href} href={href} className="rounded-full px-3.5 py-2 text-[12px] font-medium text-zinc-400 transition hover:bg-white/[0.06] hover:text-white">
                             {t(key as Parameters<typeof t>[0])}
@@ -69,7 +73,7 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 lg:justify-self-end">
                     <button
                         type="button"
                         onClick={toggleLocale}
