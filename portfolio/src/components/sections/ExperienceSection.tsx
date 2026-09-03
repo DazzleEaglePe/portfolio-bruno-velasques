@@ -1,234 +1,177 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { getExperiences, getEducation, certifications } from "@/data/portfolio";
+import { AnimatePresence, motion } from "framer-motion";
+import { Award, BriefcaseBusiness, ChevronDown, GraduationCap, Languages, UsersRound } from "lucide-react";
+import { certifications, getEducation, getExperiences } from "@/data/portfolio";
 import { useI18n } from "@/lib/i18n";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { fadeUp } from "@/lib/animations";
 
-/* Maps emoji chars to their Apple-style image via jsDelivr CDN */
-const APPLE_EMOJI_CDN = "https://cdn.jsdelivr.net/npm/emoji-datasource-apple@16.0.0/img/apple/64";
-const emojiToCodepoint: Record<string, string> = {
-    "🏦": "1f3e6",
-    "📊": "1f4ca",
-    "🏢": "1f3e2",
-    "🎓": "1f393",
-    "🛒": "1f6d2",
-    "🏥": "1f3e5",
-};
-
-function AppleEmoji({ emoji, size = 18 }: { emoji: string; size?: number }) {
-    const code = emojiToCodepoint[emoji];
-    if (!code) return <span className="text-base">{emoji}</span>;
-    return (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-            src={`${APPLE_EMOJI_CDN}/${code}.png`}
-            alt={emoji}
-            width={size}
-            height={size}
-            className="inline-block shrink-0"
-            style={{ imageRendering: "auto" }}
-        />
-    );
-}
+type ExperienceMode = "employment" | "freelance";
 
 export default function ExperienceSection() {
     const { t, locale } = useI18n();
     const experiences = getExperiences(locale);
-    const educationItems = getEducation(locale);
-
+    const education = getEducation(locale);
+    const [mode, setMode] = useState<ExperienceMode>("employment");
     const [showAll, setShowAll] = useState(false);
 
-    const employment = experiences.filter((e) => e.type === "employment");
-    const freelance = experiences.filter((e) => e.type === "freelance");
-    const VISIBLE_FREELANCE = 3;
-    const hiddenCount = freelance.length - VISIBLE_FREELANCE;
+    const employment = experiences.filter((experience) => experience.type === "employment");
+    const freelance = experiences.filter((experience) => experience.type === "freelance");
+    const activeItems = mode === "employment" ? employment : freelance;
+    const visibleItems = showAll ? activeItems : activeItems.slice(0, 3);
+    const community = locale === "es"
+        ? [
+            { name: "Google Developer Groups Ica", detail: "Miembro activo · 05/2025 — Actualidad" },
+            { name: "ETH Lima 2026", detail: "Hackathon · Track Arbitrum" },
+        ]
+        : [
+            { name: "Google Developer Groups Ica", detail: "Active member · 05/2025 — Present" },
+            { name: "ETH Lima 2026", detail: "Hackathon · Arbitrum track" },
+        ];
 
-    const renderExperienceCard = (exp: (typeof experiences)[0], i: number, globalIdx: number) => (
-        <AccordionItem
-            key={exp.company}
-            value={`item-${globalIdx}`}
-            className="border border-border rounded-lg px-4"
-        >
-            <AccordionTrigger className="hover:no-underline py-3 text-left">
-                <div className="flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                        <AppleEmoji emoji={exp.icon} />
-                        <h4 className="text-sm font-semibold">{exp.company}</h4>
-                        <Badge variant="outline" className="text-[10px] font-mono">{exp.period}</Badge>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{exp.role}</p>
-                    <Badge variant="secondary" className="text-[10px] font-mono mt-1.5 font-normal">
-                        {exp.industry}
-                    </Badge>
-                </div>
-            </AccordionTrigger>
-            <AccordionContent className="pb-4 pt-0 space-y-3">
-                <p className="text-[13px] text-muted-foreground/80 leading-relaxed">
-                    {exp.description}
-                </p>
-                <Separator />
-                <ul className="space-y-1.5">
-                    {exp.achievements.map((ach, j) => (
-                        <li key={j} className="flex gap-2 text-[13px] text-muted-foreground">
-                            <span className="text-foreground/30 shrink-0">→</span>
-                            <span>{ach}</span>
-                        </li>
-                    ))}
-                </ul>
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                    {exp.stack.map((tech) => (
-                        <Badge
-                            key={tech}
-                            variant="outline"
-                            className="text-[10px] font-mono font-normal px-2 py-0.5 bg-secondary/50"
-                        >
-                            {tech}
-                        </Badge>
-                    ))}
-                </div>
-            </AccordionContent>
-        </AccordionItem>
-    );
+    const changeMode = (nextMode: ExperienceMode) => {
+        setMode(nextMode);
+        setShowAll(false);
+    };
 
     return (
-        <section id="experience" className="grid lg:grid-cols-3 gap-6 scroll-m-24">
-            <motion.div {...fadeUp} className="lg:col-span-2">
-                <Card>
-                    <CardContent className="p-4 sm:p-6 space-y-4">
-                        <Tabs defaultValue="employment" className="w-full">
-                            {/* Header + segmented control (responsive wrapping) */}
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase shrink-0">
-                                    {t("exp.title")}
-                                </h3>
-                                <TabsList className="h-auto p-1 w-full sm:w-auto bg-secondary/40 rounded-[2rem] gap-0.5 flex">
-                                    <TabsTrigger
-                                        value="employment"
-                                        className="flex-1 sm:flex-none text-[10px] font-mono uppercase tracking-wider rounded-full px-3 py-1.5 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer whitespace-nowrap"
-                                    >
-                                        {t("exp.employment")}
-                                    </TabsTrigger>
-                                    <TabsTrigger
-                                        value="freelance"
-                                        className="flex-1 sm:flex-none text-[10px] font-mono uppercase tracking-wider rounded-full px-3 py-1.5 transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1 justify-center"
-                                    >
-                                        <span>{t("exp.freelance")}</span>
-                                        <span className="text-[9px] text-muted-foreground/60">+15</span>
-                                    </TabsTrigger>
-                                </TabsList>
+        <section id="experience" className="scroll-m-28">
+            <motion.div {...fadeUp} className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+                <div>
+                    <span className="section-kicker">{t("exp.title")}</span>
+                    <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+                        {locale === "es" ? "Experiencia construyendo sistemas que operan, escalan y generan impacto." : "Experience building systems that operate, scale, and make an impact."}
+                    </h2>
+                </div>
+                <span className="hidden font-mono text-xs text-zinc-600 sm:block">04 / 05</span>
+            </motion.div>
+
+            <div className="grid gap-4 lg:grid-cols-12">
+                <motion.div {...fadeUp} className="overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#101010] lg:col-span-8">
+                    <div className="flex flex-col gap-5 border-b border-white/[0.07] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+                        <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                            <BriefcaseBusiness className="size-4 text-[#baff66]" />
+                            {locale === "es" ? "Trayectoria" : "Career path"}
+                        </div>
+                        <div className="flex rounded-full border border-white/[0.08] bg-black/30 p-1">
+                            {(["employment", "freelance"] as const).map((item) => (
+                                <button
+                                    key={item}
+                                    type="button"
+                                    onClick={() => changeMode(item)}
+                                    className={`rounded-full px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.1em] transition sm:px-4 ${
+                                        mode === item ? "bg-white text-black" : "text-zinc-500 hover:text-white"
+                                    }`}
+                                >
+                                    {item === "employment" ? t("exp.employment") : t("exp.freelance")}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={mode}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.25 }}
+                        >
+                            {visibleItems.map((experience, index) => (
+                                <article key={`${experience.company}-${experience.period}`} className="group grid gap-5 border-b border-white/[0.07] p-5 last:border-b-0 sm:grid-cols-[130px_1fr] sm:p-7">
+                                    <div>
+                                        <span className="font-mono text-[10px] text-zinc-600">{experience.period}</span>
+                                        <p className="mt-2 text-xs text-zinc-500">{experience.industry}</p>
+                                    </div>
+                                    <div>
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div>
+                                                <h3 className="text-lg font-semibold tracking-[-0.025em] text-white">{experience.company}</h3>
+                                                <p className="mt-1 text-xs font-medium text-[#baff66]">{experience.role}</p>
+                                            </div>
+                                            <span className="font-mono text-[9px] text-zinc-700">0{index + 1}</span>
+                                        </div>
+                                        <p className="mt-4 text-sm leading-6 text-zinc-500">{experience.description}</p>
+                                        <ul className="mt-4 space-y-2.5">
+                                            {experience.achievements.slice(0, 2).map((achievement) => (
+                                                <li key={achievement} className="flex gap-2.5 text-xs leading-5 text-zinc-400">
+                                                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#baff66]" />
+                                                    <span>{achievement}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <div className="mt-5 flex flex-wrap gap-1.5">
+                                            {experience.stack.slice(0, 6).map((tech) => (
+                                                <span key={tech} className="rounded-full border border-white/[0.07] px-2.5 py-1 text-[9px] font-medium text-zinc-500">{tech}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </article>
+                            ))}
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {activeItems.length > 3 && (
+                        <button type="button" onClick={() => setShowAll((value) => !value)} className="flex w-full items-center justify-center gap-2 border-t border-white/[0.07] px-5 py-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500 transition hover:bg-white/[0.025] hover:text-white">
+                            {showAll ? t("exp.showLess") : `${t("exp.showMore")} (+${activeItems.length - 3})`}
+                            <ChevronDown className={`size-3.5 transition-transform ${showAll ? "rotate-180" : ""}`} />
+                        </button>
+                    )}
+                </motion.div>
+
+                <div className="grid gap-4 lg:col-span-4">
+                    <motion.div {...fadeUp} transition={{ duration: 0.45, delay: 0.08 }} className="rounded-[28px] border border-white/[0.08] bg-[#151515] p-6">
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.13em] text-zinc-400">
+                            <GraduationCap className="size-4 text-[#a78bfa]" /> {t("edu.title")}
+                        </div>
+                        <div className="mt-7 space-y-6">
+                            {education.map((item) => (
+                                <div key={`${item.degree}-${item.period}`} className="border-l border-white/10 pl-4">
+                                    <p className="text-sm font-semibold text-white">{item.degree}</p>
+                                    <p className="mt-1 text-xs leading-5 text-zinc-500">{item.institution}<br />{item.period}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    <motion.div {...fadeUp} transition={{ duration: 0.45, delay: 0.12 }} className="rounded-[28px] border border-white/[0.08] bg-[#151515] p-6">
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.13em] text-zinc-400">
+                            <Award className="size-4 text-[#60a5fa]" /> {t("cert.title")}
+                        </div>
+                        <div className="mt-6 space-y-4">
+                            {certifications.slice(0, 4).map((certification) => (
+                                <div key={certification.program} className="flex items-start justify-between gap-4">
+                                    <div><p className="text-xs font-medium leading-5 text-zinc-300">{certification.program}</p><p className="text-[10px] text-zinc-600">{certification.institution}</p></div>
+                                    <span className="font-mono text-[9px] text-zinc-600">{certification.year}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    <motion.div {...fadeUp} transition={{ duration: 0.45, delay: 0.16 }} className="rounded-[28px] bg-[#8e61ff] p-6 text-white">
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.13em] text-white/75">
+                            <UsersRound className="size-4" /> {locale === "es" ? "Comunidad" : "Community"}
+                        </div>
+                        <div className="mt-6 space-y-4">
+                            {community.map((item) => (
+                                <div key={item.name} className="border-l border-white/25 pl-3">
+                                    <p className="text-xs font-semibold text-white">{item.name}</p>
+                                    <p className="mt-1 text-[10px] leading-4 text-white/55">{item.detail}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-6 border-t border-white/15 pt-5">
+                            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-white/60">
+                                <Languages className="size-3.5" /> {locale === "es" ? "Idiomas" : "Languages"}
                             </div>
-
-                            <TabsContent value="employment" className="mt-4 min-h-[320px]">
-                                <Accordion
-                                    type="single"
-                                    collapsible
-                                    defaultValue="item-0"
-                                    className="space-y-2"
-                                >
-                                    {employment.map((exp, i) =>
-                                        renderExperienceCard(exp, i, i)
-                                    )}
-                                </Accordion>
-                            </TabsContent>
-
-                            <TabsContent value="freelance" className="mt-4 space-y-3 min-h-[320px]">
-                                <Accordion
-                                    type="single"
-                                    collapsible
-                                    className="space-y-2"
-                                >
-                                    {freelance.slice(0, VISIBLE_FREELANCE).map((exp, i) =>
-                                        renderExperienceCard(exp, i, employment.length + i)
-                                    )}
-
-                                    <AnimatePresence initial={false}>
-                                        {showAll && freelance.slice(VISIBLE_FREELANCE).map((exp, i) => (
-                                            <motion.div
-                                                key={exp.company}
-                                                initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: "auto" }}
-                                                exit={{ opacity: 0, height: 0 }}
-                                                transition={{ duration: 0.3, ease: "easeInOut" }}
-                                            >
-                                                {renderExperienceCard(exp, VISIBLE_FREELANCE + i, employment.length + VISIBLE_FREELANCE + i)}
-                                            </motion.div>
-                                        ))}
-                                    </AnimatePresence>
-                                </Accordion>
-
-                                {hiddenCount > 0 && (
-                                    <button
-                                        onClick={() => setShowAll(!showAll)}
-                                        className="w-full py-2 text-[11px] font-mono text-muted-foreground/60 uppercase tracking-wider hover:text-foreground/80 transition-colors flex items-center justify-center gap-2 group"
-                                    >
-                                        <div className="h-px flex-1 bg-border group-hover:bg-foreground/20 transition-colors" />
-                                        <span className="shrink-0">
-                                            {showAll
-                                                ? t("exp.showLess")
-                                                : `${t("exp.showMore")} (+${hiddenCount})`
-                                            }
-                                        </span>
-                                        <motion.svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="12"
-                                            height="12"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            animate={{ rotate: showAll ? 180 : 0 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="shrink-0"
-                                        >
-                                            <polyline points="6 9 12 15 18 9" />
-                                        </motion.svg>
-                                        <div className="h-px flex-1 bg-border group-hover:bg-foreground/20 transition-colors" />
-                                    </button>
-                                )}
-                            </TabsContent>
-                        </Tabs>
-                    </CardContent>
-                </Card>
-            </motion.div>
-
-            <motion.div {...fadeUp} transition={{ duration: 0.4, delay: 0.1 }} className="flex flex-col gap-4 h-full">
-                <Card className="flex-1">
-                    <CardContent className="p-6">
-                        <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-4">{t("edu.title")}</h3>
-                        <div className="space-y-3">
-                            {educationItems.map((edu, i) => (
-                                <div key={edu.degree}>
-                                    {i > 0 && <Separator className="mb-3" />}
-                                    <p className="text-sm font-medium">{edu.degree}</p>
-                                    <p className="text-xs text-muted-foreground">{edu.institution} · {edu.period}</p>
-                                </div>
-                            ))}
+                            <p className="mt-3 text-xs leading-5 text-white/80">
+                                {locale === "es" ? "Español nativo · Inglés intermedio · Quechua intermedio" : "Native Spanish · Intermediate English · Intermediate Quechua"}
+                            </p>
                         </div>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardContent className="p-6">
-                        <h3 className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-4">{t("cert.title")}</h3>
-                        <div className="space-y-2">
-                            {certifications.slice(0, 3).map((cert) => (
-                                <div key={cert.program} className="flex items-center justify-between">
-                                    <p className="text-xs font-medium truncate mr-2">{cert.program}</p>
-                                    <span className="text-[10px] text-muted-foreground font-mono shrink-0">{cert.year}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            </motion.div>
+                    </motion.div>
+                </div>
+            </div>
         </section>
     );
 }

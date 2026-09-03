@@ -68,20 +68,21 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
                         type={showPassword ? "text" : "password"}
                         value={value}
                         onChange={onChange}
-                        className={`w-full h-10 px-4 rounded-xl bg-secondary/50 border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40 transition-all pr-10 ${className || ""}`}
+                        className={`h-11 w-full rounded-[14px] border border-white/[0.08] bg-black/25 px-4 pr-10 text-sm text-white placeholder:text-zinc-600 outline-none transition focus:border-[#baff66]/45 focus:ring-2 focus:ring-[#baff66]/10 ${className || ""}`}
                     />
                     <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                         tabIndex={-1}
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                     >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                 </div>
 
                 {showStrength && passwordValue.length > 0 && (
-                    <div className="bg-secondary/30 rounded-lg p-3 space-y-3 border border-border/30">
+                    <div className="space-y-3 rounded-xl border border-white/[0.07] bg-black/20 p-3">
                         {/* Strength Bar */}
                         <div className="flex items-center justify-between gap-4">
                             <div className="flex gap-1 flex-1 h-1.5">

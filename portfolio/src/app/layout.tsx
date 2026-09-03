@@ -5,20 +5,21 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import { I18nProvider } from "@/lib/i18n";
 import { AuthProvider } from "@/lib/supabase-auth";
 import InitialLoader from "@/components/InitialLoader";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://brunovelasques.dev"),
-  title: "Bruno Velasques — Software Developer & UI/UX Designer",
-  description: "Portafolio profesional de Bruno Velasques. Desarrollador de software con amplia experiencia en Fintech, microservicios, y diseño UI/UX en Perú.",
-  keywords: ["Bruno Velasques", "Software Developer", "Full Stack", "UI/UX Designer", "React", "Next.js", "Perú", "Desarrollador Web", "Caja Ica"],
+  title: "Bruno Velasques — Full Stack, Fintech & AI",
+  description: "Portafolio de Bruno Velasques: desarrollo Full Stack, microservicios, arquitectura cloud, fintech e inteligencia artificial aplicada.",
+  keywords: ["Bruno Velasques", "Full Stack Developer", "Software Developer", "NestJS", "Spring Boot", "React", "Angular", "Cloud", "Fintech", "Applied AI", "Perú"],
   authors: [{ name: "Bruno Velasques", url: "https://brunovelasques.dev" }],
   creator: "Bruno Velasques",
   openGraph: {
     type: "website",
     locale: "es_PE",
     url: "https://brunovelasques.dev",
-    title: "Bruno Velasques — Software Developer & UI/UX Designer",
-    description: "Portafolio profesional de Bruno Velasques. Especialista en crear soluciones digitales escalables y experiencias de usuario excepcionales.",
+    title: "Bruno Velasques — Full Stack, Fintech & AI",
+    description: "Productos end-to-end para banca, SaaS e inteligencia artificial aplicada.",
     siteName: "Bruno Velasques Portfolio",
     images: [
       {
@@ -31,8 +32,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bruno Velasques — Software Developer",
-    description: "Portafolio profesional de Bruno Velasques. Desarrollador de software con experiencia en Fintech, microservicios, y diseño UI/UX.",
+    title: "Bruno Velasques — Full Stack, Fintech & AI",
+    description: "Productos end-to-end para banca, SaaS e inteligencia artificial aplicada.",
     images: ["/images/bruno_velasques.png"],
     creator: "@velasques_bruno", // Assuming based on Instagram handle
   },
@@ -57,11 +58,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         "@type": "Person",
         "@id": "https://brunovelasques.dev/#person",
         "name": "Bruno Velasques",
-        "jobTitle": "Software Developer & UI/UX Designer",
+        "jobTitle": "Full Stack Software Developer",
         "url": "https://brunovelasques.dev",
         "image": "https://brunovelasques.dev/images/bruno_velasques.png",
         "sameAs": [
-          "https://www.linkedin.com/in/bruno-velasquez/",
+          "https://www.linkedin.com/in/bruno-velasques-software-developer/",
           "https://www.instagram.com/velasques_bruno"
         ],
         "alumniOf": "Universidad Privada San Juan Bautista",
@@ -122,6 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </AuthProvider>
           </I18nProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

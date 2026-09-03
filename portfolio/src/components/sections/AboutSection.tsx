@@ -1,11 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { getPersonalData } from "@/data/portfolio";
 import { useI18n } from "@/lib/i18n";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { fadeUp } from "@/lib/animations";
 
 export default function AboutSection() {
@@ -13,51 +12,76 @@ export default function AboutSection() {
     const personalData = getPersonalData(locale);
 
     return (
-        <section id="about" className="grid md:grid-cols-3 gap-4 scroll-m-24">
-            <motion.div {...fadeUp} className="md:col-span-2">
-                <Card className="h-full">
-                    <CardContent className="p-6">
-                        <div className="flex items-start gap-4 mb-5">
-                            <Avatar className="w-12 h-12 border border-border">
-                                <AvatarImage src="/images/bruno_velasques.png" alt="Bruno Velasques" />
-                                <AvatarFallback className="bg-secondary text-foreground font-mono text-base font-semibold">BV</AvatarFallback>
-                            </Avatar>
-                            <div>
-                                <h3 className="text-base font-semibold">{personalData.name}</h3>
-                                <p className="text-sm text-muted-foreground">{personalData.role} & {personalData.subtitle}</p>
-                            </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{personalData.summary}</p>
-                        <div className="flex flex-wrap gap-2">
-                            <Badge variant="secondary" className="text-xs font-normal">{t("about.location")}</Badge>
-                            <Badge variant="secondary" className="text-xs font-normal">{t("about.exp")}</Badge>
-                            <Badge variant="secondary" className="text-xs font-normal">{t("about.focus")}</Badge>
-                            <Badge variant="secondary" className="text-xs font-normal">{t("about.scrum")}</Badge>
-                        </div>
-                    </CardContent>
-                </Card>
+        <section id="about" className="scroll-m-28">
+            <motion.div {...fadeUp} className="mb-10 flex items-end justify-between gap-6">
+                <div>
+                    <span className="section-kicker">{t("about.title")}</span>
+                    <h2 className="mt-4 max-w-4xl text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.04em] text-foreground sm:text-5xl lg:text-6xl">
+                        {locale === "es" ? (
+                            <>Tecnología con criterio, <span className="text-zinc-500">diseño con intención</span> y productos que sí funcionan.</>
+                        ) : (
+                            <>Technology with judgment, <span className="text-zinc-500">design with intention</span>, and products that work.</>
+                        )}
+                    </h2>
+                </div>
+                <span className="hidden font-mono text-xs text-zinc-600 sm:block">01 / 05</span>
             </motion.div>
 
-            <motion.div {...fadeUp} transition={{ duration: 0.4, delay: 0.1 }}>
-                <a href={personalData.linkedin} target="_blank" rel="noopener noreferrer" className="block h-full">
-                    <Card className="h-full hover:bg-secondary/50 transition-all duration-300 group relative overflow-hidden">
-                        {/* Subtle Ambient Light Effect (Hover Only) */}
-                        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 rounded-full bg-blue-500/20 dark:bg-blue-500/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+            <div className="grid gap-4 md:grid-cols-12">
+                <motion.article {...fadeUp} className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#101010] p-6 md:col-span-8 md:p-9">
+                    <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-[#8e61ff]/10 blur-3xl" />
+                    <div className="relative flex h-full min-h-[310px] flex-col justify-between">
+                        <p className="max-w-2xl text-lg leading-relaxed text-zinc-300 sm:text-xl sm:leading-relaxed">
+                            {personalData.summary}
+                        </p>
+                        <div className="mt-10 flex flex-wrap gap-2">
+                            {[t("about.location"), t("about.exp"), t("about.focus"), t("about.scrum")].map((item) => (
+                                <span key={item} className="rounded-full border border-white/[0.08] bg-white/[0.035] px-3 py-1.5 text-[11px] font-medium text-zinc-400">
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </motion.article>
 
-                        <CardContent className="p-6 flex flex-col justify-between h-full relative z-10">
-                            <div className="flex justify-between items-start">
-                                <svg className="w-8 h-8 text-muted-foreground group-hover:text-foreground transition-colors mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                                <svg className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
-                            </div>
+                <motion.a
+                    {...fadeUp}
+                    transition={{ duration: 0.5, delay: 0.08 }}
+                    href={personalData.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative min-h-[310px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#151515] md:col-span-4"
+                >
+                    <Image src="/images/bruno_velasques.png" alt="Bruno Velasques" fill className="object-cover object-top grayscale transition duration-700 group-hover:scale-[1.035] group-hover:grayscale-0" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
+                        <div>
+                            <p className="text-sm font-semibold text-white">Bruno Velasques</p>
+                            <p className="mt-1 flex items-center gap-1 text-[10px] text-zinc-400"><MapPin className="size-3" /> Ica, Perú</p>
+                        </div>
+                        <span className="grid size-10 place-items-center rounded-full bg-white text-black transition group-hover:bg-[#baff66]"><ArrowUpRight className="size-4" /></span>
+                    </div>
+                </motion.a>
 
-                            <div className="mt-4">
-                                <p className="text-sm font-medium mb-1">{t("linkedin.cta")}</p>
-                                <p className="text-xs text-muted-foreground">linkedin.com/in/bruno-velasques</p>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </a>
-            </motion.div>
+                <motion.div {...fadeUp} className="grid gap-4 md:col-span-12 md:grid-cols-2 lg:grid-cols-4">
+                    <div className="rounded-[24px] border border-white/[0.08] bg-[#101010] p-6">
+                        <span className="text-5xl font-semibold tracking-[-0.06em] text-white">10K<span className="text-[#baff66]">+</span></span>
+                        <p className="mt-6 text-xs leading-5 text-zinc-500">{locale === "es" ? "Clientes alcanzados por productos financieros en producción." : "Clients reached by financial products in production."}</p>
+                    </div>
+                    <div className="rounded-[24px] border border-white/[0.08] bg-[#101010] p-6">
+                        <span className="text-5xl font-semibold tracking-[-0.06em] text-white">90<span className="text-[#a78bfa]">%</span></span>
+                        <p className="mt-6 text-xs leading-5 text-zinc-500">{locale === "es" ? "Solicitudes resueltas de forma autónoma cada semana." : "Weekly requests resolved autonomously."}</p>
+                    </div>
+                    <div className="rounded-[24px] border border-white/[0.08] bg-[#101010] p-6">
+                        <span className="text-4xl font-semibold tracking-[-0.06em] text-white">40–50<span className="text-[#60a5fa]">%</span></span>
+                        <p className="mt-6 text-xs leading-5 text-zinc-500">{locale === "es" ? "Reducción de costos operativos mediante infraestructura centralizada." : "Operating cost reduction through centralized infrastructure."}</p>
+                    </div>
+                    <div className="rounded-[24px] border border-white/[0.08] bg-[#baff66] p-6 text-black">
+                        <span className="text-5xl font-semibold tracking-[-0.06em]">30<span className="text-black/45">%</span></span>
+                        <p className="mt-6 text-xs font-medium leading-5 text-black/65">{locale === "es" ? "Menos visitas presenciales gracias a productos bancarios digitales." : "Fewer in-branch visits through digital banking products."}</p>
+                    </div>
+                </motion.div>
+            </div>
         </section>
     );
 }
