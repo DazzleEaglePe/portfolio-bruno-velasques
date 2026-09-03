@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import { I18nProvider } from "@/lib/i18n";
 import { AuthProvider } from "@/lib/supabase-auth";
 import InitialLoader from "@/components/InitialLoader";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://brunovelasques.dev"),
@@ -122,6 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </AuthProvider>
           </I18nProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
