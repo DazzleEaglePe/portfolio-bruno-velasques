@@ -51,27 +51,27 @@ interface Certification {
 const personalDataI18n: Record<Locale, PersonalInfo> = {
   es: {
     name: "Bruno Velasques",
-    role: "AI Engineer | Software Developer",
-    subtitle: "Especialista en Agentes de IA & RAG",
+    role: "Desarrollador de Software Full Stack",
+    subtitle: "Fintech · Arquitectura Cloud · IA Aplicada",
     email: "brunoty000@gmail.com",
     phone: "+51 954 153 338",
     linkedin: "https://www.linkedin.com/in/bruno-velasques-software-developer/",
     github: "https://github.com/DazzleEaglePe",
     location: "Ica, Perú",
     summary:
-      "Ingeniero de software con más de 3 años de experiencia en el diseño, desarrollo e integración de soluciones digitales avanzadas, especializándose en sistemas multi-agente de Inteligencia Artificial (LangGraph), arquitecturas RAG corporativas y MLOps. Sólida trayectoria en el sector bancario, participando activamente en la modernización de canales y automatizaciones inteligentes en Caja Ica.",
+      "Desarrollador de software Full Stack con más de 3 años creando soluciones end-to-end para banca, SaaS y productos digitales. Trabajo desde la arquitectura y el backend hasta la experiencia de usuario, llevando sistemas a producción para más de 10,000 clientes y automatizando operaciones con resultados medibles.",
   },
   en: {
     name: "Bruno Velasques",
-    role: "AI Engineer & Software Developer",
-    subtitle: "AI Agents & Advanced RAG Specialist",
+    role: "Full Stack Software Developer",
+    subtitle: "Fintech · Cloud Architecture · Applied AI",
     email: "brunoty000@gmail.com",
     phone: "+51 954 153 338",
     linkedin: "https://www.linkedin.com/in/bruno-velasques-software-developer/",
     github: "https://github.com/DazzleEaglePe",
     location: "Ica, Peru",
     summary:
-      "Software engineer with over 3 years of experience designing, developing, and integrating advanced digital solutions, specializing in Artificial Intelligence multi-agent systems (LangGraph), corporate RAG architectures, and MLOps. Solid background in the banking sector, actively contributing to channel modernization and intelligent automation at Caja Ica.",
+      "Full Stack software developer with over 3 years of experience building end-to-end solutions for banking, SaaS, and digital products. I work from architecture and backend through user experience, shipping production systems for more than 10,000 clients and automating operations with measurable results.",
   },
 };
 
@@ -80,68 +80,70 @@ const experiencesI18n: Record<Locale, Experience[]> = {
   es: [
     {
       company: "Caja Ica",
-      role: "Software Developer",
+      role: "Desarrollador de Software Full Stack",
       period: "Mayo 2025 – Actualidad",
       description:
-        "Institución microfinanciera líder en el sur del Perú con más de 35 años de trayectoria, enfocada en la inclusión financiera y modernización tecnológica.",
+        "Desarrollo de productos financieros end-to-end sobre arquitectura de microservicios para una institución microfinanciera con más de 10,000 clientes.",
       achievements: [
-        "Diseñé e implementé el primer módulo de seguros digitales integrando La Positiva en el Homebanking → +10K clientes",
-        "Lideré la migración e integración del producto Plazo Fijo a App Android, iOS y Homebanking → +50 afiliaciones en el primer mes",
-        "Desarrollé el prototipo del orquestador conversacional multi-agente de Caja Ica (LangGraph, FastAPI, Docker, y Azure AI Search) para simulaciones de créditos y validación de políticas (Compliance).",
+        "Diseñé e implementé el módulo SOAT para Homebanking, integrando más de 10 endpoints REST con JWT, cifrado RSA, validación OTP y Spring Security.",
+        "Desarrollé los productos Plazo Fijo y apertura digital de Cuenta Flexitotal, reduciendo en 30% las visitas presenciales a ventanilla.",
+        "Integré pruebas con JUnit, Mockito, Jasmine y Karma al flujo de desarrollo y participé activamente en code reviews.",
+        "Trabajé con Docker, OpenShift y pipelines de integración continua en Jenkins bajo metodología Scrum.",
       ],
       color: "accent",
       type: "employment",
       industry: "Fintech · Microfinanzas",
-      stack: ["Java", "Spring Boot", "Angular", "React", "TypeScript", "SQL Server", "Microservicios", "LangGraph", "ChromaDB"],
+      stack: ["Java 17", "Spring Boot", "Angular", "TypeScript", "SQL Server", "Microservicios", "JUnit", "Docker", "OpenShift", "Jenkins"],
       icon: "🏦",
     },
     {
-      company: "ECA Monitor",
-      role: "Full Stack Developer",
-      period: "2025",
+      company: "EDU-US · EDU-MENTOR",
+      role: "Tech Lead Voluntario",
+      period: "Enero 2026 – Actualidad",
       description:
-        "Sistema integral de auditoría y monitoreo en tiempo real para servidores Windows usando WebSockets.",
+        "Liderazgo técnico de una plataforma de empleabilidad juvenil desarrollada en paralelo con un equipo voluntario.",
       achievements: [
-        "Desarrollé un dashboard de vigilancia de escritorios RDP simultáneos sin latencia usando WebSockets y Next.js",
-        "Implementé agentes ligeros en C# integrados a un servidor backend escalable para capturar telemetría y eventos de seguridad",
+        "Diseñé la arquitectura como monolito modular en NestJS, el modelo de datos con Prisma sobre PostgreSQL y la API REST.",
+        "Definí una hoja de ruta de 14 hitos y la estrategia de despliegue e infraestructura con Docker, Nginx y VPS.",
       ],
-      color: "accent-indigo",
-      type: "freelance",
-      industry: "Ciberseguridad · Infraestructura",
-      stack: ["Next.js", "Express", "Socket.io", "C#", "Windows API"],
-      icon: "🔒",
+      color: "accent-emerald",
+      type: "employment",
+      industry: "Educación · Empleabilidad",
+      stack: ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "Clean Architecture", "Docker", "Nginx"],
+      icon: "🧭",
     },
     {
-      company: "ECA - Estudio Contable Alvarez",
-      role: "Desarrollador Full Stack · Consultor IT",
-      period: "Junio 2025 – Actualidad",
+      company: "ECA Soluciones Empresariales",
+      role: "Consultor IT · Desarrollo Full Stack e Infraestructura Cloud",
+      period: "Enero 2025 – Actualidad",
       description:
-        "Estudio contable con más de 1,000 comercios atendidos, especializado en soluciones contables, financieras y tributarias.",
+        "Consultoría de software, arquitectura SaaS e infraestructura cloud para operaciones contables y empresariales.",
       achievements: [
-        "Desarrollé un sistema de atención automatizada con chatbot IA → automatización del 90%",
-        "Centralicé el sistema contable CONCAR para 15 usuarios simultáneos → reducción del 40-50% en costos operativos",
+        "Diseñé una plataforma SaaS multi-tenant con NestJS, PostgreSQL, Redis y BullMQ, documentada en 12 documentos técnicos.",
+        "Implementé un servicio que procesa cerca de 100 solicitudes semanales y resuelve el 90% de forma autónoma.",
+        "Centralicé el sistema contable en 3 servidores para 13 usuarios simultáneos, reduciendo entre 40% y 50% los costos operativos.",
+        "Gestioné despliegues cloud, Docker, Nginx, VPN Tailscale y monitoreo de disponibilidad de servicios.",
       ],
       color: "accent-indigo",
       type: "freelance",
-      industry: "Contabilidad · Finanzas",
-      stack: ["Node.js", "n8n", "WhatsApp API", "Meta API", "SQL Server"],
+      industry: "SaaS · Cloud · Consultoría",
+      stack: ["NestJS", "Node.js", "TypeScript", "PostgreSQL", "Redis", "BullMQ", "Docker", "Nginx", "SQL Server 2022", "Vercel"],
       icon: "📊",
     },
     {
       company: "Tecsam Consulting",
-      role: "Community Manager · UX/UI · Web Dev",
-      period: "Enero 2025 – Abril 2025",
+      role: "Web Developer · UX/UI Designer",
+      period: "Enero 2023 – Abril 2024",
       description:
         "Consultora especializada en Seguridad y Salud en el Trabajo (SST), Salud Ocupacional y Medio Ambiente.",
       achievements: [
-        "Rediseñé y optimicé el sitio web corporativo → +45% tiempo de permanencia",
-        "Gestioné redes sociales corporativas → +60% en engagement en 3 meses",
-        "Desarrollé contenido audiovisual (reels) → +10K visualizaciones orgánicas",
+        "Rediseñé el sitio web corporativo, logrando un aumento del 45% en permanencia del usuario.",
+        "Gestioné canales digitales con un incremento del 60% en engagement durante 3 meses.",
       ],
       color: "accent-emerald",
       type: "freelance",
       industry: "Seguridad y Salud en el Trabajo",
-      stack: ["Angular", "Tailwind CSS", "Figma", "Google Ads", "Meta Ads"],
+      stack: ["HTML5", "CSS3", "JavaScript", "Figma", "Diseño UX/UI"],
       icon: "🏢",
     },
     {
@@ -177,12 +179,12 @@ const experiencesI18n: Record<Locale, Experience[]> = {
     {
       company: "Onco Oral",
       role: "Frontend Developer · SEO",
-      period: "2025",
+      period: "2025 – 2026",
       description:
         "Clínica especializada en oncología oral y maxilofacial.",
       achievements: [
-        "Desarrollé la landing page con Performance 98/100 en PageSpeed, imágenes AVIF/WebP y preloads dinámicos",
-        "Optimización SEO completa con posicionamiento orgánico en buscadores",
+        "Desarrollé una landing page con Astro y Tailwind CSS: 98/100 en PageSpeed y carga menor a 1 segundo.",
+        "Logré posicionamiento orgánico desde la primera semana mediante optimización SEO técnica.",
       ],
       color: "accent-rose",
       type: "freelance",
@@ -194,52 +196,70 @@ const experiencesI18n: Record<Locale, Experience[]> = {
   en: [
     {
       company: "Caja Ica",
-      role: "Software Developer",
+      role: "Full Stack Software Developer",
       period: "May 2025 – Present",
       description:
-        "Leading microfinance institution in southern Peru with over 35 years of trajectory, focused on financial inclusion and technological modernization.",
+        "End-to-end financial product development on a microservices architecture for a microfinance institution serving more than 10,000 clients.",
       achievements: [
-        "Designed and implemented the first digital insurance module integrating La Positiva into Homebanking → +10K clients",
-        "Led the migration and integration of Fixed-Term Deposits to Android, iOS, and Homebanking → +50 sign-ups in the first month",
-        "Developed the prototype for Caja Ica's conversational multi-agent system (LangGraph, FastAPI, Docker, and Azure AI Search) for credit simulations and compliance policy auditing.",
+        "Designed and implemented the Homebanking SOAT module, integrating more than 10 REST endpoints with JWT, RSA encryption, OTP validation, and Spring Security.",
+        "Built Fixed-Term Deposit and digital Flexitotal Account products, reducing in-branch visits by 30%.",
+        "Integrated JUnit, Mockito, Jasmine, and Karma testing into the development flow and actively participated in code reviews.",
+        "Worked with Docker, OpenShift, and Jenkins continuous integration pipelines under Scrum.",
       ],
       color: "accent",
       type: "employment",
       industry: "Fintech · Microfinance",
-      stack: ["Java", "Spring Boot", "Angular", "React", "TypeScript", "SQL Server", "Microservices", "LangGraph", "ChromaDB"],
+      stack: ["Java 17", "Spring Boot", "Angular", "TypeScript", "SQL Server", "Microservices", "JUnit", "Docker", "OpenShift", "Jenkins"],
       icon: "🏦",
     },
     {
-      company: "ECA - Alvarez Accounting Firm",
-      role: "Full Stack Developer · IT Consultant",
-      period: "June 2025 – Present",
+      company: "EDU-US · EDU-MENTOR",
+      role: "Volunteer Tech Lead",
+      period: "January 2026 – Present",
       description:
-        "Accounting firm serving over 1,000 businesses, specialized in accounting, financial, and tax solutions.",
+        "Technical leadership for a youth employability platform built in parallel with a volunteer team.",
       achievements: [
-        "Developed an automated customer service system using AI chatbot → 90% automation",
-        "Centralized the CONCAR accounting system for 15 concurrent users → 40-50% reduction in operational costs",
+        "Designed a modular monolith architecture in NestJS, the Prisma data model on PostgreSQL, and the complete REST API.",
+        "Defined a 14-milestone technical roadmap and the deployment strategy with Docker, Nginx, and VPS infrastructure.",
+      ],
+      color: "accent-emerald",
+      type: "employment",
+      industry: "Education · Employability",
+      stack: ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "Clean Architecture", "Docker", "Nginx"],
+      icon: "🧭",
+    },
+    {
+      company: "ECA Business Solutions",
+      role: "IT Consultant · Full Stack Development & Cloud Infrastructure",
+      period: "January 2025 – Present",
+      description:
+        "Software consulting, SaaS architecture, and cloud infrastructure for accounting and business operations.",
+      achievements: [
+        "Designed a multi-tenant SaaS platform with NestJS, PostgreSQL, Redis, and BullMQ, documented across 12 technical documents.",
+        "Implemented a service processing around 100 weekly requests and resolving 90% autonomously.",
+        "Centralized the accounting system across 3 servers for 13 concurrent users, reducing operating costs by 40-50%.",
+        "Managed cloud deployments, Docker, Nginx, Tailscale VPN, and service availability monitoring.",
       ],
       color: "accent-indigo",
       type: "freelance",
-      industry: "Accounting · Finance",
-      stack: ["Node.js", "n8n", "WhatsApp API", "Meta API", "SQL Server"],
+      industry: "SaaS · Cloud · Consulting",
+      stack: ["NestJS", "Node.js", "TypeScript", "PostgreSQL", "Redis", "BullMQ", "Docker", "Nginx", "SQL Server 2022", "Vercel"],
       icon: "📊",
     },
     {
       company: "Tecsam Consulting",
-      role: "Community Manager · UX/UI · Web Dev",
-      period: "January 2025 – April 2025",
+      role: "Web Developer · UX/UI Designer",
+      period: "January 2023 – April 2024",
       description:
         "Consulting firm specialized in Occupational Health & Safety (OHS) and Environmental Management.",
       achievements: [
-        "Redesigned and optimized corporate website → +45% session duration",
-        "Managed corporate social media → +60% engagement in 3 months",
-        "Developed audiovisual content (reels) → +10K organic views",
+        "Redesigned the corporate website, increasing user session duration by 45%.",
+        "Managed digital channels and increased engagement by 60% over 3 months.",
       ],
       color: "accent-emerald",
       type: "freelance",
       industry: "Occupational Health & Safety",
-      stack: ["Angular", "Tailwind CSS", "Figma", "Google Ads", "Meta Ads"],
+      stack: ["HTML5", "CSS3", "JavaScript", "Figma", "UX/UI Design"],
       icon: "🏢",
     },
     {
@@ -275,12 +295,12 @@ const experiencesI18n: Record<Locale, Experience[]> = {
     {
       company: "Onco Oral",
       role: "Frontend Developer · SEO",
-      period: "2025",
+      period: "2025 – 2026",
       description:
         "Clinic specialized in oral and maxillofacial oncology.",
       achievements: [
-        "Developed the landing page with PageSpeed Performance 98/100, AVIF/WebP images, and dynamic preloads",
-        "Complete SEO optimization with organic search engine positioning",
+        "Built an Astro and Tailwind CSS landing page scoring 98/100 on PageSpeed with sub-second load times.",
+        "Achieved organic search positioning from the first week through technical SEO optimization.",
       ],
       color: "accent-rose",
       type: "freelance",
@@ -294,11 +314,11 @@ const experiencesI18n: Record<Locale, Experience[]> = {
 // ─── Education ───────────────────────────────────────────────────────
 const educationI18n: Record<Locale, EducationItem[]> = {
   es: [
-    { degree: "Ing. de Sistemas", institution: "USJB", period: "2021 — 2025" },
+    { degree: "Ingeniería de Sistemas · Egresado", institution: "USJB · Bachiller en trámite", period: "2021 — 2025" },
     { degree: "Java 17 Backend", institution: "CIBERTEC", period: "2025" },
   ],
   en: [
-    { degree: "Systems Engineering", institution: "USJB", period: "2021 — 2025" },
+    { degree: "Systems Engineering · Graduate", institution: "USJB · Bachelor's degree in progress", period: "2021 — 2025" },
     { degree: "Java 17 Backend", institution: "CIBERTEC", period: "2025" },
   ],
 };
@@ -331,10 +351,10 @@ const projectsI18n: Record<Locale, Project[]> = {
       color: "accent-emerald",
     },
     {
-      title: "RAG Avanzado y Reordenamiento Rerank",
+      title: "Asistente RAG con LlamaIndex + ChromaDB",
       description:
-        "Orquestador de recuperación semántica que demuestra técnicas avanzadas de traducción de consultas (Multi-Query) y reordenamiento de relevancia (Cross-Encoder) mediante la API de Gemini y ChromaDB local.",
-      tags: ["Python", "Gemini API", "ChromaDB", "Reranker"],
+        "Sistema de Retrieval-Augmented Generation en Python para indexar documentos con embeddings y responder consultas en lenguaje natural mediante una base vectorial y APIs de modelos de lenguaje.",
+      tags: ["Python", "LlamaIndex", "ChromaDB", "OpenAI API"],
       link: "https://github.com/DazzleEaglePe/advanced-rag-orchestrator",
       color: "accent-rose",
     },
@@ -358,9 +378,16 @@ const projectsI18n: Record<Locale, Project[]> = {
     {
       title: "Sistema POS – Gestión de Ventas",
       description:
-        "Plataforma SaaS Multi-tenant para gestión integral de negocios retail: ventas en tiempo real, control de inventario multi-almacén, dashboards con KPIs.",
-      tags: ["React 18", "Vite", "Supabase", "Zustand", "Ant Design"],
+        "SaaS multi-tenant con más de 100 componentes y 20 tablas PostgreSQL. Incluye Row Level Security, roles y permisos granulares, estado con TanStack Query y dashboards de KPIs.",
+      tags: ["React 18", "TypeScript", "PostgreSQL", "Supabase", "TanStack Query"],
       color: "accent",
+    },
+    {
+      title: "ProofPath — ETH Lima 2026",
+      description:
+        "Plataforma de credenciales verificables construida en un equipo de 4 personas para el track Arbitrum: backend en NestJS, contratos Solidity verificados con árboles de Merkle y aplicación móvil en SwiftUI.",
+      tags: ["NestJS", "TypeScript", "Solidity", "Arbitrum", "SwiftUI"],
+      color: "accent-indigo",
     },
     {
       title: "Onco Oral — Landing Médica",
@@ -413,10 +440,10 @@ const projectsI18n: Record<Locale, Project[]> = {
       color: "accent-emerald",
     },
     {
-      title: "Advanced RAG and Cross-Encoder Rerank",
+      title: "RAG Assistant with LlamaIndex + ChromaDB",
       description:
-        "Semantic retrieval orchestrator showcasing advanced query translation (Multi-Query) and relevance re-scoring (Cross-Encoder) using Gemini API and a local ChromaDB collection.",
-      tags: ["Python", "Gemini API", "ChromaDB", "Reranker"],
+        "Retrieval-Augmented Generation system built in Python to index documents with embeddings and answer natural-language queries using a vector database and language model APIs.",
+      tags: ["Python", "LlamaIndex", "ChromaDB", "OpenAI API"],
       link: "https://github.com/DazzleEaglePe/advanced-rag-orchestrator",
       color: "accent-rose",
     },
@@ -440,9 +467,16 @@ const projectsI18n: Record<Locale, Project[]> = {
     {
       title: "POS System – Sales Management",
       description:
-        "Multi-tenant SaaS platform for comprehensive retail business management: real-time sales, multi-warehouse inventory control, KPI dashboards.",
-      tags: ["React 18", "Vite", "Supabase", "Zustand", "Ant Design"],
+        "Multi-tenant SaaS with more than 100 components and 20 PostgreSQL tables. Includes Row Level Security, granular roles and permissions, TanStack Query state, and KPI dashboards.",
+      tags: ["React 18", "TypeScript", "PostgreSQL", "Supabase", "TanStack Query"],
       color: "accent",
+    },
+    {
+      title: "ProofPath — ETH Lima 2026",
+      description:
+        "Verifiable credentials platform built by a 4-person team for the Arbitrum track: NestJS backend, Solidity contracts verified with Merkle trees, and a SwiftUI mobile app.",
+      tags: ["NestJS", "TypeScript", "Solidity", "Arbitrum", "SwiftUI"],
+      color: "accent-indigo",
     },
     {
       title: "Onco Oral — Medical Landing Page",
@@ -476,7 +510,7 @@ export const certifications: Certification[] = [
   { year: "2025", institution: "CIBERTEC", program: "Java 17 Back-End Developer" },
   { year: "2025", institution: "CertiProf", program: "Scrum Foundation Professional (SFPC)" },
   { year: "2025", institution: "CETI", program: "Facturación Electrónica" },
-  { year: "2024", institution: "Netzun", program: "Photoshop Avanzado · Diseño UX" },
+  { year: "2024", institution: "Netzun", program: "Diseño UX · Especialización" },
   { year: "2021", institution: "Cisco", program: "IT Essentials: PC Hardware & Software" },
 ];
 
@@ -496,10 +530,14 @@ export const techStack = {
     { name: "Next.js", color: "#e2e8f0" },
     { name: "Astro", color: "#818cf8" },
     { name: "Tailwind CSS", color: "#38bdf8" },
+    { name: "TanStack Query", color: "#f87171" },
   ],
   Backend: [
     { name: "Spring Boot", color: "#34d399" },
     { name: "Node.js", color: "#34d399" },
+    { name: "NestJS", color: "#f87171" },
+    { name: "Express", color: "#e2e8f0" },
+    { name: "Prisma", color: "#818cf8" },
   ],
   "Bases de Datos": [
     { name: "PostgreSQL", color: "#818cf8" },
@@ -507,11 +545,16 @@ export const techStack = {
     { name: "MySQL", color: "#38bdf8" },
     { name: "MongoDB", color: "#34d399" },
     { name: "Redis", color: "#f87171" },
+    { name: "Supabase", color: "#34d399" },
   ],
   "Cloud & DevOps": [
     { name: "AWS", color: "#fbbf24" },
     { name: "Docker", color: "#38bdf8" },
     { name: "Jenkins", color: "#e2e8f0" },
+    { name: "OpenShift", color: "#f87171" },
+    { name: "GitHub Actions", color: "#e2e8f0" },
+    { name: "Nginx", color: "#34d399" },
+    { name: "Vercel", color: "#e2e8f0" },
     { name: "Git", color: "#f87171" },
   ],
   "UX/UI & Diseño": [

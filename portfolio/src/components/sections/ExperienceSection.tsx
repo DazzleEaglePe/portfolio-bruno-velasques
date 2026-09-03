@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Award, BriefcaseBusiness, ChevronDown, GraduationCap } from "lucide-react";
+import { Award, BriefcaseBusiness, ChevronDown, GraduationCap, Languages, UsersRound } from "lucide-react";
 import { certifications, getEducation, getExperiences } from "@/data/portfolio";
 import { useI18n } from "@/lib/i18n";
 import { fadeUp } from "@/lib/animations";
@@ -20,6 +20,15 @@ export default function ExperienceSection() {
     const freelance = experiences.filter((experience) => experience.type === "freelance");
     const activeItems = mode === "employment" ? employment : freelance;
     const visibleItems = showAll ? activeItems : activeItems.slice(0, 3);
+    const community = locale === "es"
+        ? [
+            { name: "Google Developer Groups Ica", detail: "Miembro activo · 05/2025 — Actualidad" },
+            { name: "ETH Lima 2026", detail: "Hackathon · Track Arbitrum" },
+        ]
+        : [
+            { name: "Google Developer Groups Ica", detail: "Active member · 05/2025 — Present" },
+            { name: "ETH Lima 2026", detail: "Hackathon · Arbitrum track" },
+        ];
 
     const changeMode = (nextMode: ExperienceMode) => {
         setMode(nextMode);
@@ -32,7 +41,7 @@ export default function ExperienceSection() {
                 <div>
                     <span className="section-kicker">{t("exp.title")}</span>
                     <h2 className="mt-4 max-w-3xl text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
-                        {locale === "es" ? "Experiencia que combina ejecución y visión de producto." : "Experience combining execution and product vision."}
+                        {locale === "es" ? "Experiencia construyendo sistemas que operan, escalan y generan impacto." : "Experience building systems that operate, scale, and make an impact."}
                     </h2>
                 </div>
                 <span className="hidden font-mono text-xs text-zinc-600 sm:block">04 / 05</span>
@@ -84,6 +93,14 @@ export default function ExperienceSection() {
                                             <span className="font-mono text-[9px] text-zinc-700">0{index + 1}</span>
                                         </div>
                                         <p className="mt-4 text-sm leading-6 text-zinc-500">{experience.description}</p>
+                                        <ul className="mt-4 space-y-2.5">
+                                            {experience.achievements.slice(0, 2).map((achievement) => (
+                                                <li key={achievement} className="flex gap-2.5 text-xs leading-5 text-zinc-400">
+                                                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#baff66]" />
+                                                    <span>{achievement}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
                                         <div className="mt-5 flex flex-wrap gap-1.5">
                                             {experience.stack.slice(0, 6).map((tech) => (
                                                 <span key={tech} className="rounded-full border border-white/[0.07] px-2.5 py-1 text-[9px] font-medium text-zinc-500">{tech}</span>
@@ -133,10 +150,25 @@ export default function ExperienceSection() {
                     </motion.div>
 
                     <motion.div {...fadeUp} transition={{ duration: 0.45, delay: 0.16 }} className="rounded-[28px] bg-[#8e61ff] p-6 text-white">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/60">Now / Next</p>
-                        <p className="mt-5 text-xl font-semibold leading-tight tracking-[-0.03em]">
-                            {locale === "es" ? "Construyendo sistemas de IA útiles, medibles y seguros." : "Building useful, measurable, and safe AI systems."}
-                        </p>
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.13em] text-white/75">
+                            <UsersRound className="size-4" /> {locale === "es" ? "Comunidad" : "Community"}
+                        </div>
+                        <div className="mt-6 space-y-4">
+                            {community.map((item) => (
+                                <div key={item.name} className="border-l border-white/25 pl-3">
+                                    <p className="text-xs font-semibold text-white">{item.name}</p>
+                                    <p className="mt-1 text-[10px] leading-4 text-white/55">{item.detail}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-6 border-t border-white/15 pt-5">
+                            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-white/60">
+                                <Languages className="size-3.5" /> {locale === "es" ? "Idiomas" : "Languages"}
+                            </div>
+                            <p className="mt-3 text-xs leading-5 text-white/80">
+                                {locale === "es" ? "Español nativo · Inglés intermedio · Quechua intermedio" : "Native Spanish · Intermediate English · Intermediate Quechua"}
+                            </p>
+                        </div>
                     </motion.div>
                 </div>
             </div>

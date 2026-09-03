@@ -7,7 +7,7 @@ import { getProjects } from "@/data/portfolio";
 import { useI18n } from "@/lib/i18n";
 import { fadeUp } from "@/lib/animations";
 
-const FEATURED_INDEXES = [4, 5, 7, 0, 1, 2];
+const FEATURED_INDEXES = [4, 6, 7, 0, 5, 8];
 const CARD_SPANS = ["md:col-span-7 md:row-span-2", "md:col-span-5", "md:col-span-5", "md:col-span-4", "md:col-span-4", "md:col-span-4"];
 const ACCENTS = [
     "from-[#baff66]/18 via-transparent to-transparent",

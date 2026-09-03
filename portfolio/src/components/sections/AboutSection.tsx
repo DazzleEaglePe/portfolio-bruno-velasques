@@ -63,18 +63,22 @@ export default function AboutSection() {
                     </div>
                 </motion.a>
 
-                <motion.div {...fadeUp} className="grid gap-4 md:col-span-12 md:grid-cols-3">
+                <motion.div {...fadeUp} className="grid gap-4 md:col-span-12 md:grid-cols-2 lg:grid-cols-4">
                     <div className="rounded-[24px] border border-white/[0.08] bg-[#101010] p-6">
-                        <span className="text-5xl font-semibold tracking-[-0.06em] text-white">15<span className="text-[#baff66]">+</span></span>
-                        <p className="mt-6 text-xs leading-5 text-zinc-500">{locale === "es" ? "Productos y soluciones llevadas a producción." : "Products and solutions shipped to production."}</p>
+                        <span className="text-5xl font-semibold tracking-[-0.06em] text-white">10K<span className="text-[#baff66]">+</span></span>
+                        <p className="mt-6 text-xs leading-5 text-zinc-500">{locale === "es" ? "Clientes alcanzados por productos financieros en producción." : "Clients reached by financial products in production."}</p>
                     </div>
                     <div className="rounded-[24px] border border-white/[0.08] bg-[#101010] p-6">
                         <span className="text-5xl font-semibold tracking-[-0.06em] text-white">90<span className="text-[#a78bfa]">%</span></span>
-                        <p className="mt-6 text-xs leading-5 text-zinc-500">{locale === "es" ? "Consultas automatizadas en proyectos de IA aplicada." : "Inquiries automated in applied AI projects."}</p>
+                        <p className="mt-6 text-xs leading-5 text-zinc-500">{locale === "es" ? "Solicitudes resueltas de forma autónoma cada semana." : "Weekly requests resolved autonomously."}</p>
+                    </div>
+                    <div className="rounded-[24px] border border-white/[0.08] bg-[#101010] p-6">
+                        <span className="text-4xl font-semibold tracking-[-0.06em] text-white">40–50<span className="text-[#60a5fa]">%</span></span>
+                        <p className="mt-6 text-xs leading-5 text-zinc-500">{locale === "es" ? "Reducción de costos operativos mediante infraestructura centralizada." : "Operating cost reduction through centralized infrastructure."}</p>
                     </div>
                     <div className="rounded-[24px] border border-white/[0.08] bg-[#baff66] p-6 text-black">
-                        <span className="text-[11px] font-bold uppercase tracking-[0.18em]">Focus / 2026</span>
-                        <p className="mt-5 text-2xl font-semibold leading-tight tracking-[-0.035em]">{locale === "es" ? "Agentes de IA, RAG y experiencias fintech." : "AI agents, RAG, and fintech experiences."}</p>
+                        <span className="text-5xl font-semibold tracking-[-0.06em]">30<span className="text-black/45">%</span></span>
+                        <p className="mt-6 text-xs font-medium leading-5 text-black/65">{locale === "es" ? "Menos visitas presenciales gracias a productos bancarios digitales." : "Fewer in-branch visits through digital banking products."}</p>
                     </div>
                 </motion.div>
             </div>

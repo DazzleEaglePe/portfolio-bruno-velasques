@@ -8,8 +8,8 @@ import { fadeUp } from "@/lib/animations";
 import Image from "next/image";
 import { ArrowDownRight, ArrowUpRight, MapPin, Sparkles } from "lucide-react";
 
-const ROLES_ES = ["Software Developer", "UI/UX Designer", "Consultor TI", "Automatización & IA", "Fintech Engineer"];
-const ROLES_EN = ["Software Developer", "UI/UX Designer", "IT Consultant", "AI & Automation Builder", "Fintech Engineer"];
+const ROLES_ES = ["Full Stack Developer", "Backend & Cloud", "Fintech Product Builder", "Consultor TI", "IA Aplicada"];
+const ROLES_EN = ["Full Stack Developer", "Backend & Cloud", "Fintech Product Builder", "IT Consultant", "Applied AI"];
 
 export default function HeroSection() {
     const { t, locale } = useI18n();
@@ -64,8 +64,8 @@ export default function HeroSection() {
 
                     <p className="mt-5 max-w-2xl text-balance text-sm leading-6 text-zinc-400 sm:text-base sm:leading-7">
                         {locale === "es"
-                            ? "Convierto problemas complejos en experiencias digitales claras, escalables y listas para crecer — desde fintech hasta agentes de IA."
-                            : "I turn complex problems into clear, scalable digital experiences ready to grow — from fintech to AI agents."}
+                            ? "Construyo productos end-to-end para banca, SaaS e IA aplicada: desde microservicios seguros hasta experiencias digitales claras y escalables."
+                            : "I build end-to-end products for banking, SaaS, and applied AI—from secure microservices to clear, scalable digital experiences."}
                     </p>
 
                     <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">

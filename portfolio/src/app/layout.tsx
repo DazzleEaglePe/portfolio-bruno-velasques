@@ -8,17 +8,17 @@ import InitialLoader from "@/components/InitialLoader";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://brunovelasques.dev"),
-  title: "Bruno Velasques — Software, AI & Product",
-  description: "Portafolio de Bruno Velasques: productos digitales, agentes de IA, automatización y experiencias fintech diseñadas para escalar.",
-  keywords: ["Bruno Velasques", "Software Developer", "AI Agents", "RAG", "Full Stack", "UI/UX Designer", "React", "Next.js", "Fintech", "Perú"],
+  title: "Bruno Velasques — Full Stack, Fintech & AI",
+  description: "Portafolio de Bruno Velasques: desarrollo Full Stack, microservicios, arquitectura cloud, fintech e inteligencia artificial aplicada.",
+  keywords: ["Bruno Velasques", "Full Stack Developer", "Software Developer", "NestJS", "Spring Boot", "React", "Angular", "Cloud", "Fintech", "Applied AI", "Perú"],
   authors: [{ name: "Bruno Velasques", url: "https://brunovelasques.dev" }],
   creator: "Bruno Velasques",
   openGraph: {
     type: "website",
     locale: "es_PE",
     url: "https://brunovelasques.dev",
-    title: "Bruno Velasques — Software, AI & Product",
-    description: "Productos digitales, agentes de IA y experiencias fintech diseñadas para escalar.",
+    title: "Bruno Velasques — Full Stack, Fintech & AI",
+    description: "Productos end-to-end para banca, SaaS e inteligencia artificial aplicada.",
     siteName: "Bruno Velasques Portfolio",
     images: [
       {
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bruno Velasques — Software, AI & Product",
-    description: "Productos digitales, agentes de IA y experiencias fintech diseñadas para escalar.",
+    title: "Bruno Velasques — Full Stack, Fintech & AI",
+    description: "Productos end-to-end para banca, SaaS e inteligencia artificial aplicada.",
     images: ["/images/bruno_velasques.png"],
     creator: "@velasques_bruno", // Assuming based on Instagram handle
   },
@@ -57,11 +57,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         "@type": "Person",
         "@id": "https://brunovelasques.dev/#person",
         "name": "Bruno Velasques",
-        "jobTitle": "Software Developer & AI Product Builder",
+        "jobTitle": "Full Stack Software Developer",
         "url": "https://brunovelasques.dev",
         "image": "https://brunovelasques.dev/images/bruno_velasques.png",
         "sameAs": [
-          "https://www.linkedin.com/in/bruno-velasquez/",
+          "https://www.linkedin.com/in/bruno-velasques-software-developer/",
           "https://www.instagram.com/velasques_bruno"
         ],
         "alumniOf": "Universidad Privada San Juan Bautista",
